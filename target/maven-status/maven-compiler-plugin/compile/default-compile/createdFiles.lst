@@ -1,0 +1,8 @@
+com\iCompete\entity\Event.class
+com\iCompete\dao\EventDao.class
+com\iCompete\DerbyDataSource.class
+com\iCompete\entity\Rule.class
+com\iCompete\enums\SportType.class
+com\iCompete\entity\Sport.class
+com\iCompete\CompeteMain.class
+com\iCompete\dao\EventDaoImpl.class
