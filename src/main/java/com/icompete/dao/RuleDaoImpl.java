@@ -29,7 +29,7 @@ public class RuleDaoImpl implements RuleDao{
     }
 
     @Override
-    public Rule findById(Long id) {
+    public Rule findById(int id) {
         return em.find(Rule.class, id);
     }
 

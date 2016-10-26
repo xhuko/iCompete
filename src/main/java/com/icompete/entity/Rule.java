@@ -6,11 +6,14 @@
 package com.icompete.entity;
 
 import java.util.Objects;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -27,6 +30,17 @@ public class Rule {
     
     @Column(nullable = false)
     private String text;
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+    
+    @ManyToOne(cascade = CascadeType.ALL,optional = true)
+    private Event event;
 
     public int getId() {
         return id;

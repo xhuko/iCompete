@@ -9,11 +9,15 @@ import com.icompete.entity.Sport;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author Xhulio
  */
+@Repository
+@Transactional
 public class SportDaoImpl implements SportDao{
 
     @PersistenceContext(unitName = "default")
