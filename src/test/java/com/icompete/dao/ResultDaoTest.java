@@ -49,7 +49,7 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         testUser.setEmail("ILikeSports@gmail.com");
         testUser.setFirstName("Jozef");
         testUser.setLastName("Mak");
-        testUser.setUserName("BestSportsmanEUNE");
+        testUser.setUserName("BestSportsmanEUNE1");
         testUser.setUserType(UserType.SPORTSMAN);
         userDao.create(testUser);
         
@@ -92,7 +92,7 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         testUser.setEmail("ILikeSports@gmail.com");
         testUser.setFirstName("Jozef");
         testUser.setLastName("Mak");
-        testUser.setUserName("BestSportsmanEUNE");
+        testUser.setUserName("BestSportsmanEUNE2");
         testUser.setUserType(UserType.SPORTSMAN);
         userDao.create(testUser);
         
@@ -136,7 +136,7 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         testUser.setEmail("ILikeSports@gmail.com");
         testUser.setFirstName("Jozef");
         testUser.setLastName("Mak");
-        testUser.setUserName("BestSportsmanEUNE");
+        testUser.setUserName("BestSportsmanEUNE3");
         testUser.setUserType(UserType.SPORTSMAN);
         userDao.create(testUser);
         
