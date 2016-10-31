@@ -7,7 +7,14 @@ package com.icompete.dao;
 
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
+import com.icompete.entity.User;
+import com.icompete.enums.UserType;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -27,6 +34,9 @@ public class RegistrationDaoTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private EventDao eventDao;
     
+    @Autowired
+    private UserDao userDao;
+    
     @Test
     public void testCreateAndFind() {
         Event firstEvent = new Event();
@@ -41,14 +51,23 @@ public class RegistrationDaoTest extends AbstractTestNGSpringContextTests {
         secondEvent.setAddress("secondAddress");
         eventDao.create(secondEvent);
         
+        User testUser = new User();
+        testUser.setAddress("Home");
+        testUser.setEmail("ILikeSports@gmail.com");
+        testUser.setFirstName("Jozef");
+        testUser.setLastName("Mak");
+        testUser.setUserName("BestSportsmanEUNE");
+        testUser.setUserType(UserType.SPORTSMAN);
+        userDao.create(testUser);
+        
         Registration firstRegistration = new Registration();
         firstRegistration.setEvent(firstEvent);
-        firstRegistration.setUserId(Long.valueOf(1));
+        firstRegistration.setUser(testUser);
         registrationDao.create(firstRegistration);
         
         Registration secondRegistration = new Registration();
         secondRegistration.setEvent(secondEvent);
-        secondRegistration.setUserId(Long.valueOf(2));
+        secondRegistration.setUser(testUser);
         registrationDao.create(secondRegistration);
 
         List<Registration> testList = registrationDao.findAll();
@@ -58,8 +77,6 @@ public class RegistrationDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(firstRegistrationClone.getId(), firstRegistration.getId());
         Assert.assertEquals(firstRegistrationClone.getEvent().getName(), firstRegistration.getEvent().getName());
         Assert.assertEquals(firstRegistrationClone.getEvent(), firstEvent);
-        Assert.assertEquals(firstRegistrationClone.getUserId(), firstRegistration.getUserId());
-        Assert.assertEquals(firstRegistrationClone.getUserId(), Long.valueOf(1));
         
     }
     
@@ -77,9 +94,18 @@ public class RegistrationDaoTest extends AbstractTestNGSpringContextTests {
         secondEvent.setAddress("secondAddress");
         eventDao.create(secondEvent);
         
+        User testUser = new User();
+        testUser.setAddress("Home");
+        testUser.setEmail("ILikeSports@gmail.com");
+        testUser.setFirstName("Jozef");
+        testUser.setLastName("Mak");
+        testUser.setUserName("BestSportsmanEUNE");
+        testUser.setUserType(UserType.SPORTSMAN);
+        userDao.create(testUser);
+        
         Registration testRegistration = new Registration();
         testRegistration.setEvent(firstEvent);
-        testRegistration.setUserId(Long.valueOf(1));
+        testRegistration.setUser(testUser);
         registrationDao.create(testRegistration);
         
         Registration testRegistrationClone = registrationDao.findById(testRegistration.getId());
@@ -102,9 +128,18 @@ public class RegistrationDaoTest extends AbstractTestNGSpringContextTests {
         firstEvent.setAddress("firstAddress");
         eventDao.create(firstEvent);
         
+        User testUser = new User();
+        testUser.setAddress("Home");
+        testUser.setEmail("ILikeSports@gmail.com");
+        testUser.setFirstName("Jozef");
+        testUser.setLastName("Mak");
+        testUser.setUserName("BestSportsmanEUNE");
+        testUser.setUserType(UserType.SPORTSMAN);
+        userDao.create(testUser);
+        
         Registration testRegistration = new Registration();
         testRegistration.setEvent(firstEvent);
-        testRegistration.setUserId(Long.valueOf(1));
+        testRegistration.setUser(testUser);
         registrationDao.create(testRegistration);
 
         Assert.assertNotNull(registrationDao.findById(testRegistration.getId()));
