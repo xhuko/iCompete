@@ -66,7 +66,7 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
         User userBeforeUpdate = userDao.findById(user.getId());
         Assert.assertNotNull(userBeforeUpdate);
 
-        userBeforeUpdate.setUserName("user2");
+        userBeforeUpdate.setUserName("Archery");
         userDao.update(userBeforeUpdate);
 
         User updatedUser = userDao.findById(userBeforeUpdate.getId());

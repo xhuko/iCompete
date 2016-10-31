@@ -22,10 +22,10 @@ public class User {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String userName;
 
     @NotNull
@@ -38,17 +38,17 @@ public class User {
     private Date birthDate;
 
     @NotNull
-    private String address;
+    private String address = "";
 
     @NotNull
-    private String email;
+    private String email = "";
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Set<Sport> preferredSports = new HashSet<>();
 
     @NotNull
     @Enumerated
-    private UserType userType;
+    private UserType userType = UserType.SPORTSMAN;
 
     public String getUserName() {
         return userName;
