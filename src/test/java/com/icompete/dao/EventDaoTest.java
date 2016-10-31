@@ -2,6 +2,8 @@ package com.icompete.dao;
 
 import com.icompete.entity.Event;
 import com.icompete.entity.Rule;
+import com.icompete.entity.Sport;
+import com.icompete.enums.SportType;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -28,6 +30,13 @@ public class EventDaoTest extends AbstractTestNGSpringContextTests {
         swimmingEvent.setName("Just swim");
         swimmingEvent.setCapacity(25);
         swimmingEvent.setAddress("At the swimming pool");
+        
+        Sport sport = new Sport();
+        sport.setName("sport 1");
+        sport.setDescription("test description");
+        sport.setType(SportType.SUMMER);
+        swimmingEvent.setSport(sport);
+        
         eventDao.create(swimmingEvent);
 
         Event runningEvent = new Event();
@@ -43,6 +52,9 @@ public class EventDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(swimmingEventTest.getName(), "Just swim");
         Assert.assertEquals(swimmingEventTest.getCapacity(), 25);
         Assert.assertEquals(swimmingEventTest.getAddress(), "At the swimming pool");
+        Assert.assertEquals(swimmingEventTest.getSport().getName(), "sport 1");
+        Assert.assertEquals(swimmingEventTest.getSport().getDescription(), "test description");
+        Assert.assertEquals(swimmingEventTest.getSport().getType(), SportType.SUMMER);
         
     }
 
