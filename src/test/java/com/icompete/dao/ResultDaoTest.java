@@ -8,6 +8,8 @@ package com.icompete.dao;
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
 import com.icompete.entity.Result;
+import com.icompete.entity.User;
+import com.icompete.enums.UserType;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -31,6 +33,9 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
     @Autowired
     private ResultDao resultDao;
     
+    @Autowired
+    private UserDao userDao;
+    
     @Test
     public void testCreateAndFind() {
         Event testEvent = new Event();
@@ -39,9 +44,18 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         testEvent.setAddress("testAddress");
         eventDao.create(testEvent);
         
+        User testUser = new User();
+        testUser.setAddress("Home");
+        testUser.setEmail("ILikeSports@gmail.com");
+        testUser.setFirstName("Jozef");
+        testUser.setLastName("Mak");
+        testUser.setUserName("BestSportsmanEUNE");
+        testUser.setUserType(UserType.SPORTSMAN);
+        userDao.create(testUser);
+        
         Registration testRegistration = new Registration();
         testRegistration.setEvent(testEvent);
-        testRegistration.setUserId(Long.valueOf(1));
+        testRegistration.setUser(testUser);
         registrationDao.create(testRegistration);
         
         Result testResult = new Result();
@@ -73,14 +87,23 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         secondEvent.setAddress("secondAddress");
         eventDao.create(secondEvent);
         
+        User testUser = new User();
+        testUser.setAddress("Home");
+        testUser.setEmail("ILikeSports@gmail.com");
+        testUser.setFirstName("Jozef");
+        testUser.setLastName("Mak");
+        testUser.setUserName("BestSportsmanEUNE");
+        testUser.setUserType(UserType.SPORTSMAN);
+        userDao.create(testUser);
+        
         Registration firstRegistration = new Registration();
         firstRegistration.setEvent(firstEvent);
-        firstRegistration.setUserId(Long.valueOf(1));
+        firstRegistration.setUser(testUser);
         registrationDao.create(firstRegistration);
         
         Registration secondRegistration = new Registration();
         secondRegistration.setEvent(firstEvent);
-        secondRegistration.setUserId(Long.valueOf(2));
+        secondRegistration.setUser(testUser);
         registrationDao.create(secondRegistration);
         
         Result testResult = new Result();
@@ -108,9 +131,18 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         firstEvent.setAddress("firstAddress");
         eventDao.create(firstEvent);
         
+        User testUser = new User();
+        testUser.setAddress("Home");
+        testUser.setEmail("ILikeSports@gmail.com");
+        testUser.setFirstName("Jozef");
+        testUser.setLastName("Mak");
+        testUser.setUserName("BestSportsmanEUNE");
+        testUser.setUserType(UserType.SPORTSMAN);
+        userDao.create(testUser);
+        
         Registration firstRegistration = new Registration();
         firstRegistration.setEvent(firstEvent);
-        firstRegistration.setUserId(Long.valueOf(1));
+        firstRegistration.setUser(testUser);
         registrationDao.create(firstRegistration);
         
         Result testResult = new Result();

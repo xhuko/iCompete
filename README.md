@@ -1,0 +1,2 @@
+# iCompete
+This project is an information system for managing sport events. Events can be created by the system administrators in base of request made by the event organizer. Participants can register to this events and see they results in real time. They can see event information, duration, timetable, their points and points of the other participants. Administrators can create events, sports, users. It is also the administrator responsibility to update the event results.

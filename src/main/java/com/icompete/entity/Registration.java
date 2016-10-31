@@ -29,8 +29,8 @@ public class Registration {
     @ManyToOne(fetch = FetchType.EAGER)
     private Event event;
     
-    @Column(nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User user;
     
     @Temporal(value = TemporalType.DATE)
     private Date creationDate;
@@ -47,12 +47,12 @@ public class Registration {
         this.event = event;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Date getCreationDate() {
@@ -65,11 +65,11 @@ public class Registration {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 83 * hash + Objects.hashCode(this.id);
-        hash = 83 * hash + Objects.hashCode(this.event);
-        hash = 83 * hash + Objects.hashCode(this.userId);
-        hash = 83 * hash + Objects.hashCode(this.creationDate);
+        int hash = 3;
+        hash = 19 * hash + Objects.hashCode(this.id);
+        hash = 19 * hash + Objects.hashCode(this.event);
+        hash = 19 * hash + Objects.hashCode(this.user);
+        hash = 19 * hash + Objects.hashCode(this.creationDate);
         return hash;
     }
 
@@ -91,7 +91,7 @@ public class Registration {
         if (!Objects.equals(this.event, other.event)) {
             return false;
         }
-        if (!Objects.equals(this.userId, other.userId)) {
+        if (!Objects.equals(this.user, other.user)) {
             return false;
         }
         if (!Objects.equals(this.creationDate, other.creationDate)) {
@@ -99,5 +99,5 @@ public class Registration {
         }
         return true;
     }
-    
+
 }
