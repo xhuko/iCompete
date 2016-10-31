@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.icompete.entity;
 
 import java.util.Date;
@@ -16,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,8 +29,8 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Long sport; //ToDo: Change this to sport entity when created
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Sport sport;
 
     @Column(nullable = false)
     private String name;
@@ -58,11 +54,11 @@ public class Event {
         return id;
     }
 
-    public Long getSport() {
+    public Sport getSport() {
         return sport;
     }
 
-    public void setSport(Long sportId) {
+    public void setSport(Sport sportId) {
         this.sport = sportId;
     }
 
