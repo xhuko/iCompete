@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Calendar;
@@ -21,19 +22,27 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private UserDao userDao;
+
+    private User user;
+    private Date birthDate = new Date(2016,10,31);
+
+    @BeforeMethod
+    public void setUp() throws Exception {
+        user = new User();
+        user.setFirstName("Firstname");
+        user.setLastName("Lastname");
+        user.setAddress("Address");
+        user.setEmail("Email");
+        user.setUserType(UserType.SPORTSMAN);
+        user.setBirthDate(birthDate);
+    }
+
     /**
      * Tests user entity creation and retrieval
      */
     @Test
     public void testCreateAndFind() {
-        User user = new User();
-        user.setFirstName("Firstname");
-        user.setLastName("Lastname");
-        user.setAddress("Address");
-        user.setEmail("Email");
-        user.setUserName("username");
-        user.setUserType(UserType.SPORTSMAN);
-        
+        user.setUserName("createTest");
         userDao.create(user);
         
         //Get user and test find methods
@@ -44,7 +53,8 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(savedUser.getLastName(), "Lastname");
         Assert.assertEquals(savedUser.getAddress(), "Address");
         Assert.assertEquals(savedUser.getEmail(), "Email");
-        Assert.assertEquals(savedUser.getUserName(), "username");
+        Assert.assertEquals(savedUser.getBirthDate(), birthDate);
+        Assert.assertEquals(savedUser.getUserName(), "createTest");
         Assert.assertEquals(savedUser.getUserType(), UserType.SPORTSMAN);
     }
 
@@ -53,24 +63,17 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
      */
     @Test
     public void testUpdate() {
-        User user = new User();
-        user.setFirstName("Firstname");
-        user.setLastName("Lastname");
-        user.setAddress("Address");
-        user.setEmail("Email");
-        user.setUserName("username");
-        user.setUserType(UserType.SPORTSMAN);
-
+        user.setUserName("updateTest");
         userDao.create(user);
 
         User userBeforeUpdate = userDao.findById(user.getId());
         Assert.assertNotNull(userBeforeUpdate);
 
-        userBeforeUpdate.setUserName("Archery");
+        userBeforeUpdate.setUserName("updateTestOtherName");
         userDao.update(userBeforeUpdate);
 
         User updatedUser = userDao.findById(userBeforeUpdate.getId());
-        Assert.assertEquals(updatedUser.getUserName(), "Archery");
+        Assert.assertEquals(updatedUser.getUserName(), "updateTestOtherName");
     }
 
     /**
@@ -78,20 +81,11 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
      */
     @Test
     public void testDelete() {
-        User user = new User();
-        user.setFirstName("Firstname");
-        user.setLastName("Lastname");
-        user.setAddress("Address");
-        user.setEmail("Email");
-        user.setUserName("username");
-        user.setUserType(UserType.SPORTSMAN);
-        
+        user.setUserName("updateTest");
         userDao.create(user);
-        
         Assert.assertNotNull(userDao.findById(user.getId()));
-        
+
         userDao.delete(user);
-        
         Assert.assertNull(userDao.findById(user.getId()));
     }
 }
