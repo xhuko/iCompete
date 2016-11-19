@@ -1,5 +1,6 @@
-package com.icompete.dao;
+package com.icompete.dao.test;
 
+import com.icompete.dao.EventDao;
 import com.icompete.entity.Event;
 import com.icompete.entity.Rule;
 import com.icompete.entity.Sport;

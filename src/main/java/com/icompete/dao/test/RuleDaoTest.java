@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.icompete.dao;
+package com.icompete.dao.test;
 
+import com.icompete.dao.RuleDao;
 import com.icompete.entity.Event;
 import com.icompete.entity.Rule;
 import org.springframework.beans.factory.annotation.Autowired;

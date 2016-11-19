@@ -80,7 +80,7 @@ public class Result {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Result)) {
             return false;
         }
         final Result other = (Result) obj;

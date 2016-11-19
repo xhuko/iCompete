@@ -140,7 +140,7 @@ public class Event {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Event)) {
             return false;
         }
         final Event other = (Event) obj;

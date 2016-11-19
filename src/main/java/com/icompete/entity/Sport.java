@@ -83,7 +83,7 @@ public class Sport {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Sport)) {
             return false;
         }
         final Sport other = (Sport) obj;

@@ -70,7 +70,7 @@ public class Rule {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Rule)) {
             return false;
         }
         final Rule other = (Rule) obj;

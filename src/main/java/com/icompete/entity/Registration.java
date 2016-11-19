@@ -81,7 +81,7 @@ public class Registration {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Registration)) {
             return false;
         }
         final Registration other = (Registration) obj;

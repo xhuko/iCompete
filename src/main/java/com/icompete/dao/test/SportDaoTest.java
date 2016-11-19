@@ -1,5 +1,6 @@
-package com.icompete.dao;
+package com.icompete.dao.test;
 
+import com.icompete.dao.SportDao;
 import com.icompete.entity.Sport;
 import com.icompete.enums.SportType;
 import org.springframework.beans.factory.annotation.Autowired;
