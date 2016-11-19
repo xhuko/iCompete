@@ -34,7 +34,7 @@ public class User {
     @NotNull
     private String lastName;
 
-    @Temporal(value = TemporalType.DATE)
+    @Temporal(value = TemporalType.TIMESTAMP)
     private Date birthDate;
 
     @NotNull

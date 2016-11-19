@@ -17,30 +17,30 @@ public interface RuleDao {
      * Get all stored rules
      * @return List of all events stored in the database
      */
-    public List<Rule> findAll();
+    List<Rule> findAll();
     
     /**
      * Get rule by id
      * @param id Id of event to retrieve
      * @return Rule retrieved with the given id
      */
-    public Rule findById(int id);
+    Rule findById(int id);
     
     /**
      * Add a new rule in the database
      * @param event Rule to save in the database
      */
-    public void create(Rule event);
+    void create(Rule event);
     
     /**
      * Update existing rule
      * @param event Rule to update
      */
-    public void update(Rule event);
+    void update(Rule event);
     
     /**
      * Delete existing rule
      * @param event Rule to delete
      */
-    public void delete(Rule event);
+    void delete(Rule event);
 }
