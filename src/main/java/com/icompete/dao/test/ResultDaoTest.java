@@ -15,11 +15,12 @@ import com.icompete.entity.Result;
 import com.icompete.entity.User;
 import com.icompete.enums.UserType;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import javax.inject.Inject;
 
 /**
  *
@@ -28,16 +29,16 @@ import org.testng.annotations.Test;
 @ContextConfiguration(locations = "file:src/main/resources/spring-config.xml")
 public class ResultDaoTest extends AbstractTestNGSpringContextTests {
        
-    @Autowired
+    @Inject
     private RegistrationDao registrationDao;
     
-    @Autowired
+    @Inject
     private EventDao eventDao;
     
-    @Autowired
+    @Inject
     private ResultDao resultDao;
     
-    @Autowired
+    @Inject
     private UserDao userDao;
     
     @Test

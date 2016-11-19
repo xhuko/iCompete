@@ -18,11 +18,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import javax.inject.Inject;
 
 /**
  *
@@ -31,13 +32,13 @@ import org.testng.annotations.Test;
 @ContextConfiguration(locations = "file:src/main/resources/spring-config.xml")
 public class RegistrationDaoTest extends AbstractTestNGSpringContextTests {
     
-    @Autowired
+    @Inject
     private RegistrationDao registrationDao;
     
-    @Autowired
+    @Inject
     private EventDao eventDao;
     
-    @Autowired
+    @Inject
     private UserDao userDao;
     
     @Test

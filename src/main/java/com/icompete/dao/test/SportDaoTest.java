@@ -3,11 +3,12 @@ package com.icompete.dao.test;
 import com.icompete.dao.SportDao;
 import com.icompete.entity.Sport;
 import com.icompete.enums.SportType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import javax.inject.Inject;
 
 /**
  * Class to test SportDao CRUD operations
@@ -16,7 +17,7 @@ import org.testng.annotations.Test;
 @ContextConfiguration(locations = "file:src/main/resources/spring-config.xml")
 public class SportDaoTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
+    @Inject
     private SportDao sportDao;
     /**
      * Tests sport entity creation and retrieval

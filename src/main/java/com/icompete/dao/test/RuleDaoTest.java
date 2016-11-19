@@ -8,11 +8,12 @@ package com.icompete.dao.test;
 import com.icompete.dao.RuleDao;
 import com.icompete.entity.Event;
 import com.icompete.entity.Rule;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import javax.inject.Inject;
 
 /**
  * Class to test RuleDao CRUD operations
@@ -20,7 +21,7 @@ import org.testng.annotations.Test;
  */
 @ContextConfiguration(locations = "file:src/main/resources/spring-config.xml")
 public class RuleDaoTest extends AbstractTestNGSpringContextTests {
-    @Autowired
+    @Inject
     private RuleDao ruleDao;
     /**
      * Tests rule entity creation and retrieval
