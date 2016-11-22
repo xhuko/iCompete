@@ -1,6 +1,5 @@
-package com.icompete.dao.test;
+package com.icompete.dao;
 
-import com.icompete.dao.UserDao;
 import com.icompete.entity.User;
 import com.icompete.enums.UserType;
 import org.springframework.test.context.ContextConfiguration;

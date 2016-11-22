@@ -1,4 +1,4 @@
-package com.icompete.dao.test;
+package com.icompete.dao;
 
 import com.icompete.dao.RuleDao;
 import com.icompete.entity.Event;
