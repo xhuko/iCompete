@@ -68,7 +68,7 @@ public class Rule {
         if (obj == null) {
             return false;
         }
-        if ((obj instanceof Rule)) {
+        if (!(obj instanceof Rule)) {
             return false;
         }
         final Rule other = (Rule) obj;

@@ -82,7 +82,8 @@ public class Sport {
         if (obj == null) {
             return false;
         }
-        if ((obj instanceof Sport)) {
+        
+        if (!(obj instanceof Sport)) {
             return false;
         }
         final Sport other = (Sport) obj;

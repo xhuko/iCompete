@@ -19,31 +19,31 @@ public interface EventDao {
      * Get all events
      * @return List of all events stored in the database
      */
-    public List<Event> findAll();
+    List<Event> findAll();
     
     /**
      * Get event by id
      * @param id Id of event to retrieve
      * @return Event retrieved with the given id
      */
-    public Event findById(Long id);
+    Event findById(Long id);
     
     /**
      * Add a new event in the database
      * @param event Event to save in the database
      */
-    public void create(Event event);
+    void create(Event event);
     
     /**
      * Update existing event
      * @param event Event to update
      */
-    public void update(Event event);
+    void update(Event event);
     
     /**
      * Delete existing event
      * @param event Event to delete
      */
-    public void delete(Event event);
+    void delete(Event event);
     
 }
