@@ -12,7 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -57,8 +56,7 @@ public class Rule {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 41 * hash + this.id;
-        hash = 41 * hash + Objects.hashCode(this.text);
+        hash = 41 * hash + Objects.hashCode(this.getText());
         return hash;
     }
 
@@ -70,14 +68,14 @@ public class Rule {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if ((obj instanceof Rule)) {
             return false;
         }
         final Rule other = (Rule) obj;
-        if (this.id != other.id) {
+        if (this.getId() != other.getId()) {
             return false;
         }
-        if (!Objects.equals(this.text, other.text)) {
+        if (!Objects.equals(this.getText(), other.getText())) {
             return false;
         }
         return true;

@@ -5,7 +5,7 @@ import com.icompete.entity.Rule;
 import com.icompete.entity.Sport;
 import com.icompete.enums.SportType;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
@@ -18,7 +18,7 @@ import org.testng.Assert;
 @ContextConfiguration(locations = "file:src/main/resources/spring-config.xml")
 public class EventDaoTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
+    @Inject
     private EventDao eventDao;
     /**
      * Tests event creation and retrieval

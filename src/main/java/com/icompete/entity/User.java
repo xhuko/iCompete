@@ -121,7 +121,7 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null || !(o instanceof User)) return false;
 
         User user = (User) o;
 
@@ -142,7 +142,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
+        int result = 0;
         result = 31 * result + getUserName().hashCode();
         result = 31 * result + (getFirstName() != null ? getFirstName().hashCode() : 0);
         result = 31 * result + (getLastName() != null ? getLastName().hashCode() : 0);

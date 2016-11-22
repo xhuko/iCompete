@@ -121,14 +121,13 @@ public class Event {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 61 * hash + Objects.hashCode(this.id);
-        hash = 61 * hash + Objects.hashCode(this.sport);
-        hash = 61 * hash + Objects.hashCode(this.name);
-        hash = 61 * hash + this.capacity;
-        hash = 61 * hash + Objects.hashCode(this.startDate);
-        hash = 61 * hash + Objects.hashCode(this.endDate);
-        hash = 61 * hash + Objects.hashCode(this.address);
-        hash = 61 * hash + Objects.hashCode(this.rules);
+        hash = 61 * hash + Objects.hashCode(this.getSport());
+        hash = 61 * hash + Objects.hashCode(this.getName());
+        hash = 61 * hash + this.getCapacity();
+        hash = 61 * hash + Objects.hashCode(this.getStartDate());
+        hash = 61 * hash + Objects.hashCode(this.getEndDate());
+        hash = 61 * hash + Objects.hashCode(this.getAddress());
+        hash = 61 * hash + Objects.hashCode(this.getRules());
         return hash;
     }
 
@@ -140,32 +139,32 @@ public class Event {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Event)) {
             return false;
         }
         final Event other = (Event) obj;
-        if (this.capacity != other.capacity) {
+        if (this.getCapacity() != other.getCapacity()) {
             return false;
         }
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Objects.equals(this.getName(), other.getName())) {
             return false;
         }
-        if (!Objects.equals(this.address, other.address)) {
+        if (!Objects.equals(this.getAddress(), other.getAddress())) {
             return false;
         }
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.getId(), other.getId())) {
             return false;
         }
-        if (!Objects.equals(this.sport, other.sport)) {
+        if (!Objects.equals(this.getSport(), other.getSport())) {
             return false;
         }
-        if (!Objects.equals(this.startDate, other.startDate)) {
+        if (!Objects.equals(this.getStartDate(), other.getStartDate())) {
             return false;
         }
-        if (!Objects.equals(this.endDate, other.endDate)) {
+        if (!Objects.equals(this.getEndDate(), other.getEndDate())) {
             return false;
         }
-        if (!Objects.equals(this.rules, other.rules)) {
+        if (!Objects.equals(this.getRules(), other.getRules())) {
             return false;
         }
         return true;

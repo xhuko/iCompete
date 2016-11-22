@@ -65,10 +65,9 @@ public class Result {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.id);
-        hash = 59 * hash + Objects.hashCode(this.registration);
-        hash = 59 * hash + this.position;
-        hash = 59 * hash + Objects.hashCode(this.creationDate);
+        hash = 59 * hash + Objects.hashCode(this.getRegistration());
+        hash = 59 * hash + this.getPosition();
+        hash = 59 * hash + Objects.hashCode(this.getCreationDate());
         return hash;
     }
 
@@ -80,20 +79,20 @@ public class Result {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if ((obj instanceof Result)) {
             return false;
         }
         final Result other = (Result) obj;
-        if (this.position != other.position) {
+        if (this.getPosition() != other.getPosition()) {
             return false;
         }
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.getId(), other.getId())) {
             return false;
         }
-        if (!Objects.equals(this.registration, other.registration)) {
+        if (!Objects.equals(this.getRegistration(), other.getRegistration())) {
             return false;
         }
-        if (!Objects.equals(this.creationDate, other.creationDate)) {
+        if (!Objects.equals(this.getCreationDate(), other.getCreationDate())) {
             return false;
         }
         return true;

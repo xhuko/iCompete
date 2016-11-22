@@ -68,10 +68,9 @@ public class Sport {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 61 * hash + Objects.hashCode(this.id);
-        hash = 61 * hash + Objects.hashCode(this.name);
-        hash = 61 * hash + Objects.hashCode(this.description);
-        hash = 61 * hash + Objects.hashCode(this.type);
+        hash = 61 * hash + Objects.hashCode(this.getName());
+        hash = 61 * hash + Objects.hashCode(this.getDescription());
+        hash = 61 * hash + Objects.hashCode(this.getType());
         return hash;
     }
 
@@ -83,20 +82,20 @@ public class Sport {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if ((obj instanceof Sport)) {
             return false;
         }
         final Sport other = (Sport) obj;
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Objects.equals(this.getName(), other.getName())) {
             return false;
         }
-        if (!Objects.equals(this.description, other.description)) {
+        if (!Objects.equals(this.getDescription(), other.getDescription())) {
             return false;
         }
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.getId(), other.getId())) {
             return false;
         }
-        if (this.type != other.type) {
+        if (this.getType() != other.getType()) {
             return false;
         }
         return true;

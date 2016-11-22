@@ -66,10 +66,9 @@ public class Registration {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 19 * hash + Objects.hashCode(this.id);
-        hash = 19 * hash + Objects.hashCode(this.event);
-        hash = 19 * hash + Objects.hashCode(this.user);
-        hash = 19 * hash + Objects.hashCode(this.creationDate);
+        hash = 19 * hash + Objects.hashCode(this.getEvent());
+        hash = 19 * hash + Objects.hashCode(this.getUser());
+        hash = 19 * hash + Objects.hashCode(this.getCreationDate());
         return hash;
     }
 
@@ -81,20 +80,20 @@ public class Registration {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Registration)) {
             return false;
         }
         final Registration other = (Registration) obj;
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.getId(), other.getId())) {
             return false;
         }
-        if (!Objects.equals(this.event, other.event)) {
+        if (!Objects.equals(this.getEvent(), other.getEvent())) {
             return false;
         }
-        if (!Objects.equals(this.user, other.user)) {
+        if (!Objects.equals(this.getUser(), other.getUser())) {
             return false;
         }
-        if (!Objects.equals(this.creationDate, other.creationDate)) {
+        if (!Objects.equals(this.getCreationDate(), other.getCreationDate())) {
             return false;
         }
         return true;

@@ -2,16 +2,13 @@ package com.icompete.dao;
 
 import com.icompete.entity.User;
 import com.icompete.enums.UserType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
+import javax.inject.Inject;
 
 /**
  * Class to test UserDao CRUD operations
@@ -20,7 +17,7 @@ import java.util.GregorianCalendar;
 @ContextConfiguration(locations = "file:src/main/resources/spring-config.xml")
 public class UserDaoTest extends AbstractTestNGSpringContextTests {
 
-    @Autowired
+    @Inject
     private UserDao userDao;
 
     private User user;
