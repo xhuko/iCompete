@@ -11,7 +11,8 @@
     <artifactId>icompete-dao</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-    
+    <name>DAO</name>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -162,5 +163,4 @@
             <version>10.10.2.0</version>
         </dependency>
     </dependencies>
-    <name>DAO</name>
 </project>
