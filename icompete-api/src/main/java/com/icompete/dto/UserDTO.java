@@ -1,54 +1,25 @@
-package com.icompete.entity;
+package com.icompete.dto;
 
 import com.icompete.enums.UserType;
 import com.icompete.utils.DayEqualsUtils;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 
 /**
  * @author Peter Sekan, peter.sekan@mail.muni.cz
+ * @version 22/11/2016
  */
-@Entity
-@Table(name = "users")
-public class User {
-
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserDTO {
     private Long id;
-
-    @Column(nullable = false, unique = true)
     private String userName;
-
-    @NotNull
     private String firstName;
-
-    @NotNull
     private String lastName;
-
-    @Temporal(value = TemporalType.TIMESTAMP)
     private Date birthDate;
-
-    @NotNull
     private String address = "";
-
-    @NotNull
     private String email = "";
-
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private Set<Sport> preferredSports = new HashSet<>();
-
-    @NotNull
-    @Enumerated
+    private Set<SportDTO> preferredSports = new HashSet<>();
     private UserType userType = UserType.SPORTSMAN;
 
     public String getUserName() {
@@ -99,11 +70,11 @@ public class User {
         this.email = email;
     }
 
-    public Set<Sport> getPreferredSports() {
+    public Set<SportDTO> getPreferredSports() {
         return preferredSports;
     }
 
-    public void setPreferredSports(Set<Sport> preferredSports) {
+    public void setPreferredSports(Set<SportDTO> preferredSports) {
         this.preferredSports = preferredSports;
     }
 
@@ -122,9 +93,9 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || !(o instanceof User)) return false;
+        if (o == null || !(o instanceof UserDTO)) return false;
 
-        User user = (User) o;
+        UserDTO user = (UserDTO) o;
 
         if (getId() != null ? !getId().equals(user.getId()) : user.getId() != null) return false;
         if (!getUserName().equals(user.getUserName())) return false;

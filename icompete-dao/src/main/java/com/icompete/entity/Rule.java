@@ -25,7 +25,7 @@ public class Rule {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     
     @Column(nullable = false)
     private String text;
@@ -41,7 +41,7 @@ public class Rule {
     @ManyToOne(cascade = CascadeType.ALL,optional = true)
     private Event event;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
@@ -72,9 +72,6 @@ public class Rule {
             return false;
         }
         final Rule other = (Rule) obj;
-        if (this.getId() != other.getId()) {
-            return false;
-        }
         if (!Objects.equals(this.getText(), other.getText())) {
             return false;
         }

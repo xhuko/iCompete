@@ -24,7 +24,7 @@ public interface RuleDao {
      * @param id Id of event to retrieve
      * @return Rule retrieved with the given id
      */
-    Rule findById(int id);
+    Rule findById(Long id);
     
     /**
      * Add a new rule in the database
