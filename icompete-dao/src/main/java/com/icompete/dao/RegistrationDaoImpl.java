@@ -5,10 +5,12 @@
  */
 package com.icompete.dao;
 
+import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
@@ -47,5 +49,13 @@ public class RegistrationDaoImpl implements RegistrationDao{
     public void delete(Registration registration) {
         Registration registrationToDelete = em.getReference(Registration.class, registration.getId());
         em.remove(registrationToDelete);
+    }
+
+    @Override
+    public List<Registration> findByEvent(Event event) {
+        TypedQuery<Registration> query = em.createQuery("SELECT t FROM Registration t WHERE t.event = :eventId",Registration.class);
+        query.setParameter("eventId", event);
+        
+        return query.getResultList();
     }
 }

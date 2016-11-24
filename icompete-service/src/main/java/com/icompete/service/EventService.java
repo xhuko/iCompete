@@ -1,60 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.icompete.dao;
+package com.icompete.service;
 
 import com.icompete.entity.Event;
+import com.icompete.entity.User;
 import java.util.Date;
 import java.util.List;
-import org.springframework.stereotype.Repository;
+import java.util.Set;
+import org.springframework.stereotype.Service;
+
+
 
 /**
- *
+ * An interface that defines a service access to the {@link Event} entity.
+ * 
  * @author Xhulio
  */
-public interface EventDao {
+@Service
+public interface EventService {
     
-    /**
-     * Get all events
-     * @return List of all events stored in the database
-     */
     List<Event> findAll();
     
-    /**
-     * Get event by id
-     * @param id Id of event to retrieve
-     * @return Event retrieved with the given id
-     */
     Event findById(Long id);
     
-    /**
-     * Add a new event in the database
-     * @param event Event to save in the database
-     */
     void create(Event event);
     
-    /**
-     * Update existing event
-     * @param event Event to update
-     */
     void update(Event event);
     
-    /**
-     * Delete existing event
-     * @param event Event to delete
-     */
     void delete(Event event);
     
     /**
-     * Get all events that have their start date equal or greater than the passed start date
+     * Get all dates that have their start date equal or greater than the passed start date
      * and their end date equal or lower than the passed date
      * @param startDate Minimum date for the event to start
      * @param endDate Maximum date for the event to end
      * @return Matched events
      */
-    List<Event> findEventsBetween(Date startDate, Date endDate);
+    List<Event> findEventsBetweenDates(Date startDate, Date endDate);
     
     /**
      * Find all events that start between two dates
@@ -71,4 +51,12 @@ public interface EventDao {
      * @return 
      */
     List<Event> findEventEndBetween(Date startDate, Date endDate);
+    
+    /**
+     * Register a user to and event
+     * @param user User to register
+     * @param event Event where to register user
+     */
+    void registerUserToEvent(User user ,Event event);
+    
 }

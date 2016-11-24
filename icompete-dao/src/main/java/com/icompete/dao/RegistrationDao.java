@@ -5,6 +5,7 @@
  */
 package com.icompete.dao;
 
+import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
 import java.util.List;
 
@@ -45,4 +46,10 @@ public interface RegistrationDao {
      */
     void delete(Registration registration);
     
+    /**
+     * Find all registration to an event
+     * @param event Event to search
+     * @return All event registrations
+     */
+    List<Registration> findByEvent(Event event);
 }

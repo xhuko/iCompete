@@ -28,19 +28,19 @@ public interface SportDao {
     
     /**
      * Add a new sport in the database
-     * @param event Sport to save in the database
+     * @param sport Sport to save in the database
      */
-    void create(Sport event);
+    void create(Sport sport);
     
     /**
      * Update existing sport
-     * @param event Sport to update
+     * @param sport Sport to update
      */
-    void update(Sport event);
+    void update(Sport sport);
     
     /**
      * Delete existing sport
-     * @param event Sport to delete
+     * @param sport Sport to delete
      */
-    void delete(Sport event);
+    void delete(Sport sport);
 }

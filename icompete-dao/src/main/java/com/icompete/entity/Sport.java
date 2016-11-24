@@ -90,16 +90,15 @@ public class Sport {
         if (!Objects.equals(this.getName(), other.getName())) {
             return false;
         }
-        if (!Objects.equals(this.getDescription(), other.getDescription())) {
-            return false;
-        }
-        if (!Objects.equals(this.getId(), other.getId())) {
-            return false;
-        }
-        if (this.getType() != other.getType()) {
-            return false;
-        }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Sport{" + "id=" + id + 
+                ", name=" + name + 
+                ", description=" + description +
+                ", type=" + type + '}';
     }
     
     

@@ -66,7 +66,7 @@ public class RuleDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testDelete() {
         Rule rule = new Rule();
-        rule.setText("Third rule");
+        rule.setText("Just a rule");
         
         ruleDao.create(rule);
         

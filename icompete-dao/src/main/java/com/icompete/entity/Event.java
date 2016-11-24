@@ -38,10 +38,10 @@ public class Event {
     @Column(nullable = false)
     private int capacity;
 
-    @Temporal(value = TemporalType.DATE)
+    @Temporal(value = TemporalType.TIMESTAMP)
     private Date startDate;
 
-    @Temporal(value = TemporalType.DATE)
+    @Temporal(value = TemporalType.TIMESTAMP)
     private Date endDate;
 
     @Column(nullable = false)
@@ -143,16 +143,10 @@ public class Event {
             return false;
         }
         final Event other = (Event) obj;
-        if (this.getCapacity() != other.getCapacity()) {
-            return false;
-        }
         if (!Objects.equals(this.getName(), other.getName())) {
             return false;
         }
         if (!Objects.equals(this.getAddress(), other.getAddress())) {
-            return false;
-        }
-        if (!Objects.equals(this.getId(), other.getId())) {
             return false;
         }
         if (!Objects.equals(this.getSport(), other.getSport())) {
@@ -164,10 +158,21 @@ public class Event {
         if (!Objects.equals(this.getEndDate(), other.getEndDate())) {
             return false;
         }
-        if (!Objects.equals(this.getRules(), other.getRules())) {
-            return false;
-        }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Event{" + "id=" + id + 
+                ", sport=" + sport + 
+                ", name=" + name + 
+                ", capacity=" + capacity + 
+                ", startDate=" + startDate + 
+                ", endDate=" + endDate + 
+                ", address=" + address + 
+                ", rules=" + rules + '}';
+    }
+    
+    
 
 }

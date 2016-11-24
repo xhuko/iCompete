@@ -5,7 +5,9 @@ import com.icompete.entity.Event;
 import com.icompete.entity.Rule;
 import com.icompete.entity.Sport;
 import com.icompete.enums.SportType;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Date;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
@@ -101,7 +103,7 @@ public class EventDaoTest extends AbstractTestNGSpringContextTests {
     }
     
     /**
-     * Test rule creation when creating an event with not saved rules
+     * Test rule creation when creating an event with no rules
      */
     @Test
     public void testRuleInsertion(){
@@ -120,5 +122,108 @@ public class EventDaoTest extends AbstractTestNGSpringContextTests {
         
         Assert.assertEquals(savedEvent.getRules().size(), 1);
         Assert.assertTrue(savedEvent.getRules().contains(archeryRule));
+    }
+    
+    /**
+     * Find event that start and end between two dates
+     */
+    @Test
+    public void testFindEventsBetween(){
+        
+        Calendar calendar = Calendar.getInstance();
+        
+        Event firstEvent = new Event();
+        firstEvent.setName("Archery event");
+        firstEvent.setAddress("Test adress");
+        firstEvent.setCapacity(45);
+        calendar.set(2016, 5, 4);
+        firstEvent.setStartDate(calendar.getTime());
+        calendar.set(2016, 5, 21);
+        firstEvent.setEndDate(calendar.getTime());
+        eventDao.create(firstEvent);
+        
+        Event secondEvent = new Event();
+        secondEvent.setName("Archery event");
+        secondEvent.setAddress("Test adress");
+        secondEvent.setCapacity(45);
+        calendar.set(2016, 6, 4);
+        secondEvent.setStartDate(calendar.getTime());
+        calendar.set(2016, 6, 25);
+        secondEvent.setEndDate(calendar.getTime());
+        eventDao.create(secondEvent);
+         
+        calendar.set(2016, 0, 1);
+        Date startDate = calendar.getTime();
+        calendar.set(2017, 0, 1);
+        Date endDate = calendar.getTime();
+        
+        Assert.assertEquals(eventDao.findEventsBetween(startDate, endDate).size(), 2);
+        
+    }
+    
+    /**
+     * Find event that start between two dates
+     */
+    @Test
+    public void testFindEventsStartBetween(){
+        
+        Calendar calendar = Calendar.getInstance();
+        
+        Event firstEvent = new Event();
+        firstEvent.setName("Archery event");
+        firstEvent.setAddress("Test adress");
+        firstEvent.setCapacity(45);
+        calendar.set(2016, 0, 1);
+        firstEvent.setStartDate(calendar.getTime());
+        eventDao.create(firstEvent);
+        
+        Event secondEvent = new Event();
+        secondEvent.setName("Archery event");
+        secondEvent.setAddress("Test adress");
+        secondEvent.setCapacity(45);
+        calendar.set(2016, 0, 20);
+        secondEvent.setStartDate(calendar.getTime());
+        eventDao.create(secondEvent);
+         
+        calendar.set(2016, 0, 1);
+        Date startDate = calendar.getTime();
+        calendar.set(2016, 1, 1);
+        Date endDate = calendar.getTime();
+        
+        Assert.assertEquals(eventDao.findEventsStartBetween(startDate, endDate).size(), 2);
+        
+    }
+    
+    /**
+     * Find event that end between two dates
+     */
+    @Test
+    public void testFindEventsEndBetween(){
+        
+        Calendar calendar = Calendar.getInstance();
+        
+        Event firstEvent = new Event();
+        firstEvent.setName("Archery event");
+        firstEvent.setAddress("Test adress");
+        firstEvent.setCapacity(45);
+        calendar.set(2016, 1, 1);
+        firstEvent.setEndDate(calendar.getTime());
+        eventDao.create(firstEvent);
+        
+        Event secondEvent = new Event();
+        secondEvent.setName("Archery event");
+        secondEvent.setAddress("Test adress");
+        secondEvent.setCapacity(45);
+        calendar.set(2016, 1, 20);
+        secondEvent.setEndDate(calendar.getTime());
+        eventDao.create(secondEvent);
+         
+        calendar.set(2016, 1, 1);
+        Date startDate = calendar.getTime();
+        calendar.set(2016, 2, 1);
+        Date endDate = calendar.getTime();
+        
+        Assert.assertEquals(eventDao.findEventEndBetween(startDate, endDate).size(), 2);
+        
     }
 }

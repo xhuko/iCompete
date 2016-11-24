@@ -25,8 +25,6 @@
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
         <property name="url" value="jdbc:derby:memory:testdb;create=true" />
-<!--        <property name="username" value="app" />
-        <property name="password" value="app" />-->
     </bean>
 
     <bean id="entityManagerFactory"
@@ -40,7 +38,7 @@
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.hbm2ddl.auto">create</prop>
-                <prop key="hibernate.show_sql">true</prop>
+<!--                <prop key="hibernate.show_sql">true</prop>-->
                 <prop key="hbm2ddl.auto">update</prop>
             </props>
         </property>
