@@ -34,7 +34,7 @@ public interface EventService {
      * @param endDate Maximum date for the event to end
      * @return Matched events
      */
-    List<Event> findEventsBetweenDates(Date startDate, Date endDate);
+    List<Event> findEventsBetween(Date startDate, Date endDate);
     
     /**
      * Find all events that start between two dates
@@ -56,7 +56,22 @@ public interface EventService {
      * Register a user to and event
      * @param user User to register
      * @param event Event where to register user
+     * @return True if event has empty places and user was registered or false otherwise
      */
-    void registerUserToEvent(User user ,Event event);
+    boolean registerUserToEvent(User user ,Event event);
+    
+    /**
+     * Return number of empty places left in event
+     * @param event Event to check
+     * @return Number of empty places left
+     */
+    int emptyPlacesInEvent(Event event);
+    
+    /**
+     * Check if event has empty places or not
+     * @param event Event to check
+     * @return True if there are empty places or false otherwise
+     */
+    Boolean eventHasEmptyPlaces(Event event);
     
 }

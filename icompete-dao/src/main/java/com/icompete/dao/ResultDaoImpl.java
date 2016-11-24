@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public class ResultDaoImpl implements ResultDao {
 
-    @PersistenceContext(unitName = "default")
+    @PersistenceContext
     private EntityManager em;
 
     @Override

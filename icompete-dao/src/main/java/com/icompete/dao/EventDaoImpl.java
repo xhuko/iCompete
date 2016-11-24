@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public class EventDaoImpl implements EventDao {
 
-    @PersistenceContext(unitName = "default")
+    @PersistenceContext
     private EntityManager em;
 
     @Override

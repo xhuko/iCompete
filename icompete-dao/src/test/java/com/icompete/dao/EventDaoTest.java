@@ -1,5 +1,6 @@
 package com.icompete.dao;
 
+import com.icompete.PersistenceSampleApplicationContext;
 import com.icompete.dao.EventDao;
 import com.icompete.entity.Event;
 import com.icompete.entity.Rule;
@@ -14,12 +15,14 @@ import org.testng.annotations.Test;
 import org.testng.Assert;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 /**
  * Class to test EventDao CRUD operations
  * @author Xhulio
  */
-@ContextConfiguration(locations = "file:src/main/resources/spring-config.xml")
+@ContextConfiguration(classes=PersistenceSampleApplicationContext.class)
+@Transactional
 public class EventDaoTest extends AbstractTestNGSpringContextTests {
 
     @Inject

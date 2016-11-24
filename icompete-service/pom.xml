@@ -16,15 +16,21 @@
     <name>Service layer</name>
     
     <dependencies>
-       <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.8.21</version>
-        </dependency>
         <dependency>
             <groupId>com.icompete</groupId>
             <artifactId>icompete-dao</artifactId>
             <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8.21</version>
         </dependency>
         <dependency>
             <groupId>javax.inject</groupId>
@@ -36,12 +42,12 @@
             <artifactId>dozer</artifactId>
             <version>5.5.1</version>
         </dependency>
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
             <scope>test</scope> conflicts with tomcat libraries, but needed for tests 
         </dependency>-->
-         <dependency>
+        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
             <version>1.10.17</version>

@@ -4,14 +4,16 @@ import com.icompete.dao.SportDao;
 import com.icompete.entity.Sport;
 import java.util.List;
 import javax.inject.Inject;
+import org.springframework.stereotype.Service;
 
 /**
- * Implementation of the {@link EventService}. This class is part of the
+ * Implementation of the {@link SportService}. This class is part of the
  * service module of the application that provides the implementation of the
  * business logic (main logic of the application).
  * 
  * @author Xhulio
  */
+@Service
 public class SportServiceImpl implements SportService{
 
     @Inject
@@ -41,5 +43,4 @@ public class SportServiceImpl implements SportService{
     public void delete(Sport sport) {
         sportDao.delete(sport);
     }
-    
 }

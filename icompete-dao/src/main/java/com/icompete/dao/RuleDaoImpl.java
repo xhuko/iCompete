@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RuleDaoImpl implements RuleDao{
     
-    @PersistenceContext(unitName = "default")
+    @PersistenceContext
     private EntityManager em;
 
     @Override

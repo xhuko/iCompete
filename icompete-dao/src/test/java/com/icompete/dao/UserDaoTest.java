@@ -1,5 +1,6 @@
 package com.icompete.dao;
 
+import com.icompete.PersistenceSampleApplicationContext;
 import com.icompete.entity.User;
 import com.icompete.enums.UserType;
 import org.springframework.test.context.ContextConfiguration;
@@ -9,12 +10,14 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.util.Date;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 
 /**
  * Class to test UserDao CRUD operations
  * @author Peter Sekan, peter.sekan@mail.muni.cz
  */
-@ContextConfiguration(locations = "file:src/main/resources/spring-config.xml")
+@ContextConfiguration(classes=PersistenceSampleApplicationContext.class)
+@Transactional
 public class UserDaoTest extends AbstractTestNGSpringContextTests {
 
     @Inject
