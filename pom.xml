@@ -13,6 +13,7 @@
     
     <modules>
         <module>icompete-dao</module>
+        <module>icompete-service</module>
         <module>icompete-api</module>
     </modules>
     <name>iCompete parent</name>
