@@ -7,6 +7,7 @@ package com.icompete.dao;
 
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
+import com.icompete.entity.User;
 import java.util.List;
 
 /**
@@ -52,4 +53,11 @@ public interface RegistrationDao {
      * @return All event registrations
      */
     List<Registration> findByEvent(Event event);
+    
+    /**
+     * Find all registration to an user
+     * @param user User to search
+     * @return All user registrations
+     */
+    List<Registration> findByUser(User user);
 }
