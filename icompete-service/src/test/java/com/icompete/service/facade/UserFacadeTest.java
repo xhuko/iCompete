@@ -131,7 +131,6 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests {
         Assert.assertTrue(userFacade.getUsersByRole(UserType.ADMIN).size() == 0);
     }
 
-
     @Test
     public void testUpdate() throws Exception {
         userFacade.updateUser(userDTO);
@@ -144,5 +143,19 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests {
         userFacade.deleteUser(userDTO);
         verify(userService, times(1)).deleteUser(user);
         verify(userService, times(1)).deleteUser(any());
+    }
+
+
+    @Test(expectedExceptions = EntityNotFoundException.class)
+    public void testUpdateException() throws Exception {
+        when(userService.getUserById(any())).thenReturn(null);
+        userFacade.updateUser(userDTO);
+    }
+
+    @Test(expectedExceptions = EntityNotFoundException.class)
+    public void testDeleteException() throws Exception {
+        when(userService.getUserById(any())).thenReturn(null);
+        userFacade.deleteUser(userDTO);
+
     }
 }
