@@ -1,5 +1,7 @@
 package com.icompete.dao;
 
+import com.icompete.entity.Event;
+import com.icompete.entity.Registration;
 import com.icompete.entity.Result;
 import java.util.List;
 
@@ -40,4 +42,10 @@ public interface ResultDao {
      */
     void delete(Result result);
     
+    /**
+     * Find result by registration
+     * @param registration 
+     * @return 
+     */
+    Result findResultByRegistration(Registration registration);
 }

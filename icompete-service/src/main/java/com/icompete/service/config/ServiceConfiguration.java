@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import(PersistenceSampleApplicationContext.class)
-@ComponentScan(basePackages = {"com.icompete.service"})
+@ComponentScan(basePackages = {"com.icompete.service","com.icompete.service.facade"})
 public class ServiceConfiguration {
 
     @Bean
