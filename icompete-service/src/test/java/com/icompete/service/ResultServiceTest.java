@@ -73,18 +73,21 @@ public class ResultServiceTest extends AbstractTestNGSpringContextTests {
     public void testCreate() {
         resultService.create(result);
         verify(resultDao, times(1)).create(result);
+        verify(resultDao, times(1)).create(any());
     }
 
     @Test
     public void testUpdate() {
         resultService.update(result);
         verify(resultDao, times(1)).update(result);
+        verify(resultDao, times(1)).update(any());
     }
 
     @Test
     public void testDelete() {
         resultService.delete(result);
         verify(resultDao, times(1)).delete(result);
+        verify(resultDao, times(1)).delete(any());
     }
 
     @Test

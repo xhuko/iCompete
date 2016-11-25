@@ -1,5 +1,6 @@
 package com.icompete.service;
 
+import com.icompete.dao.SportDao;
 import com.icompete.dao.UserDao;
 import com.icompete.entity.User;
 import com.icompete.enums.UserType;
@@ -36,6 +37,9 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private UserDao userDao;
+
+    @Mock
+    private SportDao sportDao;
 
     @Inject
     @InjectMocks
