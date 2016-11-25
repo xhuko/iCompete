@@ -1,5 +1,6 @@
 package com.icompete.service;
 
+import com.icompete.entity.Event;
 import com.icompete.entity.Result;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -48,5 +49,12 @@ public interface ResultService {
      * @return Result retrieved with the given position
      */    
     List<Result> findResultsByPosition(Integer position);
+    
+    /**
+     * Find all result of a particular event
+     * @param event Event to find result for
+     * @return Results found
+     */
+    List<Result> findResultByEvent(Event event);
     
 }

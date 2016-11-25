@@ -5,6 +5,7 @@ import com.icompete.dao.RegistrationDao;
 import com.icompete.dao.RuleDao;
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
+import com.icompete.entity.Sport;
 import com.icompete.entity.User;
 import java.util.Date;
 import java.util.List;
@@ -41,22 +42,36 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void create(Event event) {
+    public Event create(Event event) {
+        
+        if(event == null){
+            throw new IllegalArgumentException("Event is null");
+        }
         
         event.getRules().forEach((rule) -> {
             ruleDao.create(rule);
         });
      
-        eventDao.create(event);
+        Event createdEvent = eventDao.create(event);
+        
+        return  createdEvent;
     }
 
     @Override
     public void update(Event event) {
+        if(event == null){
+            throw new IllegalArgumentException("Event is null");
+        }
+        
         eventDao.update(event);
     }
 
     @Override
     public void delete(Event event) {
+        if(event == null){
+            throw new IllegalArgumentException("Event is null");
+        }
+        
         eventDao.delete(event);
     }
     
@@ -115,6 +130,20 @@ public class EventServiceImpl implements EventService {
     @Override
     public Boolean eventHasEmptyPlaces(Event event){
         return emptyPlacesInEvent(event) > 0;
+    }
+
+    @Override
+    public List<Event> findEventsBySport(Sport sport) {
+        if(sport == null){
+            throw new IllegalArgumentException("Sport is null");
+        }
+        
+        return eventDao.findEventsBySport(sport);
+    }
+
+    @Override
+    public List<Event> findEventsByName(String searchTerm) {
+        return eventDao.findEventsByName(searchTerm);
     }
 
     

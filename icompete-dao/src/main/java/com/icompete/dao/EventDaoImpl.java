@@ -1,6 +1,7 @@
 package com.icompete.dao;
 
 import com.icompete.entity.Event;
+import com.icompete.entity.Sport;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -31,8 +32,10 @@ public class EventDaoImpl implements EventDao {
     }
 
     @Override
-    public void create(Event event) {
+    public Event create(Event event) {
         em.persist(event);
+        
+        return event;
     }
 
     @Override
@@ -78,5 +81,23 @@ public class EventDaoImpl implements EventDao {
         return query.getResultList();
         
     }
+
+    @Override
+    public List<Event> findEventsBySport(Sport sport) {
+        TypedQuery<Event> query = em.createQuery("SELECT e FROM Event e WHERE e.sport = :sportId",
+                Event.class);
+        query.setParameter("sportId", sport);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Event> findEventsByName(String searchTerm) {
+        TypedQuery<Event> query = em.createQuery("SELECT e FROM Event e WHERE e.name LIKE :searchTerm",
+                Event.class);
+        query.setParameter("searchTerm", "%" + searchTerm + "%");
+        return query.getResultList();
+    }
+    
+    
 
 }

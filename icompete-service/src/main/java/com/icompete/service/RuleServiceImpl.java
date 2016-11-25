@@ -2,10 +2,9 @@ package com.icompete.service;
 
 import com.icompete.dao.RuleDao;
 import com.icompete.entity.Rule;
-import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
 import java.util.Collection;
+import javax.inject.Inject;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Peter Sekan, peter.sekan@mail.muni.cz

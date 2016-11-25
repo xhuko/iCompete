@@ -5,16 +5,15 @@ import com.icompete.dao.UserDao;
 import com.icompete.entity.Sport;
 import com.icompete.entity.User;
 import com.icompete.enums.UserType;
-import org.springframework.stereotype.Service;
-
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import javax.inject.Inject;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
+import javax.inject.Inject;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Peter Sekan, peter.sekan@mail.muni.cz
@@ -57,6 +56,7 @@ public class UserServiceImpl implements UserService {
     public boolean authenticateUser(User user, String unencryptedPassword) {
         if (user == null) throw new IllegalArgumentException("Argument user is null.");
         if (unencryptedPassword == null) throw new IllegalArgumentException("Argument unencryptedPassword is null.");
+
         User userExisted = getUsersByUserName(user.getUserName());
         return userExisted != null && validatePassword(unencryptedPassword, userExisted.getPassword());
     }
@@ -79,8 +79,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         if (user == null) throw new IllegalArgumentException("Argument user is null.");
-        User userExisted = userDao.findById(user.getId());
-        user.setPassword(userExisted.getPassword());
+
         userDao.update(user);
     }
 
