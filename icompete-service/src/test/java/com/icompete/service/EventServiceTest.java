@@ -36,7 +36,7 @@ public class EventServiceTest extends AbstractTestNGSpringContextTests {
     private EventService eventService;
 
     @BeforeMethod
-    public void createOrders() {
+    public void createEvent() {
         event.setAddress("test");
         event.setName("test event");
 

@@ -10,11 +10,14 @@ import com.icompete.exception.EntityNotFoundException;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import javax.xml.ws.ServiceMode;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Peter Sekan, peter.sekan@mail.muni.cz
  * @version 23/11/2016
  */
+@Service
 public interface EventFacade {
     Long createEvent(EventDTO event);
     EventDTO getEventById(Long id);
@@ -22,7 +25,7 @@ public interface EventFacade {
     Collection<EventDTO> getEventsBySport(SportDTO sport);
     Collection<EventDTO> getEventsByName(String name);
     Collection<EventDTO> getEventBetweenDates(Date dateFrom, Date dateTo);
-    void updateEvent(EventDTO event) throws EntityNotFoundException;
+    void updateEvent(EventDTO event);
     void deleteEvent(EventDTO event) throws EntityNotFoundException;
     List<ResultDTO> getEventResults(EventDTO event) throws EntityNotFoundException;
     List<EventDTO> findEventsStartBetween(Date startDate, Date endDate);

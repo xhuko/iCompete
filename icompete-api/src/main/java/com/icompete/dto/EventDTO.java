@@ -30,6 +30,10 @@ public class EventDTO {
     public long getId() {
         return id;
     }
+    
+    public void setId(Long id){
+        this.id = id;
+    }
 
     public SportDTO getSport() {
         return sport;

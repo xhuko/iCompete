@@ -18,6 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -27,35 +28,46 @@ import org.testng.annotations.Test;
 @ContextConfiguration(classes = ServiceConfiguration.class)
 public class UserFacadeTest extends AbstractTestNGSpringContextTests {
 
-    private final UserDTO userDTO = new UserDTO();
-    
     @Mock
     private UserService userService;
-    
+
     @Inject
     @InjectMocks
     private UserFacade userFacade;
-    
+
     @BeforeClass
     public void setup() throws ServiceException {
         MockitoAnnotations.initMocks(this);
     }
-    
+
     @Test
-    public void testCreateUser() throws EntityNotFoundException{
-       
+    public void testCreateUser() throws EntityNotFoundException {
+        UserDTO userDTO = new UserDTO();
         userDTO.setEmail("email@gmail.com");
         userDTO.setFirstName("first name");
         userDTO.setLastName("last name");
         userDTO.setPassword("password");
         userDTO.setUserName("username");
+
         userDTO.setUserType(UserType.SPORTSMAN);
         User user = new User();
-        //when(userService.createUser(user, userDTO.getPassword())).thenReturn(Long.MIN_VALUE);
-        //when(userService.authenticateUser(any(), any())).thenReturn(Boolean.TRUE);
-        //when(beanMappingService.mapTo(userDTO, User.class)).thenReturn(user);
+        when(userService.createUser(user, userDTO.getPassword())).thenReturn(Long.MIN_VALUE);
 
-        //Assert.assertEquals((Object)userFacade.createUser(userDTO),Boolean.TRUE);
+        //Assert.assertEquals((Object) userFacade.createUser(userDTO), Boolean.TRUE);
     }
-    
+
+    @Test
+    public void testAuthenticateUser() {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setEmail("email@gmail.com");
+        userDTO.setFirstName("first name");
+        userDTO.setLastName("last name");
+        userDTO.setPassword("password");
+        userDTO.setUserName("username");
+
+        when(userService.authenticateUser(any(), any())).thenReturn(Boolean.TRUE);
+        //Assert.assertTrue(userFacade.authenticateUser(userDTO));
+
+    }
+
 }

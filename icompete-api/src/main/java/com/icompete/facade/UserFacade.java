@@ -1,17 +1,17 @@
 package com.icompete.facade;
 
 import com.icompete.dto.UserDTO;
-import com.icompete.dto.SportDTO;
 import com.icompete.enums.UserType;
 import com.icompete.exception.EntityNotFoundException;
 
 import java.util.Collection;
-import java.util.Date;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Peter Sekan, peter.sekan@mail.muni.cz
  * @version 23/11/2016
  */
+@Service
 public interface UserFacade {
     Long createUser(UserDTO user) throws EntityNotFoundException;
     boolean authenticateUser(UserDTO user);

@@ -23,6 +23,10 @@ public class UserDTO {
     private Set<SportDTO> preferredSports = new HashSet<>();
     private UserType userType = UserType.SPORTSMAN;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getUserName() {
         return userName;
     }
