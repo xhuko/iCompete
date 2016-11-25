@@ -31,7 +31,7 @@ public class Result {
     @Column(nullable = false)
     private int position;
     
-    @Temporal(value = TemporalType.DATE)
+    @Temporal(value = TemporalType.TIMESTAMP)
     private Date creationDate;
 
     public Long getId() {
