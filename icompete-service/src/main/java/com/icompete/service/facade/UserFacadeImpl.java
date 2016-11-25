@@ -7,11 +7,10 @@ import com.icompete.exception.EntityNotFoundException;
 import com.icompete.facade.UserFacade;
 import com.icompete.service.BeanMappingService;
 import com.icompete.service.UserService;
+import java.util.Collection;
+import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.inject.Inject;
-import java.util.Collection;
 
 /**
  * @author Peter Sekan, peter.sekan@mail.muni.cz

@@ -1,10 +1,11 @@
 package com.icompete.service.facade;
 
 import com.icompete.dto.EventDTO;
-import com.icompete.dto.EventResultsDTO;
+import com.icompete.dto.ResultDTO;
 import com.icompete.dto.SportDTO;
 import com.icompete.dto.UserDTO;
 import com.icompete.entity.Event;
+import com.icompete.entity.Result;
 import com.icompete.entity.Rule;
 import com.icompete.entity.Sport;
 import com.icompete.entity.User;
@@ -12,17 +13,22 @@ import com.icompete.exception.EntityNotFoundException;
 import com.icompete.facade.EventFacade;
 import com.icompete.service.BeanMappingService;
 import com.icompete.service.EventService;
+import com.icompete.service.ResultService;
 import com.icompete.service.UserService;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Xhulio
  */
+@Service
+@Transactional
 public class EventFacadeImpl implements EventFacade {
 
     @Inject
@@ -30,6 +36,9 @@ public class EventFacadeImpl implements EventFacade {
     
     @Inject
     private UserService userService;
+    
+    @Inject
+    private ResultService resultService;
 
     @Inject
     private BeanMappingService beanMappingService;
@@ -120,13 +129,14 @@ public class EventFacadeImpl implements EventFacade {
     }
 
     @Override
-    public void updateResults(EventResultsDTO erdto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public EventResultsDTO getEventResults(EventDTO edto) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<ResultDTO> getEventResults(EventDTO edto) {
+        if(edto == null){
+            throw new IllegalArgumentException("Event is null");
+        }
+        
+        List<Result> eventResults = resultService.findResultByEvent(beanMappingService.mapTo(edto, Event.class));
+        
+        return  beanMappingService.mapTo(eventResults,ResultDTO.class);
     }
 
     @Override
@@ -152,7 +162,6 @@ public class EventFacadeImpl implements EventFacade {
         }
         
         return eventService.registerUserToEvent(userToRegister, eventToUse);
- 
     }
 
 }

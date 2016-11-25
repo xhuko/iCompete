@@ -1,25 +1,17 @@
 package com.icompete.service;
 
-import com.icompete.dao.EventDao;
 import com.icompete.dao.RegistrationDao;
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
-import com.icompete.entity.Sport;
 import com.icompete.entity.User;
 import com.icompete.service.config.ServiceConfiguration;
 import java.util.Collections;
 import javax.inject.Inject;
 import org.hibernate.service.spi.ServiceException;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.mockito.stubbing.Stubber;
-import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -32,13 +24,9 @@ import org.testng.annotations.Test;
  * @author Xhulio
  */
 @ContextConfiguration(classes = ServiceConfiguration.class)
-@RunWith(MockitoJUnitRunner.class)
 public class EventServiceTest extends AbstractTestNGSpringContextTests {
 
-    private Event event = new Event();
-
-    @Mock
-    private EventDao eventDao;
+    private final Event event = new Event();
 
     @Mock
     private RegistrationDao registrationDao;
@@ -61,47 +49,49 @@ public class EventServiceTest extends AbstractTestNGSpringContextTests {
     public void setup() throws ServiceException {
         MockitoAnnotations.initMocks(this);
     }
-
-//    @Rule
-//    public ExpectedException expectedException = ExpectedException.none();
+    
     @Test
-    public void emptyPlacesInEventTest() {
-
+    public void testEmptyPlacesInEvent() {
         event.setCapacity(5);
         Assert.assertEquals(eventService.emptyPlacesInEvent(event), 4);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void emptyPlacesInEventNullTest() {
+    public void testEmptyPlacesInEventNull() {
 
         eventService.emptyPlacesInEvent(null);
 
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void registerUserToEventNullUserTest() {
+    public void testRegisterUserToEventNullUser() {
         eventService.registerUserToEvent(null, new Event());
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void registerUserToEventNullEventTest() {
+    public void testRegisterUserToEventNullEvent() {
         eventService.registerUserToEvent(new User(), null);
     }
 
     @Test
-    public void registerUserToEventWithoutEmptyPlaceTest() {
+    public void testRegisterUserToEventWithoutEmptyPlace() {
         event.setCapacity(1);
 
         Assert.assertFalse(eventService.registerUserToEvent(new User(), event));
     }
 
     @Test
-    public void registerUserToEventWithEmptyPlaceTest() {
+    public void testRegisterUserToEventWithEmptyPlace() {
 
         event.setCapacity(2);
 
         doNothing().when(registrationDao).create(any());
 
         Assert.assertTrue(eventService.registerUserToEvent(new User(), event));
+    }
+    
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void testFindEventBySportNullSport(){
+        eventService.findEventsBySport(null);
     }
 }
