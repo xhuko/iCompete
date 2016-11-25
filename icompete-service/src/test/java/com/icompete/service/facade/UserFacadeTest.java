@@ -70,10 +70,10 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests {
         user.setLastName(lastName);
         String password = "password";
         userDTO.setPassword(password);
-        user.setPassword(email);
+        user.setPassword(password);
         String userName = "userName";
-        userDTO.setUserName(email);
-        user.setUserName(email);
+        userDTO.setUserName(userName);
+        user.setUserName(userName);
         userDTO.setUserType(UserType.SPORTSMAN);
         user.setUserType(UserType.SPORTSMAN);
 
@@ -97,8 +97,8 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testAuthenticateUser() {
-        when(userService.authenticateUser(user, any())).thenReturn(Boolean.FALSE);
         when(userService.authenticateUser(user, userDTO.getPassword())).thenReturn(Boolean.TRUE);
+        when(userService.authenticateUser(user, "pass2")).thenReturn(Boolean.FALSE);
         Assert.assertTrue(userFacade.authenticateUser(userDTO));
         userDTO.setPassword("pass2");
         Assert.assertFalse(userFacade.authenticateUser(userDTO));
@@ -122,17 +122,8 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void testGetUserByRole() {
-        List<User> list = new ArrayList<>();
-        list.add(user);
-        when(userService.getUsersByRole(UserType.SPORTSMAN)).thenReturn(list);
-        when(userService.getUsersByRole(UserType.ADMIN)).thenReturn(new ArrayList<User>());
-        Assert.assertEquals(list, userFacade.getUsersByRole(UserType.SPORTSMAN));
-        Assert.assertTrue(userFacade.getUsersByRole(UserType.ADMIN).size() == 0);
-    }
-
-    @Test
     public void testUpdate() throws Exception {
+        when(userService.getUserById(any())).thenReturn(user);
         userFacade.updateUser(userDTO);
         verify(userService, times(1)).updateUser(user);
         verify(userService, times(1)).updateUser(any());
@@ -140,6 +131,7 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testDelete() throws Exception {
+        when(userService.getUserById(any())).thenReturn(user);
         userFacade.deleteUser(userDTO);
         verify(userService, times(1)).deleteUser(user);
         verify(userService, times(1)).deleteUser(any());
