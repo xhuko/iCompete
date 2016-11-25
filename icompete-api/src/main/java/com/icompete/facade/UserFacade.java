@@ -13,9 +13,9 @@ import java.util.Date;
  * @version 23/11/2016
  */
 public interface UserFacade {
-    Long createUser(UserDTO user) throws EntityNotFoundException;
+    Long createUser(UserDTO user);
     boolean authenticateUser(UserDTO user);
-    UserDTO getUserById(Long id) throws EntityNotFoundException;
+    UserDTO getUserById(Long id);
     UserDTO getUsersByUserName(String userName);
     Collection<UserDTO> getUsersByRole(UserType role);
     void updateUser(UserDTO user) throws EntityNotFoundException;

@@ -27,12 +27,8 @@ public class UserFacadeImpl implements UserFacade {
     private BeanMappingService beanMappingService;
 
     @Override
-    public Long createUser(UserDTO user) throws EntityNotFoundException {
-        Long id = userService.createUser(beanMappingService.mapTo(user, User.class), user.getPassword());
-        if (id == null) {
-            throw new EntityNotFoundException("User");
-        }
-        return id;
+    public Long createUser(UserDTO user) {
+        return userService.createUser(beanMappingService.mapTo(user, User.class), user.getPassword());
     }
 
     @Override
@@ -42,7 +38,7 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public UserDTO getUserById(Long id) throws EntityNotFoundException {
+    public UserDTO getUserById(Long id) {
         User user = userService.getUserById(id);
         if (user == null) return null;
         UserDTO userDTO = beanMappingService.mapTo(user, UserDTO.class);
