@@ -32,7 +32,7 @@ public class Registration {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
     
-    @Temporal(value = TemporalType.DATE)
+    @Temporal(value = TemporalType.TIMESTAMP)
     private Date creationDate;
 
     public Long getId() {

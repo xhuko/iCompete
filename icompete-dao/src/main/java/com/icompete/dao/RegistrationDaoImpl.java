@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.icompete.dao;
 
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
+import com.icompete.entity.User;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -55,6 +51,14 @@ public class RegistrationDaoImpl implements RegistrationDao{
     public List<Registration> findByEvent(Event event) {
         TypedQuery<Registration> query = em.createQuery("SELECT t FROM Registration t WHERE t.event = :eventId",Registration.class);
         query.setParameter("eventId", event);
+        
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Registration> findByUser(User user) {
+        TypedQuery<Registration> query = em.createQuery("SELECT t FROM Registration t WHERE t.user = :userId",Registration.class);
+        query.setParameter("userId", user);
         
         return query.getResultList();
     }

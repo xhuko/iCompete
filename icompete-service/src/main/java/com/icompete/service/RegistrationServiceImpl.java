@@ -3,9 +3,7 @@ package com.icompete.service;
 import com.icompete.dao.RegistrationDao;
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
-import com.icompete.entity.Result;
 import com.icompete.entity.User;
-import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
@@ -52,16 +50,6 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Override
     public List<Registration> findRegistrationsByUser(User user) {
-        List<Registration> results = new ArrayList<>();
-        if(user == null){
-            return results;
-        }
-        List<Registration> allRegistrations = this.registration.findAll();
-        for(Registration item : allRegistrations){
-            if(item.getUser().equals(user)){
-                results.add(item);
-            }
-        }
-        return results; 
+        return this.registration.findByUser(user);
     }
 }
