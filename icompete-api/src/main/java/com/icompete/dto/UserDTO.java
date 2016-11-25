@@ -16,6 +16,7 @@ public class UserDTO {
     private String userName;
     private String firstName;
     private String lastName;
+    private String password;
     private Date birthDate;
     private String address = "";
     private String email = "";
@@ -88,6 +89,14 @@ public class UserDTO {
 
     public Long getId() {
         return id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

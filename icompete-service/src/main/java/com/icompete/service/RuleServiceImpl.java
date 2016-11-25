@@ -2,6 +2,7 @@ package com.icompete.service;
 
 import com.icompete.dao.RuleDao;
 import com.icompete.entity.Rule;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -10,6 +11,7 @@ import java.util.Collection;
  * @author Peter Sekan, peter.sekan@mail.muni.cz
  * @version 25/11/2016
  */
+@Service
 public class RuleServiceImpl implements RuleService {
 
     @Inject

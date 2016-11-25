@@ -35,6 +35,7 @@ public class UserDaoTest extends AbstractTestNGSpringContextTests {
         user.setLastName("Lastname");
         user.setAddress("Address");
         user.setEmail("Email");
+        user.setPassword("Password");
         user.setUserType(UserType.SPORTSMAN);
         user.setBirthDate(birthDate);
     }

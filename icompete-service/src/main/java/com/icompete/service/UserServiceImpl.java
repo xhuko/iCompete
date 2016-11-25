@@ -5,6 +5,7 @@ import com.icompete.dao.UserDao;
 import com.icompete.entity.Sport;
 import com.icompete.entity.User;
 import com.icompete.enums.UserType;
+import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -19,6 +20,7 @@ import java.util.Set;
  * @author Peter Sekan, peter.sekan@mail.muni.cz
  * @version 25/11/2016
  */
+@Service
 public class UserServiceImpl implements UserService {
 
     @Inject
@@ -55,8 +57,8 @@ public class UserServiceImpl implements UserService {
     public boolean authenticateUser(User user, String unencryptedPassword) {
         if (user == null) throw new IllegalArgumentException("Argument user is null.");
         if (unencryptedPassword == null) throw new IllegalArgumentException("Argument unencryptedPassword is null.");
-
-        return validatePassword(unencryptedPassword, user.getPassword());
+        User userExisted = getUsersByUserName(user.getUserName());
+        return userExisted != null && validatePassword(unencryptedPassword, userExisted.getPassword());
     }
 
     @Override
@@ -77,6 +79,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         if (user == null) throw new IllegalArgumentException("Argument user is null.");
+        User userExisted = userDao.findById(user.getId());
+        user.setPassword(userExisted.getPassword());
         userDao.update(user);
     }
 
