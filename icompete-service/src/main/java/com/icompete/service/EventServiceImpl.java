@@ -61,7 +61,7 @@ public class EventServiceImpl implements EventService {
     }
     
     @Override
-    public List<Event> findEventsBetweenDates(Date startDate, Date endDate) {
+    public List<Event> findEventsBetween(Date startDate, Date endDate) {
         return eventDao.findEventsBetween(startDate, endDate);
     }
 
@@ -76,7 +76,19 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void registerUserToEvent(User user, Event event) {
+    public boolean registerUserToEvent(User user, Event event) {
+        
+        if(user == null){
+            throw new IllegalArgumentException("User is null");
+        }
+        
+        if(event == null){
+            throw new IllegalArgumentException("Event is null");
+        }
+        
+        if(!eventHasEmptyPlaces(event)){
+            return false;
+        }
         
         Registration registration = new Registration();
         registration.setUser(user);
@@ -84,18 +96,25 @@ public class EventServiceImpl implements EventService {
         registration.setCreationDate(new Date());
         
         registrationDao.create(registration);
+        
+        return true;
     }
     
-    public int emptyPlaceInEvent(Event event){
-        int usedPlaces = registrationDao.findByEvent(event).size();
+    @Override
+    public int emptyPlacesInEvent(Event event){
+        if(event == null){
+            throw new IllegalArgumentException("Event is null");
+        }
         
+        int usedPlaces = registrationDao.findByEvent(event).size();
         int emptyPlaces = event.getCapacity() - usedPlaces;
         
         return emptyPlaces;
     }
     
+    @Override
     public Boolean eventHasEmptyPlaces(Event event){
-        return emptyPlaceInEvent(event) != 0;
+        return emptyPlacesInEvent(event) > 0;
     }
 
     

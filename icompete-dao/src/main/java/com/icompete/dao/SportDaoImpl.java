@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public class SportDaoImpl implements SportDao{
 
-    @PersistenceContext(unitName = "default")
+    @PersistenceContext
     private EntityManager em;
     
     @Override

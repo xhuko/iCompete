@@ -1,5 +1,6 @@
 package com.icompete.dao;
 
+import com.icompete.PersistenceSampleApplicationContext;
 import com.icompete.dao.EventDao;
 import com.icompete.dao.RegistrationDao;
 import com.icompete.dao.ResultDao;
@@ -16,12 +17,15 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
+import org.springframework.dao.DataAccessException;
 
 /**
  *
  * @author Bohumel
  */
-@ContextConfiguration(locations = "file:src/main/resources/spring-config.xml")
+@ContextConfiguration(classes=PersistenceSampleApplicationContext.class)
+@Transactional
 public class ResultDaoTest extends AbstractTestNGSpringContextTests {
        
     @Inject
@@ -153,5 +157,12 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertNotNull(resultDao.findById(testResult.getId()));
         resultDao.delete(testResult);
         Assert.assertNull(resultDao.findById(testResult.getId()));
+    }
+    
+    @Test(expectedExceptions = DataAccessException.class)
+    public void checkDataAccessExceptionIsThrownTest() {
+        
+        resultDao.delete(new Result());
+        
     }
 }

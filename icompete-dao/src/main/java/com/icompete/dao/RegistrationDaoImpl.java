@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
 @Transactional
 public class RegistrationDaoImpl implements RegistrationDao{
 
-    @PersistenceContext(unitName = "default")
+    @PersistenceContext
     private EntityManager em;
 
     @Override

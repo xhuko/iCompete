@@ -1,6 +1,8 @@
 package com.icompete.dao;
 
+import com.icompete.PersistenceSampleApplicationContext;
 import com.icompete.dao.SportDao;
+import com.icompete.entity.Registration;
 import com.icompete.entity.Sport;
 import com.icompete.enums.SportType;
 import org.springframework.test.context.ContextConfiguration;
@@ -9,12 +11,15 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
+import org.springframework.dao.DataAccessException;
 
 /**
  * Class to test SportDao CRUD operations
  * @author Xhulio
  */
-@ContextConfiguration(locations = "file:src/main/resources/spring-config.xml")
+@ContextConfiguration(classes=PersistenceSampleApplicationContext.class)
+@Transactional
 public class SportDaoTest extends AbstractTestNGSpringContextTests {
 
     @Inject
@@ -80,5 +85,12 @@ public class SportDaoTest extends AbstractTestNGSpringContextTests {
         sportDao.delete(sport);
         
         Assert.assertNull(sportDao.findById(sport.getId()));
+    }
+    
+    @Test(expectedExceptions = DataAccessException.class)
+    public void checkDataAccessExceptionIsThrownTest() {
+        
+        sportDao.delete(new Sport());
+        
     }
 }

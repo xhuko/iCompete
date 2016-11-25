@@ -1,7 +1,9 @@
 package com.icompete.dao;
 
+import com.icompete.PersistenceSampleApplicationContext;
 import com.icompete.dao.RuleDao;
 import com.icompete.entity.Event;
+import com.icompete.entity.Registration;
 import com.icompete.entity.Rule;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -9,12 +11,15 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
+import org.springframework.dao.DataAccessException;
 
 /**
  * Class to test RuleDao CRUD operations
  * @author Xhulio
  */
-@ContextConfiguration(locations = "file:src/main/resources/spring-config.xml")
+@ContextConfiguration(classes=PersistenceSampleApplicationContext.class)
+@Transactional
 public class RuleDaoTest extends AbstractTestNGSpringContextTests {
     @Inject
     private RuleDao ruleDao;
@@ -95,5 +100,12 @@ public class RuleDaoTest extends AbstractTestNGSpringContextTests {
         
         Rule savedRule = ruleDao.findById(rule.getId());
         Assert.assertNotNull(savedRule.getEvent());
+    }
+    
+    @Test(expectedExceptions = DataAccessException.class)
+    public void checkDataAccessExceptionIsThrownTest() {
+        
+        ruleDao.delete(new Rule());
+        
     }
 }
