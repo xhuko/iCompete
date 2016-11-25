@@ -43,7 +43,7 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests {
     private BeanMappingService beanMappingService;
 
     @InjectMocks
-    private UserFacade userFacade;
+    private UserFacadeImpl userFacade;
 
     @BeforeClass
     public void setup() throws ServiceException {
@@ -76,7 +76,7 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testCreateUser() throws EntityNotFoundException{
-        when(userService.createUser(user, user.getPassword())).thenReturn(1L);
+        when(userService.createUser(user, userDTO.getPassword())).thenReturn(1L);
         when(userService.getUsersByUserName(user.getUserName())).thenReturn(null);
         when(userService.authenticateUser(any(), any())).thenReturn(Boolean.TRUE);
 

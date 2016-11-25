@@ -36,9 +36,8 @@ public class ResultServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private ResultDao resultDao;
 
-    @Inject
     @InjectMocks
-    private ResultService resultService;
+    private ResultServiceImpl resultService;
 
     @BeforeMethod
     public void createOrders() {

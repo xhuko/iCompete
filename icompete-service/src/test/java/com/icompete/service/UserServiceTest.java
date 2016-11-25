@@ -41,9 +41,8 @@ public class UserServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private SportDao sportDao;
 
-    @Inject
     @InjectMocks
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @BeforeClass
     public void setup() throws ServiceException {

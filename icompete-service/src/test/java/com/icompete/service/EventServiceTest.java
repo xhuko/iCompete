@@ -31,9 +31,8 @@ public class EventServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private RegistrationDao registrationDao;
 
-    @Inject
     @InjectMocks
-    private EventService eventService;
+    private EventServiceImpl eventService;
 
     @BeforeMethod
     public void createOrders() {

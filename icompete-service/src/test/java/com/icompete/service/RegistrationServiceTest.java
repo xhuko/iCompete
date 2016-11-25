@@ -42,9 +42,8 @@ public class RegistrationServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private RegistrationDao registrationDao;
 
-    @Inject
     @InjectMocks
-    private RegistrationService registrationService;
+    private RegistrationServiceImpl registrationService;
 
     @BeforeMethod
     public void createOrders() {

@@ -10,7 +10,10 @@ import com.icompete.enums.UserType;
 import com.icompete.exception.EntityNotFoundException;
 import com.icompete.facade.EventFacade;
 import com.icompete.facade.UserFacade;
+import com.icompete.service.BeanMappingService;
 import com.icompete.service.EventService;
+import com.icompete.service.ResultService;
+import com.icompete.service.UserService;
 import com.icompete.service.config.ServiceConfiguration;
 import javax.inject.Inject;
 import org.hibernate.service.spi.ServiceException;
@@ -34,12 +37,20 @@ public class EventFacadeTest extends AbstractTestNGSpringContextTests {
 
     private final EventDTO eventDTO = new EventDTO();
 
-    @Inject
     @InjectMocks
-    private EventFacade eventFacade;
+    private EventFacadeImpl eventFacade;
 
     @Mock
     private EventService eventService;
+
+    @Mock
+    private UserService userService;
+
+    @Mock
+    private ResultService resultService;
+
+    @Mock
+    private BeanMappingService beanMappingService;
 
     @BeforeClass
     public void setup() throws ServiceException {
