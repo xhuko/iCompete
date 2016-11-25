@@ -4,6 +4,8 @@ import com.icompete.dao.EventDao;
 import com.icompete.dao.RegistrationDao;
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
+import com.icompete.entity.Sport;
+import com.icompete.entity.User;
 import com.icompete.service.config.ServiceConfiguration;
 import java.util.Collections;
 import javax.inject.Inject;
@@ -12,17 +14,18 @@ import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import static org.mockito.Matchers.any;
 import org.mockito.Mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.stubbing.Stubber;
+import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.testng.annotations.Test;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 /**
  *
@@ -31,6 +34,8 @@ import org.testng.annotations.BeforeMethod;
 @ContextConfiguration(classes = ServiceConfiguration.class)
 @RunWith(MockitoJUnitRunner.class)
 public class EventServiceTest extends AbstractTestNGSpringContextTests {
+
+    private Event event = new Event();
 
     @Mock
     private EventDao eventDao;
@@ -41,14 +46,14 @@ public class EventServiceTest extends AbstractTestNGSpringContextTests {
     @Inject
     @InjectMocks
     private EventService eventService;
-    
-    @Rule
-    public final ExpectedException exception = ExpectedException.none();
-    
+
     @BeforeMethod
     public void createOrders() {
+        event.setAddress("test");
+        event.setName("test event");
+
         Registration registration = new Registration();
-        
+
         when(registrationDao.findByEvent(any())).thenReturn(Collections.singletonList(registration));
     }
 
@@ -56,22 +61,47 @@ public class EventServiceTest extends AbstractTestNGSpringContextTests {
     public void setup() throws ServiceException {
         MockitoAnnotations.initMocks(this);
     }
-    
+
+//    @Rule
+//    public ExpectedException expectedException = ExpectedException.none();
     @Test
     public void emptyPlacesInEventTest() {
-        Event event = new Event();
-        event.setAddress("test");
-        event.setCapacity(5);
-        event.setName("test event");
 
+        event.setCapacity(5);
         Assert.assertEquals(eventService.emptyPlacesInEvent(event), 4);
-        
     }
-    
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void emptyPlacesInEventNullTest() {
+
+        eventService.emptyPlacesInEvent(null);
+
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void registerUserToEventNullUserTest() {
+        eventService.registerUserToEvent(null, new Event());
+    }
+
+    @Test(expectedExceptions = IllegalArgumentException.class)
+    public void registerUserToEventNullEventTest() {
+        eventService.registerUserToEvent(new User(), null);
+    }
+
     @Test
-    public void emptyPlacesInEventNullTest(){
-//        exception.expect(IllegalArgumentException.class);
-//        eventService.emptyPlacesInEvent(null);
-        
+    public void registerUserToEventWithoutEmptyPlaceTest() {
+        event.setCapacity(1);
+
+        Assert.assertFalse(eventService.registerUserToEvent(new User(), event));
+    }
+
+    @Test
+    public void registerUserToEventWithEmptyPlaceTest() {
+
+        event.setCapacity(2);
+
+        doNothing().when(registrationDao).create(any());
+
+        Assert.assertTrue(eventService.registerUserToEvent(new User(), event));
     }
 }

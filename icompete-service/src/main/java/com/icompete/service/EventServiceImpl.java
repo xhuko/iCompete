@@ -78,6 +78,14 @@ public class EventServiceImpl implements EventService {
     @Override
     public boolean registerUserToEvent(User user, Event event) {
         
+        if(user == null){
+            throw new IllegalArgumentException("User is null");
+        }
+        
+        if(event == null){
+            throw new IllegalArgumentException("Event is null");
+        }
+        
         if(!eventHasEmptyPlaces(event)){
             return false;
         }
@@ -98,7 +106,6 @@ public class EventServiceImpl implements EventService {
             throw new IllegalArgumentException("Event is null");
         }
         
-        System.out.println(event.getCapacity());
         int usedPlaces = registrationDao.findByEvent(event).size();
         int emptyPlaces = event.getCapacity() - usedPlaces;
         

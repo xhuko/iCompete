@@ -18,6 +18,7 @@ import org.testng.annotations.Test;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import org.springframework.dao.DataAccessException;
 
 /**
  *
@@ -156,5 +157,12 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         Assert.assertNotNull(resultDao.findById(testResult.getId()));
         resultDao.delete(testResult);
         Assert.assertNull(resultDao.findById(testResult.getId()));
+    }
+    
+    @Test(expectedExceptions = DataAccessException.class)
+    public void checkDataAccessExceptionIsThrownTest() {
+        
+        resultDao.delete(new Result());
+        
     }
 }

@@ -16,6 +16,7 @@ import org.testng.Assert;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import org.springframework.dao.DataAccessException;
 
 /**
  * Class to test EventDao CRUD operations
@@ -227,6 +228,13 @@ public class EventDaoTest extends AbstractTestNGSpringContextTests {
         Date endDate = calendar.getTime();
         
         Assert.assertEquals(eventDao.findEventEndBetween(startDate, endDate).size(), 2);
+        
+    }
+    
+    @Test(expectedExceptions = DataAccessException.class)
+    public void checkDataAccessExceptionIsThrownTest() {
+        
+        eventDao.delete(new Event());
         
     }
 }
