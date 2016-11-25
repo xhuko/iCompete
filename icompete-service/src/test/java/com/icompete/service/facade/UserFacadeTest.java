@@ -1,10 +1,11 @@
-package com.icompete.service;
+package com.icompete.service.facade;
 
 import com.icompete.dto.UserDTO;
 import com.icompete.entity.User;
 import com.icompete.enums.UserType;
 import com.icompete.exception.EntityNotFoundException;
 import com.icompete.facade.UserFacade;
+import com.icompete.service.UserService;
 import com.icompete.service.config.ServiceConfiguration;
 import javax.inject.Inject;
 import org.hibernate.service.spi.ServiceException;
