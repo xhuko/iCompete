@@ -33,10 +33,10 @@ public class EventFacadeImpl implements EventFacade {
 
     @Inject
     private EventService eventService;
-    
+
     @Inject
     private UserService userService;
-    
+
     @Inject
     private ResultService resultService;
 
@@ -64,7 +64,12 @@ public class EventFacadeImpl implements EventFacade {
     @Override
     public EventDTO getEventById(Long l) {
         Event event = eventService.findById(l);
-        return event == null ? null : beanMappingService.mapTo(eventService.findById(l), EventDTO.class);
+        EventDTO foundEventDTO = (event == null ? null : beanMappingService.mapTo(event, EventDTO.class));
+        if (foundEventDTO != null) {
+            foundEventDTO.setId(event.getId());
+        }
+
+        return foundEventDTO;
     }
 
     @Override
@@ -74,11 +79,11 @@ public class EventFacadeImpl implements EventFacade {
 
     @Override
     public Collection<EventDTO> getEventsBySport(SportDTO sportDTO) {
-        
-        if(sportDTO == null){
+
+        if (sportDTO == null) {
             throw new IllegalArgumentException("Sport is null");
         }
-        
+
         List<Event> foundEvents = eventService.findEventsBySport(beanMappingService.mapTo(sportDTO, Sport.class));
         return beanMappingService.mapTo(foundEvents, EventDTO.class);
     }
@@ -86,7 +91,7 @@ public class EventFacadeImpl implements EventFacade {
     @Override
     public Collection<EventDTO> getEventsByName(String searchTerm) {
         List<Event> foundEvents = eventService.findEventsByName(searchTerm);
-        
+
         return beanMappingService.mapTo(foundEvents, EventDTO.class);
     }
 
@@ -97,13 +102,13 @@ public class EventFacadeImpl implements EventFacade {
 
     @Override
     public List<EventDTO> findEventsStartBetween(Date startDate, Date endDate) {
-        return beanMappingService.mapTo(eventService.findEventsStartBetween(startDate, endDate),EventDTO.class);
+        return beanMappingService.mapTo(eventService.findEventsStartBetween(startDate, endDate), EventDTO.class);
 
     }
 
     @Override
-    public List<EventDTO> findEventsEndBetween(Date startDate, Date endDate){
-        return beanMappingService.mapTo(eventService.findEventEndBetween(startDate, endDate),EventDTO.class);
+    public List<EventDTO> findEventsEndBetween(Date startDate, Date endDate) {
+        return beanMappingService.mapTo(eventService.findEventEndBetween(startDate, endDate), EventDTO.class);
     }
 
     @Override
@@ -130,37 +135,37 @@ public class EventFacadeImpl implements EventFacade {
 
     @Override
     public List<ResultDTO> getEventResults(EventDTO edto) {
-        if(edto == null){
+        if (edto == null) {
             throw new IllegalArgumentException("Event is null");
         }
-        
+
         List<Result> eventResults = resultService.findResultByEvent(beanMappingService.mapTo(edto, Event.class));
-        
-        return  beanMappingService.mapTo(eventResults,ResultDTO.class);
+
+        return beanMappingService.mapTo(eventResults, ResultDTO.class);
     }
 
     @Override
-    public boolean registerUserToEvent(UserDTO userDTO, EventDTO eventDTO) throws EntityNotFoundException{
-        
-        if(userDTO == null){
+    public boolean registerUserToEvent(UserDTO userDTO, EventDTO eventDTO) throws EntityNotFoundException {
+
+        if (userDTO == null) {
             throw new IllegalArgumentException("User is null");
         }
-        
-        if(eventDTO == null){
+
+        if (eventDTO == null) {
             throw new IllegalArgumentException("Event is null");
         }
-        
+
         User userToRegister = userService.getUserById(userDTO.getId());
         Event eventToUse = eventService.findById(eventDTO.getId());
-        
-        if(userToRegister == null){
+
+        if (userToRegister == null) {
             throw new EntityNotFoundException("User");
         }
-        
-        if(eventToUse == null){
+
+        if (eventToUse == null) {
             throw new EntityNotFoundException("Event");
         }
-        
+
         return eventService.registerUserToEvent(userToRegister, eventToUse);
     }
 

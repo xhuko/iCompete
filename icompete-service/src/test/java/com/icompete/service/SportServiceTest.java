@@ -31,8 +31,9 @@ public class SportServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private SportDao sportDao;
 
+    @Inject
     @InjectMocks
-    private SportServiceImpl sportService;
+    private SportService sportService;
 
     @BeforeMethod
     public void setup() {
