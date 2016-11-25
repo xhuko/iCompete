@@ -1,14 +1,15 @@
 package com.icompete.service;
 
 import com.icompete.entity.Rule;
-
 import java.util.Collection;
-import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Peter Sekan, peter.sekan@mail.muni.cz
  * @version 25/11/2016
  */
+
+@Service
 public interface RuleService {
     /**
      * Get all stored rules

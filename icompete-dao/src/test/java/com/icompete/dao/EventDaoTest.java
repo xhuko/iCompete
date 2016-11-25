@@ -126,6 +126,8 @@ public class EventDaoTest extends AbstractTestNGSpringContextTests {
         
         Assert.assertEquals(savedEvent.getRules().size(), 1);
         Assert.assertTrue(savedEvent.getRules().contains(archeryRule));
+        
+        eventDao.delete(archeryEvent);
     }
     
     /**
@@ -163,6 +165,8 @@ public class EventDaoTest extends AbstractTestNGSpringContextTests {
         
         Assert.assertEquals(eventDao.findEventsBetween(startDate, endDate).size(), 2);
         
+        eventDao.delete(firstEvent);
+        eventDao.delete(secondEvent);
     }
     
     /**
@@ -196,6 +200,8 @@ public class EventDaoTest extends AbstractTestNGSpringContextTests {
         
         Assert.assertEquals(eventDao.findEventsStartBetween(startDate, endDate).size(), 2);
         
+        eventDao.delete(firstEvent);
+        eventDao.delete(secondEvent);
     }
     
     /**
@@ -229,6 +235,55 @@ public class EventDaoTest extends AbstractTestNGSpringContextTests {
         
         Assert.assertEquals(eventDao.findEventEndBetween(startDate, endDate).size(), 2);
         
+        eventDao.delete(firstEvent);
+        eventDao.delete(secondEvent);
+    }
+    
+    @Test
+    public void testFindEventsBySport(){
+        Event firstEvent = new Event();
+        firstEvent.setName("Archery event");
+        firstEvent.setAddress("Test adress");
+        firstEvent.setCapacity(45);
+        
+        Sport sport = new Sport();
+        sport.setName("Archery");
+        sport.setType(SportType.SUMMER);
+        sport.setDescription("Archery sport");
+        
+        firstEvent.setSport(sport);
+        
+        eventDao.create(firstEvent);
+        
+        List<Event> events = eventDao.findEventsBySport(sport);
+        
+        Assert.assertEquals(events.size(), 1);
+        
+        Assert.assertEquals(events.get(0), firstEvent);
+        
+        Assert.assertEquals(events.get(0).getSport(), sport);
+        
+        eventDao.delete(firstEvent);
+    }
+    
+    @Test
+    public void testFindEventsByName(){
+        Event firstEvent = new Event();
+        firstEvent.setName("Archery event");
+        firstEvent.setAddress("Test adress");
+        firstEvent.setCapacity(45);
+        
+        eventDao.create(firstEvent);
+        
+        List<Event> events = eventDao.findEventsByName("rcher");
+        
+        Assert.assertEquals(events.size(), 1);
+        
+        Assert.assertEquals(events.get(0), firstEvent);
+        
+        Assert.assertEquals(eventDao.findEventsByName("asdf").size(), 0);
+        
+        eventDao.delete(firstEvent);
     }
     
     @Test(expectedExceptions = DataAccessException.class)

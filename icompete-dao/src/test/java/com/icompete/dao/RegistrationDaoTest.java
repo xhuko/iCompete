@@ -54,6 +54,7 @@ public class RegistrationDaoTest extends AbstractTestNGSpringContextTests {
         testUser.setEmail("ILikeSports@gmail.com");
         testUser.setFirstName("Jozef");
         testUser.setLastName("Mak");
+        testUser.setPassword("Password");
         testUser.setUserName("BestSportsmanEUNE6");
         testUser.setUserType(UserType.SPORTSMAN);
         userDao.create(testUser);
@@ -97,6 +98,7 @@ public class RegistrationDaoTest extends AbstractTestNGSpringContextTests {
         testUser.setEmail("ILikeSports@gmail.com");
         testUser.setFirstName("Jozef");
         testUser.setLastName("Mak");
+        testUser.setPassword("Password");
         testUser.setUserName("BestSportsmanEUNE5");
         testUser.setUserType(UserType.SPORTSMAN);
         userDao.create(testUser);
@@ -131,6 +133,7 @@ public class RegistrationDaoTest extends AbstractTestNGSpringContextTests {
         testUser.setEmail("ILikeSports@gmail.com");
         testUser.setFirstName("Jozef");
         testUser.setLastName("Mak");
+        testUser.setPassword("Password");
         testUser.setUserName("BestSportsmanEUNE4");
         testUser.setUserType(UserType.SPORTSMAN);
         userDao.create(testUser);
@@ -158,6 +161,7 @@ public class RegistrationDaoTest extends AbstractTestNGSpringContextTests {
         testUser1.setEmail("ILikeSports@gmail.com");
         testUser1.setFirstName("Jozef");
         testUser1.setLastName("Mak");
+        testUser1.setPassword("Password");
         testUser1.setUserName("BestSportsmanEUNE3");
         testUser1.setUserType(UserType.SPORTSMAN);
         userDao.create(testUser1);
@@ -167,6 +171,7 @@ public class RegistrationDaoTest extends AbstractTestNGSpringContextTests {
         testUser2.setEmail("ILikeSports@gmail.com");
         testUser2.setFirstName("Jozef");
         testUser2.setLastName("Mak");
+        testUser2.setPassword("Password");
         testUser2.setUserName("BestSportsmanEUNE2");
         testUser2.setUserType(UserType.SPORTSMAN);
         userDao.create(testUser2);

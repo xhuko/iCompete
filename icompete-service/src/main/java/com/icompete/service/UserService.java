@@ -1,9 +1,8 @@
 package com.icompete.service;
 
-import com.icompete.entity.Sport;
 import com.icompete.entity.User;
 import com.icompete.enums.UserType;
-import com.icompete.exception.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
@@ -11,6 +10,7 @@ import java.util.Collection;
  * @author Peter Sekan, peter.sekan@mail.muni.cz
  * @version 24/11/2016
  */
+@Service
 public interface UserService {
     /**
      * Create new user

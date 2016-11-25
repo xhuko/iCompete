@@ -16,10 +16,8 @@ public interface UserFacade {
     Long createUser(UserDTO user) throws EntityNotFoundException;
     boolean authenticateUser(UserDTO user);
     UserDTO getUserById(Long id) throws EntityNotFoundException;
+    UserDTO getUsersByUserName(String userName);
     Collection<UserDTO> getUsersByRole(UserType role);
-    Collection<UserDTO> getUsersByUserName(String userName);
-    Collection<UserDTO> getUsersByEmailAddress(String email);
-    Collection<UserDTO> getUsersWithPreferredSport(SportDTO sport);
     void updateUser(UserDTO user) throws EntityNotFoundException;
     void deleteUser(UserDTO user) throws EntityNotFoundException;
 }

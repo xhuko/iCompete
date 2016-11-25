@@ -6,6 +6,7 @@
 package com.icompete.dao;
 
 import com.icompete.entity.Event;
+import com.icompete.entity.Sport;
 import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Repository;
@@ -32,8 +33,9 @@ public interface EventDao {
     /**
      * Add a new event in the database
      * @param event Event to save in the database
+     * @return Created event
      */
-    void create(Event event);
+    Event create(Event event);
     
     /**
      * Update existing event
@@ -71,4 +73,19 @@ public interface EventDao {
      * @return 
      */
     List<Event> findEventEndBetween(Date startDate, Date endDate);
+    
+    /**
+     * Find all events of a particular sport
+     * @param sport Sport for which to find events
+     * @return Found events
+     */
+    List<Event> findEventsBySport(Sport sport);
+    
+    /**
+     * Find all events that name contains a search term
+     * @param searchTerm Term to find in event name
+     * @return Found events
+     */
+    List<Event> findEventsByName(String searchTerm);
+    
 }

@@ -105,6 +105,10 @@ public class Event {
     public Set<Rule> getRules() {
         return rules;
     }
+    
+    public void setRules(Set<Rule> rules){
+        this.rules = rules;
+    }
 
     /**
      * Add rule for current event

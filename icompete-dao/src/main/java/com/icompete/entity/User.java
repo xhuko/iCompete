@@ -35,6 +35,9 @@ public class User {
     @NotNull
     private String lastName;
 
+    @NotNull
+    private String password;
+
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date birthDate;
 
@@ -117,6 +120,14 @@ public class User {
 
     public Long getId() {
         return id;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     @Override

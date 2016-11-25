@@ -28,19 +28,19 @@ public interface RuleDao {
     
     /**
      * Add a new rule in the database
-     * @param event Rule to save in the database
+     * @param rule Rule to save in the database
      */
-    void create(Rule event);
+    void create(Rule rule);
     
     /**
      * Update existing rule
-     * @param event Rule to update
+     * @param rule Rule to update
      */
-    void update(Rule event);
+    void update(Rule rule);
     
     /**
      * Delete existing rule
-     * @param event Rule to delete
+     * @param rule Rule to delete
      */
-    void delete(Rule event);
+    void delete(Rule rule);
 }

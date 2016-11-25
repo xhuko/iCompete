@@ -13,11 +13,13 @@ import java.util.Set;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.inject.Inject;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Peter Sekan, peter.sekan@mail.muni.cz
  * @version 25/11/2016
  */
+@Service
 public class UserServiceImpl implements UserService {
 
     @Inject
@@ -55,7 +57,8 @@ public class UserServiceImpl implements UserService {
         if (user == null) throw new IllegalArgumentException("Argument user is null.");
         if (unencryptedPassword == null) throw new IllegalArgumentException("Argument unencryptedPassword is null.");
 
-        return validatePassword(unencryptedPassword, user.getPassword());
+        User userExisted = getUsersByUserName(user.getUserName());
+        return userExisted != null && validatePassword(unencryptedPassword, userExisted.getPassword());
     }
 
     @Override
@@ -76,6 +79,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(User user) {
         if (user == null) throw new IllegalArgumentException("Argument user is null.");
+
         userDao.update(user);
     }
 

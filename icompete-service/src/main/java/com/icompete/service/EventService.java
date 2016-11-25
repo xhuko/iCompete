@@ -1,6 +1,7 @@
 package com.icompete.service;
 
 import com.icompete.entity.Event;
+import com.icompete.entity.Sport;
 import com.icompete.entity.User;
 import java.util.Date;
 import java.util.List;
@@ -21,7 +22,7 @@ public interface EventService {
     
     Event findById(Long id);
     
-    void create(Event event);
+    Event create(Event event);
     
     void update(Event event);
     
@@ -73,5 +74,19 @@ public interface EventService {
      * @return True if there are empty places or false otherwise
      */
     Boolean eventHasEmptyPlaces(Event event);
+    
+     /**
+     * Find all events of a particular sport
+     * @param sport Sport for which to find events
+     * @return Found events
+     */
+    List<Event> findEventsBySport(Sport sport);
+    
+    /**
+     * Find all events that name contains a search term
+     * @param searchTerm Term to find in event name
+     * @return Found events
+     */
+    List<Event> findEventsByName(String searchTerm);
     
 }
