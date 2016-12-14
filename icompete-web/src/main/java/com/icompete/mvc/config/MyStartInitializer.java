@@ -5,18 +5,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 import javax.servlet.Filter;
 
-/**
- * Replaces web.xml file.
- * Extends the class {@link org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer} that
- * <ul>
- * <li>creates spring context specified in class returned by {@link #getRootConfigClasses()}</li>
- * <li>initializes {@link org.springframework.web.servlet.DispatcherServlet Spring MVC dispatcher servlet} with it</li>
- * <li>maps dispatcher servlet to URL returned by {@link #getServletMappings()}</li>
- * <li>maps filters returned by {@link #getServletFilters()} to the dispatcher servlet</li>
- * </ul>
- *
- * @author Martin Kuba makub@ics.muni.cz
- */
+
 public class MyStartInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
