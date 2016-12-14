@@ -12,12 +12,7 @@
     <dependencies>
         <dependency>
             <groupId>com.icompete</groupId>
-            <artifactId>icompete-service</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.icompete</groupId>
-            <artifactId>icompete-api</artifactId>
+            <artifactId>iCompete-sample-data</artifactId>
             <version>1.0</version>
         </dependency>
         <dependency>

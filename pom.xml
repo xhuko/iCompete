@@ -16,6 +16,7 @@
         <module>icompete-service</module>
         <module>icompete-api</module>
         <module>icompete-web</module>
+        <module>sample-data</module>
     </modules>
     <name>iCompete parent</name>
 </project>
