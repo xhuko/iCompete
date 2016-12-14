@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-    <artifactId>iCompete-parent</artifactId>
-    <groupId>com.icompete</groupId>
-    <version>1.0</version>
-  </parent>
+        <artifactId>iCompete-parent</artifactId>
+        <groupId>com.icompete</groupId>
+        <version>1.0</version>
+    </parent>
 
     <groupId>com.icompete</groupId>
     <artifactId>icompete-web</artifactId>
@@ -43,14 +46,14 @@
             <version>1.2.5</version>
         </dependency>
         
-         <!-- Spring MVC -->
+        <!-- Spring MVC -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>4.3.3.RELEASE</version>
         </dependency>
         
-         <!-- validator for bean properties -->
+        <!-- validator for bean properties -->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -151,5 +154,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

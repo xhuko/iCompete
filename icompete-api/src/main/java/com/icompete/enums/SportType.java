@@ -11,5 +11,7 @@ package com.icompete.enums;
  */
 public enum SportType {
     SUMMER,
-    WINTER
+    WINTER,
+    INDOOR,
+    OUTDOOR
 }
