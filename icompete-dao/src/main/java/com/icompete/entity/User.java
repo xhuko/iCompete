@@ -2,6 +2,7 @@ package com.icompete.entity;
 
 import com.icompete.enums.UserType;
 import com.icompete.utils.DayEqualsUtils;
+import java.util.Collections;
 
 import javax.persistence.*;
 import java.util.Date;

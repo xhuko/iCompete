@@ -1,5 +1,7 @@
 package com.icompete.entity;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;

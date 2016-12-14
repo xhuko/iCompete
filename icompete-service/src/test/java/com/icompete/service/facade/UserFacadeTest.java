@@ -1,11 +1,9 @@
 package com.icompete.service.facade;
 
 import com.icompete.dto.UserDTO;
-import com.icompete.entity.Result;
 import com.icompete.entity.User;
 import com.icompete.enums.UserType;
 import com.icompete.exception.EntityNotFoundException;
-import com.icompete.facade.UserFacade;
 import com.icompete.service.BeanMappingService;
 import com.icompete.service.UserService;
 import com.icompete.service.config.ServiceConfiguration;
@@ -27,10 +25,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  *

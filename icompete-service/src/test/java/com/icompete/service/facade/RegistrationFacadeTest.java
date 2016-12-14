@@ -1,4 +1,4 @@
-package com.icompete.facade;
+package com.icompete.service.facade;
 
 /**
  *
