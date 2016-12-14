@@ -15,6 +15,7 @@
         <module>icompete-dao</module>
         <module>icompete-service</module>
         <module>icompete-api</module>
+        <module>icompete-web</module>
     </modules>
     <name>iCompete parent</name>
 </project>
