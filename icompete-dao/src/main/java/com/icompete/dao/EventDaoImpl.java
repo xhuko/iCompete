@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -33,8 +33,8 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public Event create(Event event) {
-        em.persist(event);
         
+        em.persist(event);
         return event;
     }
 

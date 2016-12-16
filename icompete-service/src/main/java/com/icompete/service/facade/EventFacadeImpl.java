@@ -21,8 +21,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -52,10 +52,6 @@ public class EventFacadeImpl implements EventFacade {
         }
 
         Event mappedEvent = beanMappingService.mapTo(eventDTO, Event.class);
-        Sport mappedSport = beanMappingService.mapTo(eventDTO.getSport(), Sport.class);
-        mappedEvent.setSport(mappedSport);
-        List<Rule> mappedRules = beanMappingService.mapTo(eventDTO.getRules(), Rule.class);
-        mappedEvent.setRules(new HashSet<>(mappedRules));
 
         Event createdEvent = eventService.create(mappedEvent);
 

@@ -3,6 +3,7 @@ package com.icompete.service;
 import com.icompete.dao.EventDao;
 import com.icompete.dao.RegistrationDao;
 import com.icompete.dao.RuleDao;
+import com.icompete.dao.SportDao;
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
 import com.icompete.entity.Sport;
@@ -29,6 +30,9 @@ public class EventServiceImpl implements EventService {
     private RuleDao ruleDao;
     
     @Inject
+    private SportDao sportDao;
+    
+    @Inject
     private RegistrationDao registrationDao;
 
     @Override
@@ -51,6 +55,13 @@ public class EventServiceImpl implements EventService {
         event.getRules().forEach((rule) -> {
             ruleDao.create(rule);
         });
+        
+        if(event.getSport() != null && event.getSport().getId() != null){
+            Sport sport = sportDao.findById(event.getSport().getId());
+            if(sport != null){
+                event.setSport(sport);
+            }
+        }
      
         Event createdEvent = eventDao.create(event);
         

@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 
 /**
  *
@@ -17,6 +20,7 @@ public class EventDTO {
     
     private String name;
     
+    @Range(min = 5L, max = 75L)
     private int capacity;
     
     private String description;
@@ -25,6 +29,7 @@ public class EventDTO {
 
     private Date endDate;
 
+    @Size(min = 5)
     public String address;
 
     private Set<RuleDTO> rules = new HashSet<>();

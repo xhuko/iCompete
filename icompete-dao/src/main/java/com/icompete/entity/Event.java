@@ -49,13 +49,17 @@ public class Event {
     @Column(nullable = false)
     public String address;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.EAGER)
     private Set<Rule> rules = new HashSet<>();
     
     private String description;
 
     public Long getId() {
         return id;
+    }
+    
+    public void setId(long id){
+        this.id = id;
     }
 
     public Sport getSport() {

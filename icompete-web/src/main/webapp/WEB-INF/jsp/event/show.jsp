@@ -41,6 +41,6 @@
                 </tr>
             </c:forEach>
         </table>
-        <button type="button" class="btn btn-primary">Create event</button>
+        <my:a href="/event/new"><button type="button" class="btn btn-primary">Create event</button></my:a>
     </jsp:attribute>
 </my:pagetemplate>
