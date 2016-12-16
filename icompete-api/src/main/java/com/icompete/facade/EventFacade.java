@@ -28,6 +28,7 @@ public interface EventFacade {
     void updateEvent(EventDTO event);
     void deleteEvent(EventDTO event) throws EntityNotFoundException;
     List<ResultDTO> getEventResults(EventDTO event) throws EntityNotFoundException;
+    List<ResultDTO> getEventResults(Long id) throws EntityNotFoundException;
     List<EventDTO> findEventsStartBetween(Date startDate, Date endDate);
     List<EventDTO> findEventsEndBetween(Date startDate, Date endDate);
     boolean registerUserToEvent(UserDTO userDTO, EventDTO eventDTO) throws EntityNotFoundException;

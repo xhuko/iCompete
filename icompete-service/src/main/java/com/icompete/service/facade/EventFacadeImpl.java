@@ -131,6 +131,7 @@ public class EventFacadeImpl implements EventFacade {
             throw new EntityNotFoundException("Event");
         }
 
+
         eventService.delete(eventToDelete);
     }
 
@@ -142,6 +143,12 @@ public class EventFacadeImpl implements EventFacade {
 
         List<Result> eventResults = resultService.findResultByEvent(beanMappingService.mapTo(edto, Event.class));
 
+        return beanMappingService.mapTo(eventResults, ResultDTO.class);
+    }
+
+    @Override
+    public List<ResultDTO> getEventResults(Long id) {
+        List<Result> eventResults = resultService.findResultByEvent(id);
         return beanMappingService.mapTo(eventResults, ResultDTO.class);
     }
 

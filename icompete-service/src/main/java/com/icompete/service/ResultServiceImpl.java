@@ -1,5 +1,6 @@
 package com.icompete.service;
 
+import com.icompete.dao.EventDao;
 import com.icompete.dao.RegistrationDao;
 import com.icompete.dao.ResultDao;
 import com.icompete.entity.Event;
@@ -22,6 +23,9 @@ public class ResultServiceImpl implements ResultService {
 
     @Inject
     private RegistrationDao registrationDao;
+
+    @Inject
+    private EventDao eventDao;
 
     @Override
     public List<Result> findAll() {
@@ -66,6 +70,26 @@ public class ResultServiceImpl implements ResultService {
     @Override
     public List<Result> findResultByEvent(Event event) {
 
+        if (event == null) {
+            throw new IllegalArgumentException("Event is null");
+        }
+
+        List<Registration> eventRegistrations = registrationDao.findByEvent(event);
+        List<Result> eventResults = new ArrayList<>();
+
+        eventRegistrations.forEach((registration) -> {
+            Result registrationResult = resultDao.findResultByRegistration(registration);
+            if (registrationResult != null) {
+                eventResults.add(registrationResult);
+            }
+        });
+
+        return eventResults;
+    }
+
+    @Override
+    public List<Result> findResultByEvent(Long id) {
+        Event event = eventDao.findById(id);
         if (event == null) {
             throw new IllegalArgumentException("Event is null");
         }

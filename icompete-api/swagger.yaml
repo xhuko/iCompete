@@ -1,0 +1,155 @@
+swagger: '2.0'
+info:
+  version: 0.16.1103
+  title: 'iCompete'
+host: icompete.com
+basePath: '/pa165/rest'
+consumes:
+  - 'application/json'
+produces:
+  - 'application/json'
+paths:
+  '/events':
+    get:
+      summary: Get all events
+      responses:
+        200:
+          description:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Event'
+  '/events/{id}':
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      summary: Get event
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Event'
+  '/sports':
+    get:
+      summary: Get all sports
+      responses:
+        200:
+          description:
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Sport'
+  '/sport/{id}':
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      summary: Get sport
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Sport'
+  '/registrations/{id}':
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      summary: Get registration to event
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Registration'
+  '/users/{id}':
+    get:
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      summary: Get user
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/User'
+definitions:
+  Event:
+    type: object
+    properties:
+      id:
+        type: integer
+      sport:
+        $ref: '#/definitions/Sport'
+      name:
+        type: string
+      capacity:
+        type: integer
+      description:
+        type: string
+      startDate:
+        type: string
+      endDate:
+        type: string
+      address:
+        type: string
+      rules:
+        type: array
+        items:
+          $ref: '#/definitions/Rule'
+  Sport:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      description:
+        type: string
+      type:
+        type: string
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+      userName:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      birthDate:
+        type: string
+      address:
+        type: string
+      email:
+        type: string
+      preferredSports:
+        type: array
+        items:
+          $ref: '#/definitions/Sport'
+      userType:
+        type: string
+  Registration:
+    type: object
+    properties:
+      id:
+        type: integer
+      event:
+        $ref: '#/definitions/Event'
+      user:
+        $ref: '#/definitions/User'
+      creationDate:
+        type: string
+  Rule:
+    type: object
+    properties:
+      id:
+        type: integer
+      text:
+        type: string

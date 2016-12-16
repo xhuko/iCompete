@@ -56,5 +56,12 @@ public interface ResultService {
      * @return Results found
      */
     List<Result> findResultByEvent(Event event);
+
+    /**
+     * Find all result of a particular event
+     * @param id Event to find result for
+     * @return Results found
+     */
+    List<Result> findResultByEvent(Long id);
     
 }

@@ -92,10 +92,7 @@ public class RegistrationFacadeImpl implements RegistrationFacade{
         }
         Event eventEntity = mapper.mapTo(event, Event.class);
         List<Registration> regList = registrationService.findRegistrationsByEvent(eventEntity);
-        for(Registration item : regList){
-            mapper.mapTo(item, RegistrationDTO.class);
-        }
-        return resultList;
+        return mapper.mapTo(regList, RegistrationDTO.class);
     }
 
     @Override

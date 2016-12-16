@@ -1,15 +1,9 @@
 package com.icompete.service;
 
-import com.icompete.dao.EventDao;
-import com.icompete.dao.RegistrationDao;
-import com.icompete.dao.RuleDao;
-import com.icompete.dao.SportDao;
-import com.icompete.entity.Event;
-import com.icompete.entity.Registration;
-import com.icompete.entity.Sport;
-import com.icompete.entity.User;
-import java.util.Date;
-import java.util.List;
+import com.icompete.dao.*;
+import com.icompete.entity.*;
+
+import java.util.*;
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
@@ -31,9 +25,12 @@ public class EventServiceImpl implements EventService {
     
     @Inject
     private SportDao sportDao;
-    
+
     @Inject
     private RegistrationDao registrationDao;
+
+    @Inject
+    private ResultDao resultDao;
 
     @Override
     public List<Event> findAll() {
@@ -51,20 +48,8 @@ public class EventServiceImpl implements EventService {
         if(event == null){
             throw new IllegalArgumentException("Event is null");
         }
-        
-        event.getRules().forEach((rule) -> {
-            ruleDao.create(rule);
-        });
-        
-        if(event.getSport() != null && event.getSport().getId() != null){
-            Sport sport = sportDao.findById(event.getSport().getId());
-            if(sport != null){
-                event.setSport(sport);
-            }
-        }
-     
+
         Event createdEvent = eventDao.create(event);
-        
         return  createdEvent;
     }
 
@@ -82,7 +67,15 @@ public class EventServiceImpl implements EventService {
         if(event == null){
             throw new IllegalArgumentException("Event is null");
         }
-        
+        Collection<Registration> registrations = registrationDao.findByEvent(event);
+        for (Registration registration : registrations) {
+            Result result = resultDao.findResultByRegistration(registration);
+            if (result != null) {
+                resultDao.delete(result);
+            }
+            registrationDao.delete(registration);
+        }
+
         eventDao.delete(event);
     }
     

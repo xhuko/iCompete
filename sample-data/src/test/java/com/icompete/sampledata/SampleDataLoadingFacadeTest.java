@@ -31,9 +31,6 @@ public class SampleDataLoadingFacadeTest extends AbstractTestNGSpringContextTest
     public EventDao eventDao;
 
     @Autowired
-    public SportDao sportDao;
-
-    @Autowired
     public EventFacade eventFacade;
 
     @Autowired

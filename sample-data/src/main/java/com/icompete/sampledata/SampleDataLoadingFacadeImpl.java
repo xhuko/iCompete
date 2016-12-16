@@ -41,13 +41,13 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         User userKondakciu = createUser("kondakciu@icompete.com", "xhulio", "kondakciu", UserType.SPORTSMAN, "Lushnje, Albania", "Xhulio", "Kondakciu", getDate(1993,1,1), new HashSet<Sport>(CollectionUtils.arrayToList(new Sport[]{sportGolf})));
         User userBohumel = createUser("bohumel@icompete.com", "branislav", "bohumel", UserType.SPORTSMAN, "Ziar nad Hronom, Slovakia", "Branislav", "Bohumel", getDate(1993,6,9), new HashSet<Sport>(CollectionUtils.arrayToList(new Sport[]{sportSnowboarding})));
 
-        Event eventDarts = createEvent("Darts 2016", "FI MUNI",sportDarts, 4, getDate(2016,12,1), getDate(2016,12,4), new HashSet<String>(CollectionUtils.arrayToList(new String[]{
+        Event eventDarts = createEvent("Darts 2016", "Description", "FI MUNI",sportDarts, 4, getDate(2016,12,1), getDate(2016,12,4), new HashSet<String>(CollectionUtils.arrayToList(new String[]{
                 "In a game of 501 the object is for one player to be the first to reach zero from starting total of 501.",
                 "In simple terms, after three darts are thrown, the throwing player subtracts the total scored from his current total until he reaches zero.",
                 "In order to reach zero each player must finish by throwing a double i.e. if player one has 36 remaining he must hit double 18 to win, while if player two has 45 remaining he must hit single 5, double 20 to win - or a another combination of scores provided the final dart scores on a double."
         })));
         
-        Event eventSnowboarding = createEvent("Jasna Snowboarding 2017", "Jasna, Slovakia",sportSnowboarding, 10, getDate(2017,1,20), getDate(2016,1,30), new HashSet<String>(CollectionUtils.arrayToList(new String[]{
+        Event eventSnowboarding = createEvent("Jasna Snowboarding 2017", "Description", "Jasna, Slovakia",sportSnowboarding, 10, getDate(2017,1,20), getDate(2016,1,30), new HashSet<String>(CollectionUtils.arrayToList(new String[]{
                 "First man on the bottom of track will become winner.",
         })));
 
@@ -91,7 +91,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         return s;
     }
 
-    private Event createEvent(String name, String address, Sport sport, int capacity, Date startDate, Date endDate, Set<String> rules) {
+    private Event createEvent(String name, String description, String address, Sport sport, int capacity, Date startDate, Date endDate, Set<String> rules) {
         Event e = new Event();
         e.setName(name);
         e.setAddress(address);
@@ -99,14 +99,14 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         e.setCapacity(capacity);
         e.setStartDate(startDate);
         e.setEndDate(endDate);
-        
-        Set<Rule> r = new HashSet<Rule>();
+        e.setDescription(description);
+
         for (String rule : rules) {
             Rule rr = new Rule();
             rr.setEvent(e);
             rr.setText(rule);
+            e.addRule(rr);
         }
-        e.setRules(r);
         return eventService.create(e);
     }
 
