@@ -1,5 +1,6 @@
 package com.icompete.service;
 
+import com.icompete.dao.EventDao;
 import com.icompete.dao.RegistrationDao;
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
@@ -31,6 +32,9 @@ public class EventServiceTest extends AbstractTestNGSpringContextTests {
     @Mock
     private RegistrationDao registrationDao;
 
+    @Mock
+    private EventDao eventDao;
+
     @Inject
     @InjectMocks
     private EventService eventService;
@@ -49,17 +53,22 @@ public class EventServiceTest extends AbstractTestNGSpringContextTests {
     public void setup() throws ServiceException {
         MockitoAnnotations.initMocks(this);
     }
-    
+
     @Test
     public void testEmptyPlacesInEvent() {
         event.setCapacity(5);
-        Assert.assertEquals(eventService.emptyPlacesInEvent(event), 4);
+
+        when(eventDao.findById(any())).thenReturn(event);
+
+        Assert.assertEquals(eventService.emptyPlacesInEvent(event.getId()), 4);
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)
     public void testEmptyPlacesInEventNull() {
 
-        eventService.emptyPlacesInEvent(null);
+        when(eventDao.findById(any())).thenReturn(null);
+
+        eventService.emptyPlacesInEvent(Long.MIN_VALUE);
 
     }
 
@@ -77,21 +86,25 @@ public class EventServiceTest extends AbstractTestNGSpringContextTests {
     public void testRegisterUserToEventWithoutEmptyPlace() {
         event.setCapacity(1);
 
+        when(eventDao.findById(any())).thenReturn(event);
+        
         Assert.assertFalse(eventService.registerUserToEvent(new User(), event));
     }
 
     @Test
     public void testRegisterUserToEventWithEmptyPlace() {
 
-        event.setCapacity(2);
+        event.setCapacity(5);
+
+        when(eventDao.findById(any())).thenReturn(event);
 
         doNothing().when(registrationDao).create(any());
 
         Assert.assertTrue(eventService.registerUserToEvent(new User(), event));
     }
-    
+
     @Test(expectedExceptions = IllegalArgumentException.class)
-    public void testFindEventBySportNullSport(){
+    public void testFindEventBySportNullSport() {
         eventService.findEventsBySport(null);
     }
 }

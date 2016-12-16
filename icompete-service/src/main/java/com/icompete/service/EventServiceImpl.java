@@ -101,7 +101,7 @@ public class EventServiceImpl implements EventService {
             throw new IllegalArgumentException("Event is null");
         }
         
-        if(!eventHasEmptyPlaces(event)){
+        if(!eventHasEmptyPlaces(event.getId())){
             return false;
         }
         
@@ -116,9 +116,12 @@ public class EventServiceImpl implements EventService {
     }
     
     @Override
-    public int emptyPlacesInEvent(Event event){
+    public int emptyPlacesInEvent(Long eventId){
+        
+        Event event = eventDao.findById(eventId);
+        
         if(event == null){
-            throw new IllegalArgumentException("Event is null");
+            throw new IllegalArgumentException("Event does not exist");
         }
         
         int usedPlaces = registrationDao.findByEvent(event).size();
@@ -128,8 +131,12 @@ public class EventServiceImpl implements EventService {
     }
     
     @Override
-    public Boolean eventHasEmptyPlaces(Event event){
-        return emptyPlacesInEvent(event) > 0;
+    public Boolean eventHasEmptyPlaces(Long eventId){
+        Event event = eventDao.findById(eventId);
+        if(event == null){
+            throw new IllegalArgumentException("Event does not exist");
+        }
+        return emptyPlacesInEvent(eventId) > 0;
     }
 
     @Override
@@ -145,7 +152,5 @@ public class EventServiceImpl implements EventService {
     public List<Event> findEventsByName(String searchTerm) {
         return eventDao.findEventsByName(searchTerm);
     }
-
-    
 
 }

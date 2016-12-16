@@ -66,14 +66,14 @@ public interface EventService {
      * @param event Event to check
      * @return Number of empty places left
      */
-    int emptyPlacesInEvent(Event event);
+    int emptyPlacesInEvent(Long eventId);
     
     /**
      * Check if event has empty places or not
      * @param event Event to check
      * @return True if there are empty places or false otherwise
      */
-    Boolean eventHasEmptyPlaces(Event event);
+    Boolean eventHasEmptyPlaces(Long eventId);
     
      /**
      * Find all events of a particular sport

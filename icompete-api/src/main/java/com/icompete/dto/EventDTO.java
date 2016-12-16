@@ -19,6 +19,8 @@ public class EventDTO {
     
     private int capacity;
     
+    private String description;
+    
     private Date startDate;
 
     private Date endDate;
@@ -94,6 +96,16 @@ public class EventDTO {
         this.rules.add(rule);
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -104,6 +116,8 @@ public class EventDTO {
         hash = 79 * hash + Objects.hashCode(this.getEndDate());
         hash = 79 * hash + Objects.hashCode(this.getAddress());
         hash = 79 * hash + Objects.hashCode(this.getRules());
+        hash = 79 * hash + Objects.hashCode(this.getDescription());
+
         return hash;
     }
 
@@ -132,6 +146,9 @@ public class EventDTO {
             return false;
         }
         if (!Objects.equals(this.getEndDate(), other.getEndDate())) {
+            return false;
+        }
+        if (!Objects.equals(this.getDescription(), other.getDescription())) {
             return false;
         }
         return true;

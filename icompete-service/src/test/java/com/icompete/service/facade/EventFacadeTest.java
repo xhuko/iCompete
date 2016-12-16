@@ -9,6 +9,7 @@ import com.icompete.exception.EntityNotFoundException;
 import com.icompete.facade.EventFacade;
 
 import com.icompete.service.EventService;
+import com.icompete.service.SportService;
 import com.icompete.service.config.ServiceConfiguration;
 import javax.inject.Inject;
 import org.hibernate.service.spi.ServiceException;
@@ -36,6 +37,7 @@ public class EventFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Mock
     private EventService eventService;
+    
 
     @BeforeClass
     public void setup() throws ServiceException {

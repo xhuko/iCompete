@@ -15,6 +15,7 @@ import com.icompete.service.BeanMappingService;
 import com.icompete.service.EventService;
 import com.icompete.service.ResultService;
 import com.icompete.service.UserService;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
@@ -74,7 +75,12 @@ public class EventFacadeImpl implements EventFacade {
 
     @Override
     public Collection<EventDTO> getAllEvents() {
-        return beanMappingService.mapTo(eventService.findAll(), EventDTO.class);
+        List<Event> allEvents = eventService.findAll();
+        List<EventDTO> mappedEvents = new ArrayList<>();
+        for(Event event : allEvents){
+            mappedEvents.add(getEventById(event.getId()));
+        }
+        return mappedEvents;
     }
 
     @Override
@@ -91,7 +97,6 @@ public class EventFacadeImpl implements EventFacade {
     @Override
     public Collection<EventDTO> getEventsByName(String searchTerm) {
         List<Event> foundEvents = eventService.findEventsByName(searchTerm);
-
         return beanMappingService.mapTo(foundEvents, EventDTO.class);
     }
 
@@ -167,6 +172,10 @@ public class EventFacadeImpl implements EventFacade {
         }
 
         return eventService.registerUserToEvent(userToRegister, eventToUse);
+    }
+    
+    public int findEmptyPlacesInEvent(Long eventId){
+        return eventService.emptyPlacesInEvent(eventId);
     }
 
 }

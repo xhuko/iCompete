@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(value = "/home")
 public class HomeController {
     
-    @RequestMapping(value = "/helloWorld")
-    public String helloWorld(Model model){
+    @RequestMapping(value = "/home")
+    public String home(Model model){
         
         model.addAttribute("message","hello World");
         
-        return "HelloWorld";
+        return "home";
     }
     
 }

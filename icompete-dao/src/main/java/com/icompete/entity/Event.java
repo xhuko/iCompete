@@ -31,7 +31,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Sport sport;
 
     @Column(nullable = false)
@@ -51,6 +51,8 @@ public class Event {
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Set<Rule> rules = new HashSet<>();
+    
+    private String description;
 
     public Long getId() {
         return id;
@@ -124,6 +126,16 @@ public class Event {
         this.rules.add(rule);
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    
+    
     @Override
     public int hashCode() {
         int hash = 3;
@@ -134,6 +146,7 @@ public class Event {
         hash = 61 * hash + Objects.hashCode(this.getEndDate());
         hash = 61 * hash + Objects.hashCode(this.getAddress());
         hash = 61 * hash + Objects.hashCode(this.getRules());
+        hash = 61 * hash + Objects.hashCode(this.getDescription());
         return hash;
     }
 
@@ -162,6 +175,9 @@ public class Event {
             return false;
         }
         if (!Objects.equals(this.getEndDate(), other.getEndDate())) {
+            return false;
+        }
+        if(!Objects.equals(this.getDescription(), other.getDescription())){
             return false;
         }
         return true;

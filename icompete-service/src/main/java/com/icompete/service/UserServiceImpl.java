@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
     public Long createUser(User user, String unencryptedPassword) {
         if (user == null) throw new IllegalArgumentException("Argument user is null.");
         if (unencryptedPassword == null) throw new IllegalArgumentException("Argument unencryptedPassword is null.");
-        if (getUsersByUserName(user.getUserName()) != null) return null;
+        //if (getUsersByUserName(user.getUserName()) != null) return null;
 
         Set<Sport> preferredSports = new HashSet<>();
         user.getPreferredSports().forEach((sport) -> {

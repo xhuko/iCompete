@@ -1,5 +1,6 @@
 package com.icompete.mvc.config;
 
+import com.icompete.sampledata.SampleDataConfiguration;
 import javax.validation.Validator;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @EnableWebMvc
 @Configuration
+@Import({SampleDataConfiguration.class})
 @ComponentScan(basePackages = "com.icompete.mvc.controllers")
 public class MySpringMvcConfig extends WebMvcConfigurerAdapter {
 

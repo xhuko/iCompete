@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Import;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Peter Sekan, peter.sekan@mail.muni.cz
@@ -17,7 +18,7 @@ import javax.inject.Inject;
 @ComponentScan(basePackageClasses = {SampleDataLoadingFacadeImpl.class})
 public class SampleDataConfiguration {
 
-    @Inject
+    @Autowired
     SampleDataLoadingFacade sampleDataLoadingFacade;
 
     @PostConstruct

@@ -44,7 +44,7 @@ public class Rule {
     public Long getId() {
         return id;
     }
-
+    
     public String getText() {
         return text;
     }

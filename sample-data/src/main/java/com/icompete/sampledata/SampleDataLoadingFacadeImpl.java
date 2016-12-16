@@ -4,12 +4,11 @@ import com.icompete.entity.*;
 import com.icompete.enums.SportType;
 import com.icompete.enums.UserType;
 import com.icompete.service.*;
+import java.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-
-import javax.inject.Inject;
-import java.util.*;
 
 /**
  * @author Peter Sekan, peter.sekan@mail.muni.cz
@@ -19,15 +18,15 @@ import java.util.*;
 @Transactional
 public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
-    @Inject
+    @Autowired
     private EventService eventService;
-    @Inject
+    @Autowired
     private RegistrationService registrationService;
-    @Inject
+    @Autowired
     private ResultService resultService;
-    @Inject
+    @Autowired
     private SportService sportService;
-    @Inject
+    @Autowired
     private UserService userService;
 
     public void loadData() {
@@ -39,15 +38,16 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
         User userAdmin = createUser("admin@icompete.com", "admin", "admin", UserType.ADMIN, "Address", "Admin", "iCompete", getDate(2016,12,14), new HashSet<Sport>());
         User userSekan = createUser("sekan@icompete.com", "peter", "sekan", UserType.SPORTSMAN, "Medze 47, Lipt. Mikulas, 031 05, Slovakia", "Peter", "Sekan", getDate(1994,9,3), new HashSet<Sport>(CollectionUtils.arrayToList(new Sport[]{sportTableTennis, sportTennis, sportDarts})));
-        User userKondakciu = createUser("kondakciu@icompete.com", "xhulio", "kondakciu", UserType.SPORTSMAN, "Lushnjë, Albania", "Xhulio", "Kondakçiu", getDate(1993,1,1), new HashSet<Sport>(CollectionUtils.arrayToList(new Sport[]{sportGolf})));
+        User userKondakciu = createUser("kondakciu@icompete.com", "xhulio", "kondakciu", UserType.SPORTSMAN, "Lushnje, Albania", "Xhulio", "Kondakciu", getDate(1993,1,1), new HashSet<Sport>(CollectionUtils.arrayToList(new Sport[]{sportGolf})));
         User userBohumel = createUser("bohumel@icompete.com", "branislav", "bohumel", UserType.SPORTSMAN, "Ziar nad Hronom, Slovakia", "Branislav", "Bohumel", getDate(1993,6,9), new HashSet<Sport>(CollectionUtils.arrayToList(new Sport[]{sportSnowboarding})));
 
-        Event eventDarts = createEvent("Darts 2016", "FI MUNI", 4, getDate(2016,12,1), getDate(2016,12,4), new HashSet<String>(CollectionUtils.arrayToList(new String[]{
+        Event eventDarts = createEvent("Darts 2016", "FI MUNI",sportDarts, 4, getDate(2016,12,1), getDate(2016,12,4), new HashSet<String>(CollectionUtils.arrayToList(new String[]{
                 "In a game of 501 the object is for one player to be the first to reach zero from starting total of 501.",
                 "In simple terms, after three darts are thrown, the throwing player subtracts the total scored from his current total until he reaches zero.",
                 "In order to reach zero each player must finish by throwing a double i.e. if player one has 36 remaining he must hit double 18 to win, while if player two has 45 remaining he must hit single 5, double 20 to win - or a another combination of scores provided the final dart scores on a double."
         })));
-        Event eventSnowboarding = createEvent("Jasna Snowboarding 2017", "Jasna, Slovakia", 10, getDate(2017,1,20), getDate(2016,1,30), new HashSet<String>(CollectionUtils.arrayToList(new String[]{
+        
+        Event eventSnowboarding = createEvent("Jasna Snowboarding 2017", "Jasna, Slovakia",sportSnowboarding, 10, getDate(2017,1,20), getDate(2016,1,30), new HashSet<String>(CollectionUtils.arrayToList(new String[]{
                 "First man on the bottom of track will become winner.",
         })));
 
@@ -91,13 +91,15 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         return s;
     }
 
-    private Event createEvent(String name, String address, int capacity, Date startDate, Date endDate, Set<String> rules) {
+    private Event createEvent(String name, String address, Sport sport, int capacity, Date startDate, Date endDate, Set<String> rules) {
         Event e = new Event();
         e.setName(name);
         e.setAddress(address);
+        e.setSport(sport);
         e.setCapacity(capacity);
         e.setStartDate(startDate);
         e.setEndDate(endDate);
+        
         Set<Rule> r = new HashSet<Rule>();
         for (String rule : rules) {
             Rule rr = new Rule();
