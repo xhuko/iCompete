@@ -24,7 +24,13 @@
                     <th>Start date</th>
                     <th>End date</th>
                     <th>Address</th>
-                    <th>Rules</th>
+                        <c:if test="${not empty authenticatedUser}">
+                        <th>Register</th>
+                        </c:if>
+                         <c:if test="${not empty authenticatedUser && authenticatedUser.userType == UserType.ADMIN}">
+                        <th>Delete</th>
+                        </c:if>
+
                 </tr>
             </thead>
             <c:forEach items="${events}" var="event" varStatus="ic">
@@ -37,10 +43,27 @@
                     <td><fmt:formatDate value="${event.startDate}" type="date" dateStyle="medium"/></td>
                     <td><fmt:formatDate value="${price.endDate}" type="date" dateStyle="medium"/></td>
                     <td><c:out value="${event.address}"/></td>
-                    <td><my:a href="rule/show/"/></td>
+                    <c:if test="${not empty authenticatedUser}">
+                        <td>
+                            <c:choose>
+                                <c:when test="${userRegisteredMap[event.id]}">
+                                    Registered
+                                </c:when>    
+                                <c:otherwise>
+                                    <button type="button" class="btn btn-primary registerUser" data-event="${event.id}">Register</button>
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                    </c:if>
+<c:if test="${not empty authenticatedUser && authenticatedUser.userType == UserType.ADMIN}">
+                        <button type="button" class="btn btn-primary deleteEvent" data-event="${event.id}">Delete</button>
+                        </c:if>
                 </tr>
             </c:forEach>
         </table>
-        <my:a href="/event/new"><button type="button" class="btn btn-primary">Create event</button></my:a>
+        <c:if test="${not empty authenticatedUser}">
+            <my:a href="/event/new"><button type="button" class="btn btn-primary">Create event</button></my:a>
+        </c:if>
+
     </jsp:attribute>
 </my:pagetemplate>

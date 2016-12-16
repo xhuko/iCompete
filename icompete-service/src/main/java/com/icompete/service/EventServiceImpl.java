@@ -163,5 +163,9 @@ public class EventServiceImpl implements EventService {
     public List<Event> findEventsByName(String searchTerm) {
         return eventDao.findEventsByName(searchTerm);
     }
+    
+    public boolean isUserRegisteredToEvent(long eventId, long userId){
+        return eventDao.isUserRegisteredToEvent(eventId, userId);
+    }
 
 }

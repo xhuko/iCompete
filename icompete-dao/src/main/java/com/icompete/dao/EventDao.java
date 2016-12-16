@@ -88,4 +88,11 @@ public interface EventDao {
      */
     List<Event> findEventsByName(String searchTerm);
     
+    /**
+     * Find if a particular user is registered to an event
+     * @param eventId Event to search
+     * @param userId User to search
+     * @return 
+     */
+    boolean isUserRegisteredToEvent(long eventId, long userId);
 }
