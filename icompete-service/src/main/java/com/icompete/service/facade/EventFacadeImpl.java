@@ -98,7 +98,14 @@ public class EventFacadeImpl implements EventFacade {
 
     @Override
     public Collection<EventDTO> getEventBetweenDates(Date startDate, Date endDate) {
-        return beanMappingService.mapTo(eventService.findEventsBetween(startDate, endDate), EventDTO.class);
+        List<Event> events = eventService.findEventsBetween(startDate, endDate);
+        List<EventDTO> mappedEvents = new ArrayList<>();
+        for(Event event :events){
+            EventDTO eventDto = beanMappingService.mapTo(event, EventDTO.class);
+            eventDto.setId(event.getId());
+            mappedEvents.add(eventDto);
+        }
+        return mappedEvents;
     }
 
     @Override
@@ -179,6 +186,11 @@ public class EventFacadeImpl implements EventFacade {
     
     public int findEmptyPlacesInEvent(Long eventId){
         return eventService.emptyPlacesInEvent(eventId);
+    }
+
+    @Override
+    public boolean isUserRegisteredToEvent(long eventId, long userId) {
+        return eventService.isUserRegisteredToEvent(eventId, userId);
     }
 
 }

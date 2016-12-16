@@ -38,7 +38,7 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li><my:a href="/order/list/all">Events</my:a></li>
+                                    <li><my:a href="/event/new">New event</my:a></li>
                                 <li><my:a href="/user/list">Sports</my:a></li>
                                 <li><my:a href="/product/list">Users</my:a></li>
                                 </ul>
@@ -64,7 +64,7 @@
                     <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <c:out value="${authenticatedUser.givenName} ${authenticatedUser.surname}"/>
+                                <c:out value="${authenticatedUser.firstName} ${authenticatedUser.lastName}"/>
                             </div>
                         </div>
                     </div>
@@ -98,5 +98,45 @@
         <!-- javascripts placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script>
+            $(function () {
+                $(".registerUser").click(function () {
+                    debugger;
+                    let eventId = $(this).data("event");
+                    let userId = "${authenticatedUser.id}";
+                    let $this = $(this);
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/event/register",
+                        type: "post",
+                        data: {
+                            "user.id": userId,
+                            "event.id": eventId
+                        },
+                        success: function () {
+                            $this.replaceWith("Registered");
+                        }
+                    });
+                });
+                
+                
+                $(".deleteEvent").click(function () {
+                    debugger;
+                    let eventId = $(this).data("event");
+                    let $this = $(this);
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/event/delete",
+                        type: "get",
+                        data: {
+                            "eventId": eventId
+                        },
+                        success: function () {
+                            $this.replaceWith("Deleted");
+                        }
+                    });
+                });
+            });
+        </script>
     </body>
+
 </html>
+

@@ -33,4 +33,11 @@ public interface EventFacade {
     List<EventDTO> findEventsEndBetween(Date startDate, Date endDate);
     boolean registerUserToEvent(UserDTO userDTO, EventDTO eventDTO) throws EntityNotFoundException;
     int findEmptyPlacesInEvent(Long eventId);
+    /**
+     * Find if a particular user is registered to an event
+     * @param eventId Event to search
+     * @param userId User to search
+     * @return 
+     */
+    boolean isUserRegisteredToEvent(long eventId, long userId);
 }

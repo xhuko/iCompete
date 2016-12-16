@@ -1,11 +1,13 @@
 package com.icompete.dao;
 
 import com.icompete.entity.Event;
+import com.icompete.entity.Registration;
 import com.icompete.entity.Sport;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Repository;
@@ -98,6 +100,15 @@ public class EventDaoImpl implements EventDao {
         return query.getResultList();
     }
     
-    
+    @Override
+    public boolean isUserRegisteredToEvent(long eventId, long userId){
+        Query query = em.createQuery("SELECT r FROM Registration r INNER JOIN r.event e WHERE r.user.id = :userId AND e.id = :eventId");
+        
+        query.setParameter("userId", userId);
+        query.setParameter("eventId", eventId);
+        
+        return query.getResultList().size() > 0;
+        
+    }
 
 }

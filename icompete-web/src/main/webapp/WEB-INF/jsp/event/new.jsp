@@ -4,7 +4,11 @@
     Author     : Xhulio
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="false" session="false" %>
+<%@ page contentType="text/html;charset=UTF-8" 
+         pageEncoding="utf-8" 
+         trimDirectiveWhitespaces="false" session="false"
+         import="com.icompete.enums.UserType"%>
+
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -57,7 +61,7 @@
                 </div>
             </div>
             <div class="form-group ${endDate_error?'has-error':''}">
-                <form:label cssClass="col-sm-2 control-label" path="startDate">End Date:</form:label>
+                <form:label cssClass="col-sm-2 control-label" path="endDate">End Date:</form:label>
                     <div class="col-sm-10">
                     <form:input path="endDate" cssClass="form-control" alt="dd-mm-yyyy" title="dd-mm-yyyy"/>
                     <form:errors path="endDate" cssClass="help-block"/>
@@ -71,7 +75,9 @@
                 </div>
             </div>
 
+
             <button class="btn btn-primary" type="submit">Create event</button>
+
         </form:form>
 
     </jsp:attribute>
