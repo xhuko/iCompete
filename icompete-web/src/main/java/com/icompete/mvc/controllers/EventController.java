@@ -98,7 +98,7 @@ public class EventController {
         
         eventFacade.createEvent(event);
         
-        return "event/new";
+        return "redirect:event/show";
     }
     
 }
