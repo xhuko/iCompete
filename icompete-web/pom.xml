@@ -10,17 +10,10 @@
         <version>1.0</version>
     </parent>
 
-    <groupId>com.icompete</groupId>
     <artifactId>icompete-web</artifactId>
-    <version>1.0</version>
     <packaging>war</packaging>
 
     <name>Web</name>
-
-    <properties>
-        <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -33,12 +26,6 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>iCompete-sample-data</artifactId>
             <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
-            <version>6.0</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.taglibs</groupId>
