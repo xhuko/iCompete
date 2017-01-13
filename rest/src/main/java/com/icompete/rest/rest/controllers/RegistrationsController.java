@@ -1,16 +1,13 @@
 package com.icompete.rest.rest.controllers;
 
-import com.icompete.dto.RegistrationDTO;
-import com.icompete.dto.SportDTO;
+import com.icompete.dto.*;
 import com.icompete.facade.RegistrationFacade;
 import com.icompete.facade.SportFacade;
 import com.icompete.rest.rest.ApiUris;
+import com.icompete.rest.rest.exceptions.ResourceAlreadyExistingException;
 import com.icompete.rest.rest.exceptions.ResourceNotFoundException;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -27,6 +24,40 @@ public class RegistrationsController {
         RegistrationDTO registrationDTO = registrationFacade.getRegistrationById(id);
         if (registrationDTO != null) {
             return registrationDTO;
+        } else {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final RegistrationDTO createEvent(@RequestBody RegistrationDTO registration) throws Exception {
+        Long id = registrationFacade.createRegistration(registration.getUser(), registration.getEvent());
+        if (id == null) {
+            throw new ResourceAlreadyExistingException();
+        }
+        RegistrationDTO registrationDTO = registrationFacade.getRegistrationById(id);
+        if (registrationDTO != null) {
+            return registrationDTO;
+        } else {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void deleteEvent(@PathVariable("id") long id) throws Exception {
+        RegistrationDTO registrationDTO = registrationFacade.getRegistrationById(id);
+        if (registrationDTO != null) {
+            registrationFacade.deleteRegistration(registrationDTO);
+        } else {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    @RequestMapping(value = "/{id}/result", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final void addResult(@PathVariable("id") long id, @RequestBody ResultMinimalDTO resultMinimalDTO) throws Exception {
+        RegistrationDTO registrationDTO = registrationFacade.getRegistrationById(id);
+        if (registrationDTO != null) {
+            registrationFacade.createResult(registrationDTO, resultMinimalDTO.getPosition());
         } else {
             throw new ResourceNotFoundException();
         }

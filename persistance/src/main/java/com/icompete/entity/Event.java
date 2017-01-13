@@ -19,7 +19,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.DETACH)
     private Sport sport;
 
     @Column(nullable = false)
@@ -37,7 +37,7 @@ public class Event {
     @Column(nullable = false)
     private String address;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Rule> rules = new HashSet<>();
     
     private String description;

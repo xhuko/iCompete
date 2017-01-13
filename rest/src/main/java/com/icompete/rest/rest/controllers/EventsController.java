@@ -34,11 +34,7 @@ public class EventsController {
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final Collection<EventDTO> getEvents() {
-        Collection<EventDTO> events = eventFacade.getAllEvents();
-        for (EventDTO event : events) {
-            event.setName(event.getName() + "|" + event.getRules().size());
-        }
-        return events;
+        return eventFacade.getAllEvents();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -61,7 +57,7 @@ public class EventsController {
         }
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final EventDTO createEvent(@RequestBody EventDTO event) throws Exception {
         Long id = eventFacade.createEvent(event);
         if (id == null) {

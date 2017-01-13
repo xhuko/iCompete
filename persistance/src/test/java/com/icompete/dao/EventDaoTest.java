@@ -32,6 +32,9 @@ public class EventDaoTest extends AbstractTestNGSpringContextTests {
     @Inject
     private EventDao eventDao;
 
+    @Inject
+    private SportDao sportDao;
+
     /**
      * Tests event creation and retrieval
      */
@@ -47,8 +50,9 @@ public class EventDaoTest extends AbstractTestNGSpringContextTests {
         sport.setName("sport 1");
         sport.setDescription("test description");
         sport.setType(SportType.SUMMER);
+
+        sportDao.create(sport);
         swimmingEvent.setSport(sport);
-        
         eventDao.create(swimmingEvent);
 
         Event runningEvent = new Event();
@@ -254,7 +258,8 @@ public class EventDaoTest extends AbstractTestNGSpringContextTests {
         sport.setName("Archery");
         sport.setType(SportType.SUMMER);
         sport.setDescription("Archery sport");
-        
+        sportDao.create(sport);
+
         firstEvent.setSport(sport);
         
         eventDao.create(firstEvent);

@@ -31,6 +31,9 @@ public class SampleDataLoadingFacadeTest extends AbstractTestNGSpringContextTest
     public EventDao eventDao;
 
     @Autowired
+    public EventService eventService;
+
+    @Autowired
     public EventFacade eventFacade;
 
     @Autowired
@@ -41,8 +44,9 @@ public class SampleDataLoadingFacadeTest extends AbstractTestNGSpringContextTest
 
     @Test
     public void createSampleData() throws IOException {
-        
-        Assert.assertTrue(eventDao.findAll().size() == 2, "no products");
+
+        Assert.assertEquals(eventDao.findAll().size(), 2);
+        Assert.assertEquals(eventService.findAll().size(), 2);
         Assert.assertEquals(eventFacade.getAllEvents().size(), 2);
 
        

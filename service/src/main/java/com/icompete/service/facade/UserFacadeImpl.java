@@ -1,5 +1,7 @@
 package com.icompete.service.facade;
 
+import com.icompete.dto.UserAuthenticateDTO;
+import com.icompete.dto.UserCreateDTO;
 import com.icompete.dto.UserDTO;
 import com.icompete.entity.User;
 import com.icompete.enums.UserType;
@@ -30,12 +32,12 @@ public class UserFacadeImpl implements UserFacade {
     private BeanMappingService beanMappingService;
 
     @Override
-    public Long createUser(UserDTO user) {
+    public Long createUser(UserCreateDTO user) {
         return userService.createUser(beanMappingService.mapTo(user, User.class), user.getPassword());
     }
 
     @Override
-    public boolean authenticateUser(UserDTO user) {
+    public boolean authenticateUser(UserAuthenticateDTO user) {
         User userClass = beanMappingService.mapTo(user, User.class);
         return userService.authenticateUser(userClass, user.getPassword());
     }
@@ -44,9 +46,7 @@ public class UserFacadeImpl implements UserFacade {
     public UserDTO getUserById(Long id) {
         User user = userService.getUserById(id);
         if (user == null) return null;
-        UserDTO userDTO = beanMappingService.mapTo(user, UserDTO.class);
-        userDTO.setPassword(null);
-        return userDTO;
+        return beanMappingService.mapTo(user, UserDTO.class);
     }
 
     @Override

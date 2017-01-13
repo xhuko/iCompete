@@ -14,7 +14,7 @@ import org.hibernate.validator.constraints.Range;
  */
 public class EventDTO {
     
-    private long id;
+    private Long id;
     
     private SportDTO sport = new SportDTO();
     
@@ -33,12 +33,12 @@ public class EventDTO {
     public String address;
 
     private Set<RuleDTO> rules = new HashSet<>();
-    
-    public long getId() {
+
+    public Long getId() {
         return id;
     }
-    
-    public void setId(Long id){
+
+    public void setId(Long id) {
         this.id = id;
     }
 

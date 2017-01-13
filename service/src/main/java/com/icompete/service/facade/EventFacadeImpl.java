@@ -61,25 +61,14 @@ public class EventFacadeImpl implements EventFacade {
     @Override
     public EventDTO getEventById(Long l) {
         Event event = eventService.findById(l);
-        log.debug("GetEventById Event- " + (event == null ? "null" : event.getRules().toString()));
         EventDTO foundEventDTO = (event == null ? null : beanMappingService.mapTo(event, EventDTO.class));
-        if (foundEventDTO != null) {
-            foundEventDTO.setId(event.getId());
-//            foundEventDTO.setRules(beanMappingService.mapTo(event.getRules(), RuleDTO.class));
-        }
-        log.debug("GetEventById EventDTO- " + (foundEventDTO == null ? "null" : foundEventDTO.getRules().toString()));
-
         return foundEventDTO;
     }
 
     @Override
     public Collection<EventDTO> getAllEvents() {
         List<Event> allEvents = eventService.findAll();
-        List<EventDTO> mappedEvents = new ArrayList<>();
-        for(Event event : allEvents){
-            mappedEvents.add(getEventById(event.getId()));
-        }
-        return mappedEvents;
+        return beanMappingService.mapTo(allEvents, EventDTO.class);
     }
 
     @Override

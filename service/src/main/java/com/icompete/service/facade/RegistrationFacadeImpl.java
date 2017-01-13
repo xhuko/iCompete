@@ -52,6 +52,15 @@ public class RegistrationFacadeImpl implements RegistrationFacade{
     }
 
     @Override
+    public Long createResult(RegistrationDTO registrationDTO, int position) {
+        Result result = new Result();
+        result.setPosition(position);
+        result.setRegistration(mapper.mapTo(registrationDTO, Registration.class));
+        resultService.create(result);
+        return result.getId();
+    }
+
+    @Override
     public RegistrationDTO getRegistrationById(Long id) throws EntityNotFoundException {
         return mapper.mapTo(registrationService.findById(id), RegistrationDTO.class);
     }

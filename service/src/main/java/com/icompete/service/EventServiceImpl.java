@@ -49,17 +49,10 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event create(Event event) {
-        
         if(event == null){
             throw new IllegalArgumentException("Event is null");
         }
-
-        log.debug("CREATING EVENT " + event.getName());
-        log.debug(event.getRules().toString());
-        Event createdEvent = eventDao.create(event);
-        log.debug(createdEvent.getRules().toString());
-
-        return  createdEvent;
+        return  eventDao.create(event);
     }
 
     @Override
@@ -138,8 +131,7 @@ public class EventServiceImpl implements EventService {
         }
         
         int usedPlaces = registrationDao.findByEvent(event).size();
-        int emptyPlaces = event.getCapacity() - usedPlaces;
-        return emptyPlaces;
+        return event.getCapacity() - usedPlaces;
     }
     
     @Override

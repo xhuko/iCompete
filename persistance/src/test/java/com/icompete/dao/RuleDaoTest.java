@@ -16,6 +16,9 @@ import javax.inject.Inject;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.dao.DataAccessException;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Class to test RuleDao CRUD operations
  * @author Xhulio
@@ -26,6 +29,9 @@ import org.springframework.dao.DataAccessException;
 public class RuleDaoTest extends AbstractTestNGSpringContextTests {
     @Inject
     private RuleDao ruleDao;
+
+    @Inject
+    private EventDao eventDao;
     /**
      * Tests rule entity creation and retrieval
      */
@@ -41,7 +47,7 @@ public class RuleDaoTest extends AbstractTestNGSpringContextTests {
        Assert.assertNotNull(savedRule);
        Assert.assertEquals(savedRule.getText(), "First rule");
        
-       /**
+       /*
         * We are testing for null value because we don't know the order of execution of the test
         * so we cant check for list size because more than one entity can exists at this point
         */
@@ -97,12 +103,15 @@ public class RuleDaoTest extends AbstractTestNGSpringContextTests {
         event.setName("Swimming");
         event.setAddress("Adress");
         event.setCapacity(30);
-        rule.setEvent(event);
-        
-        ruleDao.create(rule);
-        
-        Rule savedRule = ruleDao.findById(rule.getId());
-        Assert.assertNotNull(savedRule.getEvent());
+        Set<Rule> ruleSet = new HashSet<>();
+        ruleSet.add(rule);
+        event.setRules(ruleSet);
+        eventDao.create(event);
+
+        Assert.assertEquals(event.getRules().size(), 1);
+        Rule savedRule = event.getRules().iterator().next();
+        Assert.assertNotNull(savedRule);
+        Assert.assertNotNull(ruleDao.findById(savedRule.getId()));
     }
     
     @Test(expectedExceptions = DataAccessException.class)

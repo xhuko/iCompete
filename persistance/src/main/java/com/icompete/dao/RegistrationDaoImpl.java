@@ -3,11 +3,12 @@ package com.icompete.dao;
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
 import com.icompete.entity.User;
+
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -32,6 +33,7 @@ public class RegistrationDaoImpl implements RegistrationDao{
 
     @Override
     public void create(Registration registration) {
+        registration.setCreationDate(new Date());
         em.persist(registration);
     }
 

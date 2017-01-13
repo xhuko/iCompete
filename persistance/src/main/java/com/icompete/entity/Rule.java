@@ -26,20 +26,9 @@ public class Rule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Event event;
     
     @Column(nullable = false, length = 2048)
     private String text;
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
 
     public Long getId() {
         return id;

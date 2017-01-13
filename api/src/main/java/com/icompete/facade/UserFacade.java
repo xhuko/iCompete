@@ -1,5 +1,7 @@
 package com.icompete.facade;
 
+import com.icompete.dto.UserAuthenticateDTO;
+import com.icompete.dto.UserCreateDTO;
 import com.icompete.dto.UserDTO;
 import com.icompete.enums.UserType;
 import com.icompete.exception.EntityNotFoundException;
@@ -13,8 +15,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public interface UserFacade {
-    Long createUser(UserDTO user);
-    boolean authenticateUser(UserDTO user);
+    Long createUser(UserCreateDTO user);
+    boolean authenticateUser(UserAuthenticateDTO user);
     UserDTO getUserById(Long id);
     UserDTO getUsersByUserName(String userName);
     Collection<UserDTO> getUsersByRole(UserType role);

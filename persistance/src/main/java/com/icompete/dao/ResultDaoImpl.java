@@ -3,6 +3,8 @@ package com.icompete.dao;
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
 import com.icompete.entity.Result;
+
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -32,6 +34,7 @@ public class ResultDaoImpl implements ResultDao {
 
     @Override
     public void create(Result result) {
+        result.setCreationDate(new Date());
         em.persist(result);
     }
 

@@ -1,5 +1,7 @@
 package com.icompete.service.facade;
 
+import com.icompete.dto.UserAuthenticateDTO;
+import com.icompete.dto.UserCreateDTO;
 import com.icompete.dto.UserDTO;
 import com.icompete.entity.User;
 import com.icompete.enums.UserType;
@@ -35,6 +37,8 @@ import org.testng.annotations.Test;
 public class UserFacadeTest extends AbstractTestNGSpringContextTests {
 
     private UserDTO userDTO = new UserDTO();
+    private UserCreateDTO userCreateDTO = new UserCreateDTO();
+    private UserAuthenticateDTO userAuthenticateDTO = new UserAuthenticateDTO();
     private User user = new User();
     
     @Mock
@@ -55,21 +59,28 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests {
     public void setUp() throws Exception {
         String email = "email@gmail.com";
         userDTO.setEmail(email);
+        userCreateDTO.setEmail(email);
         user.setEmail(email);
         String firstName = "firstName";
         userDTO.setFirstName(firstName);
+        userCreateDTO.setFirstName(firstName);
         user.setFirstName(firstName);
         String lastName = "lastName";
         userDTO.setLastName(lastName);
+        userCreateDTO.setLastName(lastName);
         user.setLastName(lastName);
         String password = "password";
-        userDTO.setPassword(password);
+        userCreateDTO.setPassword(password);
+        userAuthenticateDTO.setPassword(password);
         user.setPassword(password);
         String userName = "userName";
         userDTO.setUserName(userName);
+        userCreateDTO.setUserName(userName);
         user.setUserName(userName);
         userDTO.setUserType(UserType.SPORTSMAN);
         user.setUserType(UserType.SPORTSMAN);
+        userAuthenticateDTO.setUserId(1L);
+        user.setId(1L);
 
         when(beanMappingService.mapTo(userDTO, User.class)).thenReturn(user);
         when(beanMappingService.mapTo(user, UserDTO.class)).thenReturn(userDTO);
@@ -77,26 +88,26 @@ public class UserFacadeTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testCreateUser() throws EntityNotFoundException{
-        when(userService.createUser(user, userDTO.getPassword())).thenReturn(1L);
+        when(userService.createUser(user, userCreateDTO.getPassword())).thenReturn(1L);
         when(userService.getUsersByUserName(user.getUserName())).thenReturn(null);
         when(userService.authenticateUser(any(), any())).thenReturn(Boolean.TRUE);
 
-        Assert.assertEquals((long)userFacade.createUser(userDTO),1L);
+        Assert.assertEquals((long)userFacade.createUser(userCreateDTO),1L);
 
-        when(userService.createUser(user, userDTO.getPassword())).thenReturn(null);
+        when(userService.createUser(user, userCreateDTO.getPassword())).thenReturn(null);
         when(userService.getUsersByUserName(user.getUserName())).thenReturn(user);
 
-        Assert.assertEquals(userFacade.createUser(userDTO),null);
+        Assert.assertEquals(userFacade.createUser(userCreateDTO),null);
     }
 
     @Test
     public void testAuthenticateUser() {
-        when(userService.authenticateUser(user, userDTO.getPassword())).thenReturn(Boolean.TRUE);
+        when(userService.authenticateUser(user, userAuthenticateDTO.getPassword())).thenReturn(Boolean.TRUE);
         when(userService.authenticateUser(user, "pass2")).thenReturn(Boolean.FALSE);
-        Assert.assertTrue(userFacade.authenticateUser(userDTO));
-        userDTO.setPassword("pass2");
-        Assert.assertFalse(userFacade.authenticateUser(userDTO));
-        userDTO.setPassword("password");
+        Assert.assertTrue(userFacade.authenticateUser(userAuthenticateDTO));
+        userAuthenticateDTO.setPassword("pass2");
+        Assert.assertFalse(userFacade.authenticateUser(userAuthenticateDTO));
+        userAuthenticateDTO.setPassword("password");
     }
 
     @Test

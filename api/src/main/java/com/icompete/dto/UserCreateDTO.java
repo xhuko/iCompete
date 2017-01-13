@@ -11,7 +11,7 @@ import java.util.Set;
  * @author Peter Sekan, peter.sekan@mail.muni.cz
  * @version 22/11/2016
  */
-public class UserDTO {
+public class UserCreateDTO {
     private Long id;
     private String userName;
     private String firstName;
@@ -21,6 +21,7 @@ public class UserDTO {
     private String email = "";
     private Set<SportDTO> preferredSports = new HashSet<>();
     private UserType userType = UserType.SPORTSMAN;
+    private String password;
 
     public void setId(Long id) {
         this.id = id;
@@ -93,12 +94,21 @@ public class UserDTO {
     public Long getId() {
         return id;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || !(o instanceof UserDTO)) return false;
+        if (o == null || !(o instanceof UserCreateDTO)) return false;
 
-        UserDTO user = (UserDTO) o;
+        UserCreateDTO user = (UserCreateDTO) o;
 
         if (getId() != null ? !getId().equals(user.getId()) : user.getId() != null) return false;
         if (!getUserName().equals(user.getUserName())) return false;
