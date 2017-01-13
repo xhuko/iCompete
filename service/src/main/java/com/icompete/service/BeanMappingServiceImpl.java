@@ -41,6 +41,12 @@ public class BeanMappingServiceImpl implements BeanMappingService {
     }
 
     @Override
+    public  void mapTo(Object u, Object mapToClass)
+    {
+        dozer.map(u,mapToClass);
+    }
+
+    @Override
     public Mapper getMapper(){
         return dozer;
     }

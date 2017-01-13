@@ -63,5 +63,12 @@ public interface ResultService {
      * @return Results found
      */
     List<Result> findResultByEvent(Long id);
-    
+
+    /**
+     * Set result of registration
+     * @param registrationId id of registration
+     * @param position position
+     * @return id of result
+     */
+    Long setResult(Long registrationId, int position);
 }

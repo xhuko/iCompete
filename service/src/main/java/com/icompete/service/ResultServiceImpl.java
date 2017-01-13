@@ -98,7 +98,7 @@ public class ResultServiceImpl implements ResultService {
         List<Result> eventResults = new ArrayList<>();
 
         eventRegistrations.forEach((registration) -> {
-            Result registrationResult = resultDao.findResultByRegistration(registration);
+            Result registrationResult = registration.getResult();
             if (registrationResult != null) {
                 eventResults.add(registrationResult);
             }
@@ -107,4 +107,23 @@ public class ResultServiceImpl implements ResultService {
         return eventResults;
     }
 
+    @Override
+    public Long setResult(Long registrationId, int position) {
+        Registration registration = registrationDao.findById(registrationId);
+        if (registration == null) {
+            throw new IllegalArgumentException("Cannot find registration");
+        }
+        Result result = registration.getResult();
+        if (result != null) {
+            result.setPosition(position);
+            resultDao.update(result);
+        }
+        else {
+            result = new Result();
+            result.setPosition(position);
+            registration.setResult(result);
+            registrationDao.update(registration);
+        }
+        return registration.getResult().getId();
+    }
 }

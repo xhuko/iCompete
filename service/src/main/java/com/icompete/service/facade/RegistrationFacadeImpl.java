@@ -1,9 +1,6 @@
 package com.icompete.service.facade;
 
-import com.icompete.dto.EventDTO;
-import com.icompete.dto.EventResultsDTO;
-import com.icompete.dto.RegistrationDTO;
-import com.icompete.dto.UserDTO;
+import com.icompete.dto.*;
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
 import com.icompete.entity.Result;
@@ -53,11 +50,7 @@ public class RegistrationFacadeImpl implements RegistrationFacade{
 
     @Override
     public Long createResult(RegistrationDTO registrationDTO, int position) {
-        Result result = new Result();
-        result.setPosition(position);
-        result.setRegistration(mapper.mapTo(registrationDTO, Registration.class));
-        resultService.create(result);
-        return result.getId();
+        return resultService.setResult(registrationDTO.getId(), position);
     }
 
     @Override
@@ -95,12 +88,10 @@ public class RegistrationFacadeImpl implements RegistrationFacade{
 
     @Override
     public Collection<RegistrationDTO> getRegistrationsByEvent(EventDTO event) {
-        ArrayList<RegistrationDTO> resultList = new ArrayList<>();
         if(event == null){
-            return resultList;
+            return new ArrayList<>();
         }
-        Event eventEntity = mapper.mapTo(event, Event.class);
-        List<Registration> regList = registrationService.findRegistrationsByEvent(eventEntity);
+        List<Registration> regList = registrationService.findRegistrationsByEvent(event.getId());
         return mapper.mapTo(regList, RegistrationDTO.class);
     }
 

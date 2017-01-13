@@ -67,7 +67,6 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         registrationDao.create(testRegistration);
         
         Result testResult = new Result();
-        testResult.setRegistration(testRegistration);
         testResult.setPosition(12);
         resultDao.create(testResult);
 
@@ -76,8 +75,6 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         
         Result testResultClone = resultDao.findById(testResult.getId());
         Assert.assertEquals(testResultClone.getId(), testResult.getId());
-        Assert.assertEquals(testResultClone.getRegistration(), testResult.getRegistration());
-        Assert.assertEquals(testResultClone.getRegistration(), testRegistration);
         
     }
     
@@ -116,20 +113,16 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         registrationDao.create(secondRegistration);
         
         Result testResult = new Result();
-        testResult.setRegistration(firstRegistration);
         testResult.setPosition(12);
         resultDao.create(testResult);
         
         Result testResultClone = resultDao.findById(testResult.getId());
         Assert.assertEquals(testResultClone.getId(), testResult.getId());
-        Assert.assertEquals(testResultClone.getRegistration(), firstRegistration);
 
-        testResult.setRegistration(secondRegistration);
         resultDao.update(testResult);
 
         testResultClone = resultDao.findById(testResult.getId());
         Assert.assertEquals(testResultClone.getId(), testResult.getId());
-        Assert.assertEquals(testResultClone.getRegistration(), secondRegistration);
     }
     
     @Test
@@ -156,7 +149,6 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         registrationDao.create(firstRegistration);
         
         Result testResult = new Result();
-        testResult.setRegistration(firstRegistration);
         testResult.setPosition(12);
         resultDao.create(testResult);
 

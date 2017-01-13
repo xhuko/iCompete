@@ -2,16 +2,7 @@ package com.icompete.entity;
 
 import java.util.Date;
 import java.util.Objects;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 /**
  *
@@ -26,9 +17,6 @@ public class Result {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @OneToOne(fetch = FetchType.EAGER)
-    private Registration registration;
-    
     @Column(nullable = false)
     private int position;
     
@@ -37,14 +25,6 @@ public class Result {
 
     public Long getId() {
         return id;
-    }
-
-    public Registration getRegistration() {
-        return registration;
-    }
-
-    public void setRegistration(Registration registration) {
-        this.registration = registration;
     }
 
     public int getPosition() {
@@ -66,7 +46,6 @@ public class Result {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.getRegistration());
         hash = 59 * hash + this.getPosition();
         hash = 59 * hash + Objects.hashCode(this.getCreationDate());
         return hash;
@@ -89,9 +68,6 @@ public class Result {
             return false;
         }
         if (!Objects.equals(this.getId(), other.getId())) {
-            return false;
-        }
-        if (!Objects.equals(this.getRegistration(), other.getRegistration())) {
             return false;
         }
         if (!Objects.equals(this.getCreationDate(), other.getCreationDate())) {

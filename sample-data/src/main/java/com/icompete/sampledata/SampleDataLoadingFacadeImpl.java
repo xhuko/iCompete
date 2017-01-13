@@ -118,10 +118,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     }
 
     private Result createResult(Registration registration, int position) {
-        Result r = new Result();
-        r.setRegistration(registration);
-        r.setPosition(position);
-        resultService.create(r);
-        return r;
+        resultService.setResult(registration.getId(), position);
+        return registrationService.findById(registration.getId()).getResult();
     }
 }

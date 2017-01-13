@@ -1,14 +1,12 @@
 package com.icompete.rest.rest.controllers;
 
-import com.icompete.dto.EventDTO;
-import com.icompete.dto.RegistrationDTO;
-import com.icompete.dto.ResultDTO;
-import com.icompete.dto.UserDTO;
+import com.icompete.dto.*;
 import com.icompete.facade.EventFacade;
 import com.icompete.facade.RegistrationFacade;
 import com.icompete.facade.UserFacade;
 import com.icompete.rest.rest.ApiUris;
 import java.util.Collection;
+import java.util.TreeSet;
 import javax.inject.Inject;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,10 +46,29 @@ public class EventsController {
     }
 
     @RequestMapping(value = "/{id}/results", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final Collection<ResultDTO> getEventResults(@PathVariable("id") long id) throws Exception {
+    public final Collection<ResultWithUserDTO> getEventResults(@PathVariable("id") long id) throws Exception {
         EventDTO eventDTO = eventFacade.getEventById(id);
         if (eventDTO != null) {
-            return eventFacade.getEventResults(id);
+            Collection<RegistrationDTO> registrationDTOS = registrationFacade.getRegistrationsByEvent(eventDTO);
+            TreeSet<ResultWithUserDTO> results = new TreeSet<>();
+            for (RegistrationDTO registrationDTO : registrationDTOS) {
+                ResultWithUserDTO resultWithUserDTO = new ResultWithUserDTO();
+                ResultDTO resultDTO = registrationDTO.getResult();
+                resultWithUserDTO.setPosition((resultDTO != null ? (long)resultDTO.getPosition() : null));
+                resultWithUserDTO.setUser(registrationDTO.getUser());
+                results.add(resultWithUserDTO);
+            }
+            return results;
+        } else {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    @RequestMapping(value = "/{id}/registrations", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public final Collection<RegistrationDTO> getEventRegistrations(@PathVariable("id") long id) throws Exception {
+        EventDTO eventDTO = eventFacade.getEventById(id);
+        if (eventDTO != null) {
+            return registrationFacade.getRegistrationsByEvent(eventDTO);
         } else {
             throw new ResourceNotFoundException();
         }

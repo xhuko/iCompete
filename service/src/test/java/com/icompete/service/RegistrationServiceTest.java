@@ -102,8 +102,7 @@ public class RegistrationServiceTest extends AbstractTestNGSpringContextTests {
         List<Registration> list = new ArrayList<>();
         list.add(registration);
         when(registrationDao.findByEvent(event)).thenReturn(list);
-        Assert.assertEquals(new ArrayList<Result>(), registrationService.findRegistrationsByEvent(new Event()));
-        Assert.assertEquals(list, registrationService.findRegistrationsByEvent(event));
+        Assert.assertEquals(list, registrationService.findRegistrationsByEvent(event.getId()));
     }
 
     @Test

@@ -2,15 +2,7 @@ package com.icompete.entity;
 
 import java.util.Date;
 import java.util.Objects;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 
 /**
  *
@@ -25,14 +17,17 @@ public class Registration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private Event event;
     
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private User user;
     
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date creationDate;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Result result;
 
     public Long getId() {
         return id;
@@ -62,12 +57,21 @@ public class Registration {
         this.creationDate = creationDate;
     }
 
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 19 * hash + Objects.hashCode(this.getEvent());
         hash = 19 * hash + Objects.hashCode(this.getUser());
         hash = 19 * hash + Objects.hashCode(this.getCreationDate());
+        hash = 19 * hash + Objects.hashCode(this.getResult());
         return hash;
     }
 
@@ -90,6 +94,9 @@ public class Registration {
             return false;
         }
         if (!Objects.equals(this.getUser(), other.getUser())) {
+            return false;
+        }
+        if (!Objects.equals(this.getResult(), other.getResult())) {
             return false;
         }
         if (!Objects.equals(this.getCreationDate(), other.getCreationDate())) {

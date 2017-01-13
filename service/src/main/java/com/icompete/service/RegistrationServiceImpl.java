@@ -1,5 +1,6 @@
 package com.icompete.service;
 
+import com.icompete.dao.EventDao;
 import com.icompete.dao.RegistrationDao;
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
@@ -17,6 +18,9 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     @Inject
     private RegistrationDao registration;
+
+    @Inject
+    private EventDao eventDao;
     
     @Override
     public List<Registration> findAll() {
@@ -44,7 +48,11 @@ public class RegistrationServiceImpl implements RegistrationService {
     }
 
     @Override
-    public List<Registration> findRegistrationsByEvent(Event event) {
+    public List<Registration> findRegistrationsByEvent(Long eventId) {
+        Event event = eventDao.findById(eventId);
+        if (event == null) {
+            throw new IllegalArgumentException("Cannot find event with id {" + eventId + "}.");
+        }
         return this.registration.findByEvent(event);
     }
 

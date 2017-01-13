@@ -45,7 +45,7 @@ public class ResultServiceTest extends AbstractTestNGSpringContextTests {
         Registration registration = new Registration();
         result.setCreationDate(day);
         result.setPosition(3);
-        result.setRegistration(registration);
+        registration.setResult(result);
     }
 
     @BeforeClass

@@ -1,6 +1,5 @@
 package com.icompete.service;
 
-import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
 import com.icompete.entity.User;
 import java.util.List;
@@ -46,10 +45,10 @@ public interface RegistrationService {
     
     /**
      * Find all registrations to an event
-     * @param event Event to search
+     * @param eventId Event to search
      * @return All event registrations
      */
-    List<Registration> findRegistrationsByEvent(Event event);
+    List<Registration> findRegistrationsByEvent(Long eventId);
     
     /**
      * Get registration by user

@@ -39,6 +39,9 @@ public class EventFacadeImpl implements EventFacade {
     private UserService userService;
 
     @Inject
+    private SportService sportService;
+
+    @Inject
     private ResultService resultService;
 
     @Inject
@@ -116,7 +119,21 @@ public class EventFacadeImpl implements EventFacade {
         if (eventDTO == null) {
             throw new IllegalArgumentException("Event to update is null");
         }
-        eventService.update(beanMappingService.mapTo(eventDTO, Event.class));
+        log.debug("UPDATE EVENTDTO - " + eventDTO.getId());
+        Event event = eventService.findById(eventDTO.getId());
+        event.setRules(new HashSet<>());
+        if (event.getSport() != null && eventDTO.getSport() != null) {
+            if (!event.getSport().getId().equals(eventDTO.getSport().getId())) {
+                Sport sport = sportService.findById(eventDTO.getSport().getId());
+                if (sport == null) {
+                    throw new IllegalArgumentException("Sport with id {" + eventDTO.getSport().getId() + "} was not found.");
+                }
+                event.setSport(sport);
+            }
+        }
+        beanMappingService.mapTo(eventDTO, event);
+        log.debug("UPDATE EVENT - " + event.toString());
+        eventService.update(event);
     }
 
     @Override

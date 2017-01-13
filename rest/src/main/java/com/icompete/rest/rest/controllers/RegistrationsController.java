@@ -54,10 +54,10 @@ public class RegistrationsController {
     }
 
     @RequestMapping(value = "/{id}/result", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public final void addResult(@PathVariable("id") long id, @RequestBody ResultMinimalDTO resultMinimalDTO) throws Exception {
+    public final void addResult(@PathVariable("id") long id, @RequestBody ResultDTO resultDTO) throws Exception {
         RegistrationDTO registrationDTO = registrationFacade.getRegistrationById(id);
         if (registrationDTO != null) {
-            registrationFacade.createResult(registrationDTO, resultMinimalDTO.getPosition());
+            registrationFacade.createResult(registrationDTO, resultDTO.getPosition());
         } else {
             throw new ResourceNotFoundException();
         }

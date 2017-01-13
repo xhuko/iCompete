@@ -12,5 +12,8 @@ public interface BeanMappingService {
     <T> Set<T> mapTo(Set<?> objects, Class<T> mapToClass);
 
     <T> T mapTo(Object u, Class<T> mapToClass);
+
+    void mapTo(Object u, Object mapToClass);
+
     Mapper getMapper();
 }
