@@ -54,11 +54,11 @@
     </build>
     
     <modules>
-        <module>icompete-dao</module>
-        <module>icompete-service</module>
-        <module>icompete-api</module>
-        <module>icompete-web</module>
-        <module>icompete-rest</module>
+        <module>persistance</module>
+        <module>service</module>
+        <module>api</module>
+        <module>web</module>
+        <module>rest</module>
         <module>sample-data</module>
     </modules>
     <name>iCompete parent</name>

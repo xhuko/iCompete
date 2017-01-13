@@ -18,8 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 @ComponentScan(basePackageClasses = {SampleDataLoadingFacadeImpl.class})
 public class SampleDataConfiguration {
 
-    @Autowired
-    SampleDataLoadingFacade sampleDataLoadingFacade;
+    @Inject
+    private SampleDataLoadingFacade sampleDataLoadingFacade;
 
     @PostConstruct
     public void dataLoading() {
