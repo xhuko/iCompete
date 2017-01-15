@@ -9,6 +9,7 @@ import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
 import com.icompete.entity.User;
 import java.util.List;
+import javax.persistence.Query;
 
 /**
  *
@@ -60,4 +61,12 @@ public interface RegistrationDao {
      * @return All user registrations
      */
     List<Registration> findByUser(User user);
+    
+    /**
+     * Find user registration to a particular event
+     * @param user User to search
+     * @param event Event to search
+     * @return Registration of the user to the event
+     */
+    Registration findByUserAndEvent(Long userId, Long eventId);
 }

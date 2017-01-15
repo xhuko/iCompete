@@ -4,7 +4,7 @@
     Author     : Xhulio
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" session="false" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -39,7 +39,7 @@
                     <td><c:out value="${event.name}"/></td>
                     <td><c:out value="${event.sport.name}"/></td>
                     <td><c:out value="${event.capacity}"/></td>
-                    <td><c:out value="${eventEmptyPlaces[event.id]}"/>
+                    <td class="emptyPlaces"><c:out value="${eventEmptyPlaces[event.id]}"/>
                     <td><fmt:formatDate value="${event.startDate}" type="date" dateStyle="medium"/></td>
                     <td><fmt:formatDate value="${price.endDate}" type="date" dateStyle="medium"/></td>
                     <td><c:out value="${event.address}"/></td>
@@ -47,7 +47,7 @@
                         <td>
                             <c:choose>
                                 <c:when test="${userRegisteredMap[event.id]}">
-                                    Registered
+                                    <button type="button" class="btn btn-primary deregisterUser" data-event="${event.id}">Deregister</button>
                                 </c:when>    
                                 <c:otherwise>
                                     <button type="button" class="btn btn-primary registerUser" data-event="${event.id}">Register</button>

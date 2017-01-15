@@ -44,30 +44,34 @@
                                 </ul>
                             </li>
                         </ul>
-                    </div><!--/.nav-collapse -->
-                </div>
-            </nav>
+                    <c:choose>
+                        <c:when test="${empty authenticatedUser}">
+                            <form class="navbar-form pull-right" action="${pageContext.request.contextPath}/login/trylogin" method ="post">
+                                <input class="span2" type="text" placeholder="Login name" name="logname">
+                                <input class="span2" type="password" placeholder="Password" name="password">
+                                <button type="submit" class="btn">Sign in</button>
+                            </form>
+                        </c:when>    
+                        <c:otherwise>
+                            <form class="navbar-text pull-right" method="post" action="${pageContext.request.contextPath}/login/logout">
+                                Logged in as <c:out value="${authenticatedUser.firstName} ${authenticatedUser.lastName}"/>
+                                &nbsp;&nbsp;
+                                <button type="submit" class="btn">Logout</button>
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
 
-            <div class="container">
+                </div><!--/.nav-collapse -->
 
-                <!-- page title -->
+            </div>
+        </nav>
+
+        <div class="container">
+
+            <!-- page title -->
             <c:if test="${not empty title}">
                 <div class="page-header">
                     <h1><c:out value="${title}"/></h1>
-                </div>
-            </c:if>
-
-            <!-- authenticated user info -->
-            <c:if test="${not empty authenticatedUser}">
-                <div class="row">
-                    <div class="col-xs-6 col-sm-8 col-md-9 col-lg-10"></div>
-                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <c:out value="${authenticatedUser.firstName} ${authenticatedUser.lastName}"/>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </c:if>
 
@@ -100,20 +104,46 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script>
             $(function () {
-                $(".registerUser").click(function () {
-                    debugger;
+                $(document).on("click",".registerUser",function () {
                     let eventId = $(this).data("event");
                     let userId = "${authenticatedUser.id}";
                     let $this = $(this);
+                    let deregisterButton = $('<button type="button" class="btn btn-primary deregisterUser" data-event="'+eventId+'">Deregister</button>');
                     $.ajax({
-                        url: "${pageContext.request.contextPath}/event/register",
+                        url: "${pageContext.request.contextPath}/event/registerAjax",
                         type: "post",
                         data: {
                             "user.id": userId,
                             "event.id": eventId
                         },
-                        success: function () {
-                            $this.replaceWith("Registered");
+                        success: function (res) {
+                            debugger;
+                            if(res && res.success){
+                                $this.closest("tr").find("td.emptyPlaces").text(res.emptyPlaces);
+                                $this.replaceWith(deregisterButton);
+                            }
+                        }
+                    });
+                });
+                
+                $(document).on("click",".deregisterUser",function () {
+                    let eventId = $(this).data("event");
+                    let userId = "${authenticatedUser.id}";
+                    let $this = $(this);
+                    let registerButton = $('<button type="button" class="btn btn-primary registerUser" data-event="'+eventId+'">Register</button>');
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/event/deregisterAjax",
+                        type: "post",
+                        dataType: 'json',
+                        data: {
+                            "user.id": userId,
+                            "event.id": eventId
+                        },
+                        success: function (res) {
+                           if(res && res.success){
+                                $this.closest("tr").find("td.emptyPlaces").text(res.emptyPlaces);
+                                $this.replaceWith(registerButton);
+                            }
                         }
                     });
                 });
@@ -126,6 +156,7 @@
                     $.ajax({
                         url: "${pageContext.request.contextPath}/event/delete",
                         type: "get",
+                        dataType: 'json',
                         data: {
                             "eventId": eventId
                         },

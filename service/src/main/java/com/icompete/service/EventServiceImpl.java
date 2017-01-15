@@ -120,6 +120,14 @@ public class EventServiceImpl implements EventService {
         
         return true;
     }
+    @Override
+    public void deregisterUserFromEvent(User user, Event event){
+        
+        Registration registration = registrationDao.findByUserAndEvent(user.getId(), event.getId());
+        if(registration != null){
+            registrationDao.delete(registration);
+        }
+    }
     
     @Override
     public int emptyPlacesInEvent(Long eventId){

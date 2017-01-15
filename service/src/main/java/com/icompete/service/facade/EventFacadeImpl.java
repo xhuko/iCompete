@@ -192,6 +192,22 @@ public class EventFacadeImpl implements EventFacade {
 
         return eventService.registerUserToEvent(userToRegister, eventToUse);
     }
+
+    @Override
+    public void deregisterUserFromEvent(UserDTO userDTO, EventDTO eventDTO) {
+        if (userDTO == null) {
+            throw new IllegalArgumentException("User is null");
+        }
+
+        if (eventDTO == null) {
+            throw new IllegalArgumentException("Event is null");
+        }
+        
+        User userToUnregister = userService.getUserById(userDTO.getId());
+        Event eventToUse = eventService.findById(eventDTO.getId());
+        
+        eventService.deregisterUserFromEvent(userToUnregister, eventToUse);
+    }
     
     public int findEmptyPlacesInEvent(Long eventId){
         return eventService.emptyPlacesInEvent(eventId);

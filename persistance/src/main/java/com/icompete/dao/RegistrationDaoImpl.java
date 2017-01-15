@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 
@@ -62,5 +63,16 @@ public class RegistrationDaoImpl implements RegistrationDao{
         query.setParameter("userId", user);
         
         return query.getResultList();
+    }
+
+    @Override
+    public Registration findByUserAndEvent(Long userId, Long eventId) {
+        Query query = em.createQuery("SELECT r FROM Registration r INNER JOIN r.event e WHERE r.user.id = :userId AND e.id = :eventId");
+        
+        query.setParameter("userId", userId);
+        query.setParameter("eventId", eventId);
+        
+        return (Registration) query.getSingleResult();
+        
     }
 }

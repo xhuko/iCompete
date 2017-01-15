@@ -6,7 +6,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" 
          pageEncoding="utf-8" 
-         trimDirectiveWhitespaces="false" session="false"
+         trimDirectiveWhitespaces="false"
          import="com.icompete.enums.UserType"%>
 
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>

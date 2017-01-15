@@ -40,4 +40,10 @@ public interface EventFacade {
      * @return true if user is registered to event
      */
     boolean isUserRegisteredToEvent(long eventId, long userId);
+     /**
+     * Remove user registration from an event
+     * @param user User to remove
+     * @param event Event from where to remove user
+     */
+    public void deregisterUserFromEvent(UserDTO userDTO, EventDTO eventDTO);
 }

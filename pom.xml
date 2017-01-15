@@ -57,9 +57,9 @@
         <module>persistance</module>
         <module>service</module>
         <module>api</module>
+        <module>sample-data</module>
         <module>web</module>
         <module>rest</module>
-        <module>sample-data</module>
     </modules>
     <name>iCompete parent</name>
 </project>
