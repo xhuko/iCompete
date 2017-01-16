@@ -37,6 +37,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -89,6 +90,21 @@ public class EventController {
         model.addAttribute("nowDate", new Date());
         return "event/new";
     }
+    
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
+    public String editEvent(@RequestParam("eventId") long eventId,Model model, 
+            RedirectAttributes redirectAttributes) {
+        EventDTO eventEdit = eventFacade.getEventById(eventId);
+        
+        if(eventEdit == null){
+             redirectAttributes.addFlashAttribute("alert_danger", "The event could not be found");
+             return "redirect:event/show";
+        }
+        
+        model.addAttribute("eventEdit", eventEdit);
+        model.addAttribute("nowDate", new Date());
+        return "event/edit";
+    }
 
     @ModelAttribute("sport")
     public List<SportDTO> sports() {
@@ -132,6 +148,22 @@ public class EventController {
         }
 
         eventFacade.createEvent(event);
+
+        return "redirect:/event/show";
+    }
+    
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String update(@Valid @ModelAttribute("eventEdit") EventDTO event, BindingResult bindingResult,
+            Model model) {
+
+        if (bindingResult.hasErrors()) {
+            for (FieldError fe : bindingResult.getFieldErrors()) {
+                model.addAttribute(fe.getField() + "_error", true);
+            }
+            return "/event/edit";
+        }
+
+        eventFacade.updateEvent(event);
 
         return "redirect:/event/show";
     }

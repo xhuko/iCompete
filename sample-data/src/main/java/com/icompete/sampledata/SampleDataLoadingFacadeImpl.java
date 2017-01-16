@@ -41,7 +41,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         User userKondakciu = createUser("kondakciu@icompete.com", "xhulio", "kondakciu", UserType.SPORTSMAN, "Lushnje, Albania", "Xhulio", "Kondakciu", getDate(1993,1,1), new HashSet<>(Arrays.asList(new Sport[]{sportGolf})));
         User userBohumel = createUser("bohumel@icompete.com", "branislav", "bohumel", UserType.SPORTSMAN, "Ziar nad Hronom, Slovakia", "Branislav", "Bohumel", getDate(1993,6,9), new HashSet<>(Arrays.asList(new Sport[]{sportSnowboarding})));
 
-        Event eventDarts = createEvent("Darts 2016", "Description", "FI MUNI",sportDarts, 4, getDate(2016,12,1), getDate(2016,12,4), new HashSet<>(Arrays.asList(new String[]{
+        Event eventDarts = createEvent("Darts 2016", "Description", "FI MUNI",sportTennis, 4, getDate(2016,12,1), getDate(2016,12,4), new HashSet<>(Arrays.asList(new String[]{
                 "In a game of 501 the object is for one player to be the first to reach zero from starting total of 501.",
                 "In simple terms, after three darts are thrown, the throwing player subtracts the total scored from his current total until he reaches zero.",
                 "In order to reach zero each player must finish by throwing a double i.e. if player one has 36 remaining he must hit double 18 to win, while if player two has 45 remaining he must hit single 5, double 20 to win - or a another combination of scores provided the final dart scores on a double."

@@ -92,7 +92,7 @@ public class EventFacadeImpl implements EventFacade {
     public Collection<EventDTO> getEventBetweenDates(Date startDate, Date endDate) {
         List<Event> events = eventService.findEventsBetween(startDate, endDate);
         List<EventDTO> mappedEvents = new ArrayList<>();
-        for(Event event :events){
+        for (Event event : events) {
             EventDTO eventDto = beanMappingService.mapTo(event, EventDTO.class);
             eventDto.setId(event.getId());
             mappedEvents.add(eventDto);
@@ -119,16 +119,21 @@ public class EventFacadeImpl implements EventFacade {
         log.debug("UPDATE EVENTDTO - " + eventDTO.getId());
         Event event = eventService.findById(eventDTO.getId());
         event.setRules(new HashSet<>());
+        event.setAddress(eventDTO.getAddress());
+        event.setCapacity(eventDTO.getCapacity());
+        event.setDescription(eventDTO.getDescription());
+        event.setEndDate(eventDTO.getEndDate());
+        event.setStartDate(eventDTO.getStartDate());
+        event.setName(eventDTO.getName());
         if (event.getSport() != null && eventDTO.getSport() != null) {
-            if (!event.getSport().getId().equals(eventDTO.getSport().getId())) {
-                Sport sport = sportService.findById(eventDTO.getSport().getId());
-                if (sport == null) {
-                    throw new IllegalArgumentException("Sport with id {" + eventDTO.getSport().getId() + "} was not found.");
-                }
-                event.setSport(sport);
+            if(!event.getSport().getId().equals(eventDTO.getSport().getId())){
+                 Sport sport = sportService.findById(eventDTO.getSport().getId());
+            if (sport == null) {
+                throw new IllegalArgumentException("Sport with id {" + eventDTO.getSport().getId() + "} was not found.");
+            }
+            event.setSport(sport);
             }
         }
-        beanMappingService.mapTo(eventDTO, event);
         log.debug("UPDATE EVENT - " + event.toString());
         eventService.update(event);
     }
@@ -143,7 +148,6 @@ public class EventFacadeImpl implements EventFacade {
         if (eventToDelete == null) {
             throw new EntityNotFoundException("Event");
         }
-
 
         eventService.delete(eventToDelete);
     }
@@ -199,14 +203,14 @@ public class EventFacadeImpl implements EventFacade {
         if (eventDTO == null) {
             throw new IllegalArgumentException("Event is null");
         }
-        
+
         User userToUnregister = userService.getUserById(userDTO.getId());
         Event eventToUse = eventService.findById(eventDTO.getId());
-        
+
         eventService.deregisterUserFromEvent(userToUnregister, eventToUse);
     }
-    
-    public int findEmptyPlacesInEvent(Long eventId){
+
+    public int findEmptyPlacesInEvent(Long eventId) {
         return eventService.emptyPlacesInEvent(eventId);
     }
 

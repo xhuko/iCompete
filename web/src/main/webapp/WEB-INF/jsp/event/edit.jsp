@@ -1,24 +1,23 @@
 <%-- 
-    Document   : new
-    Created on : Dec 16, 2016, 12:01:47 PM
+    Document   : edit
+    Created on : Jan 16, 2017, 11:36:35 AM
     Author     : Xhulio
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" 
-         pageEncoding="utf-8" 
-         trimDirectiveWhitespaces="false"%>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pagetemplate title="New event">
+<my:pagetemplate title="Edit event">
     <jsp:attribute name="body">
 
-        <form:form method="post" action="${pageContext.request.contextPath}/event/create"
-                   modelAttribute="eventCreate" cssClass="form-horizontal">
+        
+        <form:form method="post" action="${pageContext.request.contextPath}/event/update"
+                   modelAttribute="eventEdit" cssClass="form-horizontal">
+            <form:hidden path="id"></form:hidden>
             <div class="form-group">
                 <form:label path="sport.Id" cssClass="col-sm-2 control-label">Sport</form:label>
                     <div class="col-sm-10">
@@ -75,7 +74,7 @@
             </div>
 
 
-            <button class="btn btn-primary" type="submit">Create event</button>
+            <button class="btn btn-primary" type="submit">Edit event</button>
 
         </form:form>
 

@@ -48,7 +48,7 @@ public class User {
     @NotNull
     private String email = "";
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.DETACH,fetch = FetchType.EAGER)
     private Set<Sport> preferredSports = new HashSet<>();
 
     @NotNull
