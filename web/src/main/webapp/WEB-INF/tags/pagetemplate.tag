@@ -17,6 +17,7 @@
         <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" crossorigin="anonymous">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"  crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.45/css/bootstrap-datetimepicker.min.css" />
         <jsp:invoke fragment="head"/>
     </head>
     <body>
@@ -107,6 +108,8 @@
         <!-- javascripts placed at the end of the document so the pages load faster -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.45/js/bootstrap-datetimepicker.min.js"></script>
         <script>
             $(function () {
                 let $deletedElement = $("<span class='text-danger'>Deleted</span>");
@@ -205,6 +208,13 @@
                                 alert("User was not deleted");
                             }
                         }
+                    });
+                });
+
+                $(document).ready(function () {
+                    $('.datetimepicker').datetimepicker({
+                        format: 'DD-MM-YYYY',
+//                        sideBySide: true
                     });
                 });
             });

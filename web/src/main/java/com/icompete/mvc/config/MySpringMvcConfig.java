@@ -67,6 +67,4 @@ public class MySpringMvcConfig extends WebMvcConfigurerAdapter {
     public Validator validator() {
         return new LocalValidatorFactoryBean();
     }
-
-
 }

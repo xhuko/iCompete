@@ -56,14 +56,14 @@
             <div class="form-group ${startDate_error?'has-error':''}">
                 <form:label cssClass="col-sm-2 control-label" path="startDate">Start Date:</form:label>
                     <div class="col-sm-10">
-                    <form:input path="startDate" cssClass="form-control" alt="dd-mm-yyyy" title="dd-mm-yyyy"/>
+                    <form:input path="startDate" cssClass="form-control datetimepicker" alt="dd-mm-yyyy" title="dd-mm-yyyy"/>
                     <form:errors path="startDate" cssClass="help-block"/>
                 </div>
             </div>
             <div class="form-group ${endDate_error?'has-error':''}">
                 <form:label cssClass="col-sm-2 control-label" path="endDate">End Date:</form:label>
                     <div class="col-sm-10">
-                    <form:input path="endDate" cssClass="form-control" alt="dd-mm-yyyy" title="dd-mm-yyyy"/>
+                    <form:input path="endDate" cssClass="form-control datetimepicker" alt="dd-mm-yyyy" title="dd-mm-yyyy"/>
                     <form:errors path="endDate" cssClass="help-block"/>
                 </div>
             </div>

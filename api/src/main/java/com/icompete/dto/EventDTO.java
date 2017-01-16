@@ -53,6 +53,7 @@ public class EventDTO {
         long remains = startDate.getTime() - currentDate.getTime();
         if (getState() == EventState.FINISHED) return "Finished";
         if (getState() == EventState.ONGOING) return "Already started";
+        remains = remains/1000;
         if (remains < 60) return remains + " seconds";
         if (remains < 60*60) return remains/60 + ":" + remains%60 + " minutes";
         if (remains < 60*60*24) return remains/(60*60) + ":" + (remains%(60*60))/60 + ":" + remains%60 + " hours";
