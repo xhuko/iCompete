@@ -6,6 +6,10 @@ import com.icompete.utils.DayEqualsUtils;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @author Peter Sekan, peter.sekan@mail.muni.cz
@@ -13,15 +17,40 @@ import java.util.Set;
  */
 public class UserCreateDTO {
     private Long id;
+    
+    @Size(min = 1,message = "Please enter a valid name")
     private String userName;
+    
+    @Size(min = 1,message = "Please enter a valid first name")
     private String firstName;
+    
+    @Size(min = 1,message = "Please enter a valid last name")
     private String lastName;
+    
+    @Past(message = "Please enter a valid birthday")
+    @NotNull(message = "Please enter a valid birthday")
     private Date birthDate;
+     
+    @Size(min = 1,message = "Please enter a valid address")
     private String address = "";
+    
+    @Size(min = 1,message = "Please enter a valid email")
     private String email = "";
     private Set<SportDTO> preferredSports = new HashSet<>();
     private UserType userType = UserType.SPORTSMAN;
+    
+    @Size(min = 6,message = "Password must be at least 6 characters")
     private String password;
+    
+    private String passwordConfirm;
+
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
 
     public void setId(Long id) {
         this.id = id;

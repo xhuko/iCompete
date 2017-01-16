@@ -4,9 +4,12 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -18,18 +21,24 @@ public class EventDTO {
     
     private SportDTO sport = new SportDTO();
     
+    @Size(min = 1 ,message = "Please enter a valid name")
+    @NotNull(message = "Please enter a valid name")
     private String name;
     
-    @Range(min = 5L, max = 75L)
+    @Range(min = 5L, max = 75L,message = "Capacity should be between 5 and 75 users.")
     private int capacity;
     
     private String description;
     
+    @Future(message = "Please enter a valid start date")
+    @NotNull(message = "Please enter a valid start date")
     private Date startDate;
-
+    
+    @Future(message = "Please enter a valid end date")
+    @NotNull(message = "Please enter a valid end date")
     private Date endDate;
 
-    @Size(min = 5)
+    @Size(min = 5,message = "Please enter a valid adress")
     public String address;
 
     private Set<RuleDTO> rules = new HashSet<>();

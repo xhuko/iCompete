@@ -15,7 +15,7 @@ import javax.xml.bind.DatatypeConverter;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@WebFilter(urlPatterns = {"/event/new", "/event/newRegistration", "/event/*"})
+@WebFilter(urlPatterns = {"/event/new", "/event/newRegistration", "/event/*","/user/*"})
 public class ProtectFilter implements Filter {
 
     FilterConfig filterConfig = null;
@@ -65,7 +65,8 @@ public class ProtectFilter implements Filter {
             } else {
                 return false;
             }
-        } else {
+        }
+        else {
             return true;
         }
 

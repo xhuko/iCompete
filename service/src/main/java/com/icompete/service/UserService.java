@@ -12,6 +12,13 @@ import java.util.Collection;
  */
 @Service
 public interface UserService {
+    
+    /**
+     * Get a list of all users
+     * @return All the users
+     */
+    Collection<User> getAllUsers();
+    
     /**
      * Create new user
      * @param user user entity

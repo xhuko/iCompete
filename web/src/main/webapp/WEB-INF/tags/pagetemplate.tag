@@ -35,10 +35,14 @@
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><my:a href="/event/show">Events</my:a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><my:a href="/event/new">New event</my:a></li>
+                            <c:if test="${not empty authenticatedUser}">
+                            <li><my:a href="/user/show">Users</my:a></li>
+                            </c:if>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><my:a href="/event/new">New event</my:a></li>
                                 <li><my:a href="/user/list">Sports</my:a></li>
                                 <li><my:a href="/product/list">Users</my:a></li>
                                 </ul>
@@ -104,33 +108,41 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <script>
             $(function () {
-                $(document).on("click",".registerUser",function () {
+                let $deletedElement = $("<span class='text-danger'>Deleted</span>");
+                let registerButton = $('<button type="button" class="btn btn-primary registerUser">Register</button>');
+                let deregisterButton = $('<button type="button" class="btn btn-primary deregisterUser">Deregister</button>');
+
+                $(document).on("click", ".registerUser", function (e) {
+                    e.stopPropagation();
                     let eventId = $(this).data("event");
                     let userId = "${authenticatedUser.id}";
                     let $this = $(this);
-                    let deregisterButton = $('<button type="button" class="btn btn-primary deregisterUser" data-event="'+eventId+'">Deregister</button>');
+
                     $.ajax({
                         url: "${pageContext.request.contextPath}/event/registerAjax",
                         type: "post",
+                        dataType: 'json',
                         data: {
                             "user.id": userId,
                             "event.id": eventId
                         },
                         success: function (res) {
                             debugger;
-                            if(res && res.success){
+                            if (res && res.success) {
                                 $this.closest("tr").find("td.emptyPlaces").text(res.emptyPlaces);
+                                deregisterButton.data("event", eventId);
                                 $this.replaceWith(deregisterButton);
                             }
                         }
                     });
                 });
-                
-                $(document).on("click",".deregisterUser",function () {
+
+                $(document).on("click", ".deregisterUser", function (e) {
+                    e.stopPropagation();
                     let eventId = $(this).data("event");
                     let userId = "${authenticatedUser.id}";
                     let $this = $(this);
-                    let registerButton = $('<button type="button" class="btn btn-primary registerUser" data-event="'+eventId+'">Register</button>');
+
                     $.ajax({
                         url: "${pageContext.request.contextPath}/event/deregisterAjax",
                         type: "post",
@@ -140,28 +152,57 @@
                             "event.id": eventId
                         },
                         success: function (res) {
-                           if(res && res.success){
+                            if (res && res.success) {
                                 $this.closest("tr").find("td.emptyPlaces").text(res.emptyPlaces);
+                                registerButton.data("event", eventId);
                                 $this.replaceWith(registerButton);
                             }
                         }
                     });
                 });
-                
-                
-                $(".deleteEvent").click(function () {
-                    debugger;
+
+
+                $(document).on("click", ".deleteEvent", function (e) {
+                    e.stopPropagation();
                     let eventId = $(this).data("event");
                     let $this = $(this);
                     $.ajax({
                         url: "${pageContext.request.contextPath}/event/delete",
                         type: "get",
-                        dataType: 'json',
+                        dataType: "json",
                         data: {
-                            "eventId": eventId
+                            eventId: eventId
                         },
-                        success: function () {
-                            $this.replaceWith("Deleted");
+                        success: function (res) {
+                            if (res.success) {
+                                debugger;
+                                $this.replaceWith($deletedElement);
+                                $this.closest("tr").find("button.registerUser,button.deregisterUser").addClass("disabled");
+                            } else {
+                                alert("Event was not deleted");
+                            }
+                        }
+                    });
+                });
+
+                $(document).on("click", ".deleteUser", function (e) {
+                    e.stopPropagation();
+                    let userId = $(this).data("user");
+                    let $this = $(this);
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/user/delete",
+                        type: "get",
+                        dataType: "json",
+                        data: {
+                            userId: userId
+                        },
+                        success: function (res) {
+                            if (res.success) {
+                                debugger;
+                                $this.replaceWith($deletedElement);
+                            } else {
+                                alert("User was not deleted");
+                            }
                         }
                     });
                 });

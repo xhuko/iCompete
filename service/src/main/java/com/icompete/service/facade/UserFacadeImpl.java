@@ -68,7 +68,13 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public void deleteUser(UserDTO user) throws EntityNotFoundException {
-        if (userService.getUserById(user.getId()) == null) throw new EntityNotFoundException("User");
-        userService.deleteUser(beanMappingService.mapTo(user, User.class));
+        User userToDelete = userService.getUserById(user.getId());
+        userService.deleteUser(userToDelete);
+    }
+
+    @Override
+    public Collection<UserDTO> getAllUsers() {
+        List<User> userList = new ArrayList<>(userService.getAllUsers());
+        return beanMappingService.mapTo(userList,UserDTO.class);
     }
 }

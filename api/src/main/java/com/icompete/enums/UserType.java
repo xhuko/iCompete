@@ -5,5 +5,5 @@ package com.icompete.enums;
  */
 public enum UserType {
     ADMIN,
-    SPORTSMAN
+    SPORTSMAN;
 }

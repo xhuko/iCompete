@@ -71,9 +71,8 @@ public class EventServiceImpl implements EventService {
         }
         Collection<Registration> registrations = registrationDao.findByEvent(event);
         for (Registration registration : registrations) {
-            Result result = resultDao.findResultByRegistration(registration);
-            if (result != null) {
-                resultDao.delete(result);
+            if (registration.getResult() != null) {
+                resultDao.delete(registration.getResult());
             }
             registrationDao.delete(registration);
         }

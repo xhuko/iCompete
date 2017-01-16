@@ -37,7 +37,7 @@ public class Event {
     @Column(nullable = false)
     private String address;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Rule> rules = new HashSet<>();
     
     private String description;

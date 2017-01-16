@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void delete(User user) {
         //This is done to get reference to unattached entity
-        User userToDelete = em.getReference(User.class, user.getId());
+        User userToDelete = em.find(User.class, user.getId());
         em.remove(userToDelete);
     }
 }

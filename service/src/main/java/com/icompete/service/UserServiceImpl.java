@@ -1,7 +1,9 @@
 package com.icompete.service;
 
+import com.icompete.dao.RegistrationDao;
 import com.icompete.dao.SportDao;
 import com.icompete.dao.UserDao;
+import com.icompete.entity.Registration;
 import com.icompete.entity.Sport;
 import com.icompete.entity.User;
 import com.icompete.enums.UserType;
@@ -9,6 +11,7 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -27,12 +30,14 @@ public class UserServiceImpl implements UserService {
 
     @Inject
     private SportDao sportDao;
+    
+    @Inject
+    private RegistrationDao registrationDao;
 
     @Override
     public Long createUser(User user, String unencryptedPassword) {
         if (user == null) throw new IllegalArgumentException("Argument user is null.");
         if (unencryptedPassword == null) throw new IllegalArgumentException("Argument unencryptedPassword is null.");
-        //if (getUsersByUserName(user.getUserName()) != null) return null;
 
         Set<Sport> preferredSports = new HashSet<>();
         user.getPreferredSports().forEach((sport) -> {
@@ -86,6 +91,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(User user) {
         if (user == null) throw new IllegalArgumentException("Argument user is null.");
+        
+        List<Registration> registrations = registrationDao.findByUser(user);
+        
+        registrations.forEach((rg) -> 
+        registrationDao.delete(rg)
+        );
+        
         userDao.delete(user);
     }
 
@@ -158,5 +170,10 @@ public class UserServiceImpl implements UserService {
         String hex = bi.toString(16);
         int paddingLength = (array.length * 2) - hex.length();
         return paddingLength > 0 ? String.format("%0" + paddingLength + "d", 0) + hex : hex;
+    }
+
+    @Override
+    public Collection<User> getAllUsers() {
+        return userDao.findAll();
     }
 }

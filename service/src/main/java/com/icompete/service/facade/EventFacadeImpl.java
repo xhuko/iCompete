@@ -3,20 +3,17 @@ package com.icompete.service.facade;
 import com.icompete.dto.*;
 import com.icompete.entity.Event;
 import com.icompete.entity.Result;
-import com.icompete.entity.Rule;
 import com.icompete.entity.Sport;
 import com.icompete.entity.User;
 import com.icompete.exception.EntityNotFoundException;
 import com.icompete.facade.EventFacade;
 import com.icompete.service.*;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

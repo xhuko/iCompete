@@ -4,7 +4,9 @@
     Author     : Xhulio
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="utf-8" trimDirectiveWhitespaces="true" %>
+<%@ page contentType="text/html;charset=UTF-8" 
+         pageEncoding="utf-8" 
+         trimDirectiveWhitespaces="true"%>
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -27,21 +29,21 @@
                         <c:if test="${not empty authenticatedUser}">
                         <th>Register</th>
                         </c:if>
-                         <c:if test="${not empty authenticatedUser && authenticatedUser.userType == UserType.ADMIN}">
+                        <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
                         <th>Delete</th>
                         </c:if>
 
                 </tr>
             </thead>
             <c:forEach items="${events}" var="event" varStatus="ic">
-                <tr>
+                <tr data-toggle="collapse" data-target="#${event.id}" class="clickable">
                     <td>${ic.count}</td>
                     <td><c:out value="${event.name}"/></td>
                     <td><c:out value="${event.sport.name}"/></td>
                     <td><c:out value="${event.capacity}"/></td>
                     <td class="emptyPlaces"><c:out value="${eventEmptyPlaces[event.id]}"/>
                     <td><fmt:formatDate value="${event.startDate}" type="date" dateStyle="medium"/></td>
-                    <td><fmt:formatDate value="${price.endDate}" type="date" dateStyle="medium"/></td>
+                    <td><fmt:formatDate value="${event.endDate}" type="date" dateStyle="medium"/></td>
                     <td><c:out value="${event.address}"/></td>
                     <c:if test="${not empty authenticatedUser}">
                         <td>
@@ -54,14 +56,22 @@
                                 </c:otherwise>
                             </c:choose>
                         </td>
+
                     </c:if>
-<c:if test="${not empty authenticatedUser && authenticatedUser.userType == UserType.ADMIN}">
-                        <button type="button" class="btn btn-primary deleteEvent" data-event="${event.id}">Delete</button>
-                        </c:if>
+                    <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
+                        <td>
+                            <button type="button" class="btn btn-primary deleteEvent" data-event="${event.id}">Delete</button>
+                        </td>
+                    </c:if>
+                </tr>
+                <tr>
+                    <td colspan="9" style="padding: 0 !important;text-align: center">
+                        <div id="${event.id}" class="collapse"><c:out value="${event.description}"/></div>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
-        <c:if test="${not empty authenticatedUser}">
+        <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
             <my:a href="/event/new"><button type="button" class="btn btn-primary">Create event</button></my:a>
         </c:if>
 

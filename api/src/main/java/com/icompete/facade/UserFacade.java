@@ -22,4 +22,5 @@ public interface UserFacade {
     Collection<UserDTO> getUsersByRole(UserType role);
     void updateUser(UserDTO user) throws EntityNotFoundException;
     void deleteUser(UserDTO user) throws EntityNotFoundException;
+    Collection<UserDTO> getAllUsers();
 }
