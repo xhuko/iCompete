@@ -35,18 +35,18 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Sport sportGolf = createSport("Golf", "Golf is a club and ball sport in which players use various clubs to hit balls into a series of holes on a course in as few strokes as possible.", SportType.OUTDOOR);
         Sport sportSnowboarding = createSport("Snowboarding", "Snowboarding is a recreational activity and Olympic and Paralympic sport that involves descending a snow-covered slope while standing on a snowboard attached to a rider's feet.", SportType.WINTER);
 
-        User userAdmin = createUser("admin@icompete.com", "admin", "admin", UserType.ADMIN, "Address", "Admin", "iCompete", getDate(2016,12,14), new HashSet<Sport>());
-        User userSekan = createUser("sekan@icompete.com", "peter", "sekan", UserType.SPORTSMAN, "Medze 47, Lipt. Mikulas, 031 05, Slovakia", "Peter", "Sekan", getDate(1994,9,3), new HashSet<>(Arrays.asList(new Sport[]{sportTableTennis, sportTennis, sportDarts})));
-        User userKondakciu = createUser("kondakciu@icompete.com", "xhulio", "kondakciu", UserType.SPORTSMAN, "Lushnje, Albania", "Xhulio", "Kondakciu", getDate(1993,1,1), new HashSet<>(Arrays.asList(new Sport[]{sportGolf})));
-        User userBohumel = createUser("bohumel@icompete.com", "branislav", "bohumel", UserType.SPORTSMAN, "Ziar nad Hronom, Slovakia", "Branislav", "Bohumel", getDate(1993,6,9), new HashSet<>(Arrays.asList(new Sport[]{sportSnowboarding})));
+        User userAdmin = createUser("admin@icompete.com", "admin", "admin", UserType.ADMIN, "Address", "Admin", "iCompete", getDate(2016,11,14), new HashSet<Sport>());
+        User userSekan = createUser("sekan@icompete.com", "peter", "sekan", UserType.SPORTSMAN, "Medze 47, Lipt. Mikulas, 031 05, Slovakia", "Peter", "Sekan", getDate(1994,8,3), new HashSet<>(Arrays.asList(new Sport[]{sportTableTennis, sportTennis, sportDarts})));
+        User userKondakciu = createUser("kondakciu@icompete.com", "xhulio", "kondakciu", UserType.SPORTSMAN, "Lushnje, Albania", "Xhulio", "Kondakciu", getDate(1993,0,1), new HashSet<>(Arrays.asList(new Sport[]{sportGolf})));
+        User userBohumel = createUser("bohumel@icompete.com", "branislav", "bohumel", UserType.SPORTSMAN, "Ziar nad Hronom, Slovakia", "Branislav", "Bohumel", getDate(1993,5,9), new HashSet<>(Arrays.asList(new Sport[]{sportSnowboarding})));
 
-        Event eventDarts = createEvent("Darts 2016", "Description", "FI MUNI",sportDarts, 4, getDate(2016,12,1), getDate(2016,12,4), new HashSet<>(Arrays.asList(new String[]{
+        Event eventDarts = createEvent("Darts 2016", "Description", "FI MUNI",sportDarts, 4, getDate(2016,11,1), getDate(2016,11,4), new HashSet<>(Arrays.asList(new String[]{
                 "In a game of 501 the object is for one player to be the first to reach zero from starting total of 501.",
                 "In simple terms, after three darts are thrown, the throwing player subtracts the total scored from his current total until he reaches zero.",
                 "In order to reach zero each player must finish by throwing a double i.e. if player one has 36 remaining he must hit double 18 to win, while if player two has 45 remaining he must hit single 5, double 20 to win - or a another combination of scores provided the final dart scores on a double."
         })));
         
-        Event eventSnowboarding = createEvent("Jasna Snowboarding 2017", "Description", "Jasna, Slovakia",sportSnowboarding, 10, getDate(2017,1,20), getDate(2016,1,30), new HashSet<>(Arrays.asList(new String[]{
+        Event eventSnowboarding = createEvent("Jasna Snowboarding 2017", "Description", "Jasna, Slovakia",sportSnowboarding, 10, getDate(2017,0,15), getDate(2016,1,18), new HashSet<>(Arrays.asList(new String[]{
                 "First man on the bottom of track will become winner.",
         })));
 
