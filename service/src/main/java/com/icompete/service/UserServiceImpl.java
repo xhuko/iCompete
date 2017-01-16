@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
         List<Registration> registrations = registrationDao.findByUser(user);
         
         registrations.forEach((rg) -> 
-        registrationDao.delete(rg)
+            registrationDao.delete(rg)
         );
         
         userDao.delete(user);

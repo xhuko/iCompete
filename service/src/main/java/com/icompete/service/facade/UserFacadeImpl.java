@@ -61,9 +61,11 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public void updateUser(UserDTO user) throws EntityNotFoundException {
-        if (userService.getUserById(user.getId()) == null) throw new EntityNotFoundException("User");
-        userService.updateUser(beanMappingService.mapTo(user, User.class));
+    public void updateUser(UserDTO userDTO) throws EntityNotFoundException {
+        User user = userService.getUserById(userDTO.getId());
+        if (user == null) throw new EntityNotFoundException("User");
+        beanMappingService.mapTo(userDTO, user);
+        userService.updateUser(user);
     }
 
     @Override

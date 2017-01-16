@@ -19,20 +19,21 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Name</td>
+                    <th>Name</th>
                     <th>Sport</th>
                     <th>Capacity</th>
                     <th>Empty places</th>
                     <th>Start date</th>
                     <th>End date</th>
                     <th>Address</th>
-                        <c:if test="${not empty authenticatedUser}">
+                    <th>State</th>
+                    <th>Info</th>
+                    <c:if test="${not empty authenticatedUser}">
                         <th>Register</th>
-                        </c:if>
-                        <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
+                    </c:if>
+                    <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
                         <th>Delete</th>
-                        </c:if>
-
+                    </c:if>
                 </tr>
             </thead>
             <c:forEach items="${events}" var="event" varStatus="ic">
@@ -41,22 +42,35 @@
                     <td><c:out value="${event.name}"/></td>
                     <td><c:out value="${event.sport.name}"/></td>
                     <td><c:out value="${event.capacity}"/></td>
-                    <td class="emptyPlaces"><c:out value="${eventEmptyPlaces[event.id]}"/>
+                    <td class="emptyPlaces"><c:out value="${eventEmptyPlaces[event.id]}"/></td>
                     <td><fmt:formatDate value="${event.startDate}" type="date" dateStyle="medium"/></td>
                     <td><fmt:formatDate value="${event.endDate}" type="date" dateStyle="medium"/></td>
                     <td><c:out value="${event.address}"/></td>
+                    <td><my:eventstate state="${event.state.name()}"/></td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${event.state.name() eq 'NOT_STARTED'}">
+                                <button type="button" class="btn btn-default" disabled="disabled"><c:out value="${event.remains}"/> remains</button>
+                            </c:when>
+                            <c:when test="${event.state.name() eq 'ONGOING'}">
+                                <my:a href="/event/${event.id}"><button type="button" class="btn btn-danger">Live results</button></my:a>
+                            </c:when>
+                            <c:otherwise>
+                                <my:a href="/event/${event.id}"><button type="button" class="btn btn-success">Show results</button></my:a>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
                     <c:if test="${not empty authenticatedUser}">
                         <td>
                             <c:choose>
                                 <c:when test="${userRegisteredMap[event.id]}">
                                     <button type="button" class="btn btn-primary deregisterUser" data-event="${event.id}">Deregister</button>
-                                </c:when>    
+                                </c:when>
                                 <c:otherwise>
                                     <button type="button" class="btn btn-primary registerUser" data-event="${event.id}">Register</button>
                                 </c:otherwise>
                             </c:choose>
                         </td>
-
                     </c:if>
                     <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
                         <td>

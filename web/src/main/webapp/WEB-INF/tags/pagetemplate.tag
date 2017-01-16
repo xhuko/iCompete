@@ -35,19 +35,20 @@
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li><my:a href="/event/show">Events</my:a></li>
-                            <c:if test="${not empty authenticatedUser}">
+                        <c:if test="${not empty authenticatedUser}">
                             <li><my:a href="/user/show">Users</my:a></li>
-                            </c:if>
+                        </c:if>
 
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><my:a href="/event/new">New event</my:a></li>
-                                <li><my:a href="/user/list">Sports</my:a></li>
-                                <li><my:a href="/product/list">Users</my:a></li>
-                                </ul>
-                            </li>
-                        </ul>
+
+                        <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><my:a href="/sport/list">Sports</my:a></li>
+                                    </ul>
+                                </li>
+                        </c:if>
+                    </ul>
                     <c:choose>
                         <c:when test="${empty authenticatedUser}">
                             <form class="navbar-form pull-right" action="${pageContext.request.contextPath}/login/trylogin" method ="post">
@@ -127,7 +128,7 @@
                             "event.id": eventId
                         },
                         success: function (res) {
-                            debugger;
+//                            debugger;
                             if (res && res.success) {
                                 $this.closest("tr").find("td.emptyPlaces").text(res.emptyPlaces);
                                 deregisterButton.data("event", eventId);
@@ -175,7 +176,7 @@
                         },
                         success: function (res) {
                             if (res.success) {
-                                debugger;
+//                                debugger;
                                 $this.replaceWith($deletedElement);
                                 $this.closest("tr").find("button.registerUser,button.deregisterUser").addClass("disabled");
                             } else {
@@ -198,7 +199,7 @@
                         },
                         success: function (res) {
                             if (res.success) {
-                                debugger;
+//                                debugger;
                                 $this.replaceWith($deletedElement);
                             } else {
                                 alert("User was not deleted");

@@ -1,5 +1,8 @@
 package com.icompete.entity;
 
+import com.icompete.enums.EventState;
+import com.icompete.utils.EventStateUtils;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -37,7 +40,7 @@ public class Event {
     @Column(nullable = false)
     private String address;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Rule> rules = new HashSet<>();
     
     private String description;
@@ -126,7 +129,9 @@ public class Event {
         this.description = description;
     }
 
-    
+    public EventState getState() {
+        return EventStateUtils.getState(startDate,endDate);
+    }
     
     @Override
     public int hashCode() {

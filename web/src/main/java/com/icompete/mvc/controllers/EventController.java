@@ -1,42 +1,30 @@
 package com.icompete.mvc.controllers;
 
-import com.icompete.dto.EventDTO;
-import com.icompete.dto.RegistrationDTO;
-import com.icompete.dto.SportDTO;
-import com.icompete.dto.UserDTO;
+import com.icompete.dto.*;
 import com.icompete.enums.UserType;
 import com.icompete.exception.EntityNotFoundException;
 import com.icompete.facade.EventFacade;
+import com.icompete.facade.RegistrationFacade;
 import com.icompete.facade.SportFacade;
 import com.icompete.facade.UserFacade;
 import com.icompete.mvc.form.EventCreateDTOValidator;
 import com.icompete.mvc.helper.HelperFunctions;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
@@ -54,6 +42,22 @@ public class EventController {
 
     @Inject
     private UserFacade userFacade;
+
+    @Inject
+    private RegistrationFacade registrationFacade;
+
+
+    @ModelAttribute("sport")
+    public List<SportDTO> sports() {
+        return sportFacade.getAll();
+    }
+
+    @ModelAttribute("events")
+    public Collection<EventDTO> events() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2999, 1, 1);
+        return eventFacade.getEventBetweenDates(new Date(), calendar.getTime());
+    }
 
     @RequestMapping("/show")
     public String show(Model model, HttpServletRequest request) {
@@ -90,34 +94,11 @@ public class EventController {
         return "event/new";
     }
 
-    @ModelAttribute("sport")
-    public List<SportDTO> sports() {
-        return sportFacade.getAll();
-    }
-
     @RequestMapping(value = "/newRegistration", method = RequestMethod.GET)
     public String newRegistration(Model model) {
         RegistrationDTO registration = new RegistrationDTO();
         model.addAttribute("registration", registration);
         return "event/register";
-    }
-
-    @ModelAttribute("events")
-    public Collection<EventDTO> events() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(2999, 1, 1);
-        return eventFacade.getEventBetweenDates(new Date(), calendar.getTime());
-    }
-
-    @InitBinder
-    protected void initBinder(WebDataBinder binder) {
-        if (binder.getTarget() instanceof EventDTO) {
-            binder.addValidators(new EventCreateDTOValidator());
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-        sdf.setLenient(true);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -134,6 +115,27 @@ public class EventController {
         eventFacade.createEvent(event);
 
         return "redirect:/event/show";
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String getEventResults(@PathVariable("id") long id, Model model) throws Exception {
+        EventDTO eventDTO = eventFacade.getEventById(id);
+        if (eventDTO != null) {
+            Collection<RegistrationDTO> registrationDTOS = registrationFacade.getRegistrationsByEvent(eventDTO);
+            TreeSet<ResultWithUserDTO> results = new TreeSet<>();
+            for (RegistrationDTO registrationDTO : registrationDTOS) {
+                ResultWithUserDTO resultWithUserDTO = new ResultWithUserDTO();
+                ResultDTO resultDTO = registrationDTO.getResult();
+                resultWithUserDTO.setPosition((resultDTO != null ? (long)resultDTO.getPosition() : null));
+                resultWithUserDTO.setUser(registrationDTO.getUser());
+                results.add(resultWithUserDTO);
+            }
+            model.addAttribute("results", results);
+            model.addAttribute("event", eventDTO);
+            return "/event/info";
+        } else {
+            return "/404";
+        }
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -220,4 +222,15 @@ public class EventController {
         return "{\"success\":true}";
     }
 
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        if (binder.getTarget() instanceof EventDTO) {
+            binder.addValidators(new EventCreateDTOValidator());
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        sdf.setLenient(true);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, true));
+    }
 }

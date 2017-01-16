@@ -108,13 +108,14 @@ public class UserController {
 
                 if (user != null) {
                     userFacade.deleteUser(user);
+                    return "{\"success\":true}";
                 }
             }
         } catch (EntityNotFoundException ex) {
             return "{\"success\":false}";
         }
+        return "{\"success\":false}";
 
-        return "{\"success\":true}";
     }
 
 
