@@ -98,6 +98,7 @@ public class RuleDaoTest extends AbstractTestNGSpringContextTests {
     public void testEventInsertion(){
         Rule rule = new Rule();
         rule.setText("Forth rule");
+        ruleDao.create(rule);
         
         Event event = new Event();
         event.setName("Swimming");

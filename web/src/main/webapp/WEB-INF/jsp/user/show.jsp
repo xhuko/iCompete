@@ -53,6 +53,8 @@
                 <tr>
                     <td colspan="8" style="padding: 0 !important;text-align: center">
                         <div id="${user.id}" class="collapse">
+                            <span style="text-style:bold">Prefered sports</span>
+                            <br />
                             <c:forEach items="${user.preferredSports}" var="sport" varStatus="ic">
                                 <span>
                                     <c:out value="${sport.name}"/>

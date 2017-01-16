@@ -28,16 +28,14 @@ public class EventDTO {
     @NotNull(message = "Please enter a valid name")
     private String name;
     
-    @Range(min = 5L, max = 75L,message = "Capacity should be between 5 and 75 users.")
+    @Range(min = 2L, max = 75L,message = "Capacity should be between 2 and 75 users.")
     private int capacity;
     
     private String description;
     
-    @Future(message = "Please enter a valid start date")
     @NotNull(message = "Please enter a valid start date")
     private Date startDate;
     
-    @Future(message = "Please enter a valid end date")
     @NotNull(message = "Please enter a valid end date")
     private Date endDate;
 

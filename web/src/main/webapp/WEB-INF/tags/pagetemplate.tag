@@ -133,6 +133,9 @@
                         }
                     });
                 });
+                $(document).on("click", ".editEvent", function (e) {
+                    e.stopPropagation();
+                })
 
                 $(document).on("click", ".deregisterUser", function (e) {
                     e.stopPropagation();
