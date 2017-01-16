@@ -1,10 +1,7 @@
 package com.icompete.mvc.security;
 
-import com.icompete.dto.UserAuthenticateDTO;
 import com.icompete.dto.UserDTO;
 import com.icompete.enums.UserType;
-import com.icompete.facade.UserFacade;
-import java.io.File;
 import java.io.IOException;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -12,10 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
-import org.springframework.web.context.support.WebApplicationContextUtils;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@WebFilter(urlPatterns = {"/event/new", "/event/newRegistration", "/event/*","/user/*"})
+
+@WebFilter(urlPatterns = {"/event/new", "/event/newRegistration", "/event/*","/user/*","/sport/new", "/sport/delete", "/sport/edit"})
 public class ProtectFilter implements Filter {
 
     FilterConfig filterConfig = null;
