@@ -15,7 +15,7 @@
     <form method="post" action="${pageContext.request.contextPath}/login/trylogin" class="form-horizontal" style="text-align:center;">
           
         <div class="form-group">
-            <label path="email" for="logname" class="col-sm-4 control-label">Email:</label>
+            <label path="email" for="logname" class="col-sm-4 control-label">Login name:</label>
             <div class="col-sm-4">
                 <input type="text" class="form-control" name="logname" />
             </div>

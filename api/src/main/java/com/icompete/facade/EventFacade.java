@@ -1,7 +1,6 @@
 package com.icompete.facade;
 
 import com.icompete.dto.EventDTO;
-import com.icompete.dto.EventResultsDTO;
 import com.icompete.dto.ResultDTO;
 import com.icompete.dto.SportDTO;
 import com.icompete.dto.UserDTO;

@@ -7,6 +7,9 @@ import java.util.Set;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.icompete.enums.EventState;
+import com.icompete.utils.EventStateUtils;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,6 +41,22 @@ public class EventDTO {
 
     @Size(min = 5,message = "Please enter a valid adress")
     public String address;
+
+    public EventState getState() {
+        return EventStateUtils.getState(startDate,endDate);
+    }
+
+    public String getRemains() {
+        Date currentDate = new Date();
+        long remains = startDate.getTime() - currentDate.getTime();
+        if (getState() == EventState.FINISHED) return "Finished";
+        if (getState() == EventState.ONGOING) return "Already started";
+        remains = remains/1000;
+        if (remains < 60) return remains + " seconds";
+        if (remains < 60*60) return remains/60 + ":" + remains%60 + " minutes";
+        if (remains < 60*60*24) return remains/(60*60) + ":" + (remains%(60*60))/60 + ":" + remains%60 + " hours";
+        else return remains/(60*60*24) + " days";
+    }
 
     private Set<RuleDTO> rules = new HashSet<>();
 

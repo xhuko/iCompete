@@ -45,6 +45,7 @@
             </div>
 
             <button class="btn btn-success" type="submit">Create sport</button>
+            <my:a href="/sport/list"><button type="button" class="btn btn-default">Cancel</button></my:a>
         </form:form>
 
     </jsp:attribute>

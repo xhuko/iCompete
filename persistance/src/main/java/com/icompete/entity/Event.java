@@ -1,5 +1,8 @@
 package com.icompete.entity;
 
+import com.icompete.enums.EventState;
+import com.icompete.utils.EventStateUtils;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -126,7 +129,9 @@ public class Event {
         this.description = description;
     }
 
-    
+    public EventState getState() {
+        return EventStateUtils.getState(startDate,endDate);
+    }
     
     @Override
     public int hashCode() {
