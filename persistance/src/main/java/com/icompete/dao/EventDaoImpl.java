@@ -23,7 +23,7 @@ public class EventDaoImpl implements EventDao {
 
     @Override
     public List<Event> findAll() {
-        return em.createQuery("SELECT e FROM Event e").getResultList();
+        return em.createQuery("SELECT e FROM Event e ORDER BY e.startDate DESC").getResultList();
     }
 
     @Override

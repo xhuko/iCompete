@@ -31,12 +31,9 @@
                     <c:if test="${not empty authenticatedUser}">
                         <th>Register</th>
                         </c:if>
-                        <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
-                        <th>Edit</th>
-                        </c:if>
-                        <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
-                    </c:if>
                     <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
+                        <th>Update results</th>
+                        <th>Edit</th>
                         <th>Delete</th>
                     </c:if>
                 </tr>
@@ -77,12 +74,13 @@
                             </c:choose>
                         </td>
                     </c:if>
-                         <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
+                     <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
+                        <td>
+                            <my:a href="/event/${event.id}/results"><button type="button" class="btn btn-danger">Results</button></my:a>
+                        </td>
                         <td>
                             <my:a href="/event/edit?eventId=${event.id}"><button type="button" class="btn btn-primary editEvent" data-event="${event.id}">Edit</button></my:a>
                         </td>
-                    </c:if>
-                    <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
                         <td>
                             <button type="button" class="btn btn-primary deleteEvent" data-event="${event.id}">Delete</button>
                         </td>

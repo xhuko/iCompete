@@ -1,17 +1,12 @@
 package com.icompete.mvc.controllers;
 
-import com.icompete.dto.EventDTO;
-import com.icompete.dto.RegistrationDTO;
 import com.icompete.dto.SportDTO;
 import com.icompete.dto.UserDTO;
 import com.icompete.enums.SportType;
 import com.icompete.enums.UserType;
 import com.icompete.exception.EntityNotFoundException;
-import com.icompete.facade.EventFacade;
 import com.icompete.facade.SportFacade;
-import com.icompete.facade.UserFacade;
 import com.icompete.mvc.helper.HelperFunctions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
@@ -20,12 +15,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 

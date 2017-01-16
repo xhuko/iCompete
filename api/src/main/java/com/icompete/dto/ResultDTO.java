@@ -10,7 +10,7 @@ import java.util.Objects;
 public class ResultDTO {
     private Long id;
     
-    private int position;
+    private Long position;
     
     private Date creationDate;
 
@@ -22,11 +22,11 @@ public class ResultDTO {
         this.id = id;
     }
 
-    public int getPosition() {
+    public Long getPosition() {
         return position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(Long position) {
         this.position = position;
     }
 
@@ -41,7 +41,7 @@ public class ResultDTO {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + this.getPosition();
+        hash = 59 * hash + Objects.hashCode(this.getPosition());
         hash = 59 * hash + Objects.hashCode(this.getCreationDate());
         return hash;
     }
@@ -59,7 +59,7 @@ public class ResultDTO {
             return false;
         }
         final ResultDTO other = (ResultDTO) obj;
-        if (this.getPosition() != other.getPosition()) {
+        if (!Objects.equals(this.getPosition(),other.getPosition())) {
             return false;
         }
         if (!Objects.equals(this.getId(), other.getId())) {

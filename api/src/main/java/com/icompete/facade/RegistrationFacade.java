@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface RegistrationFacade {
     Long createRegistration(UserDTO user, EventDTO event) throws EntityNotFoundException;
-    Long createResult(RegistrationDTO registrationDTO, int position);
+    Long createResult(RegistrationDTO registrationDTO, Long position);
     RegistrationDTO getRegistrationById(Long id) throws EntityNotFoundException;
     RegistrationDTO getRegistrationByUserAndEvent(UserDTO user, EventDTO event) throws EntityNotFoundException;
     Collection<RegistrationDTO> getRegistrationsByUser(UserDTO user);
