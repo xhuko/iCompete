@@ -3,7 +3,6 @@ package com.icompete.service.facade;
 import com.icompete.dto.*;
 import com.icompete.entity.Event;
 import com.icompete.entity.Registration;
-import com.icompete.entity.Result;
 import com.icompete.entity.User;
 import com.icompete.exception.EntityNotFoundException;
 import com.icompete.facade.RegistrationFacade;
@@ -15,13 +14,17 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
+
+import com.icompete.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Bohumel
  */
 @Service
+@Transactional
 public class RegistrationFacadeImpl implements RegistrationFacade{
     
     @Inject
@@ -29,9 +32,12 @@ public class RegistrationFacadeImpl implements RegistrationFacade{
     
     @Inject
     private RegistrationService registrationService;
-    
+
     @Inject
     private ResultService resultService;
+
+    @Inject
+    private UserService userService;
 
     @Override
     public Long createRegistration(UserDTO user, EventDTO event) throws EntityNotFoundException {
@@ -49,7 +55,7 @@ public class RegistrationFacadeImpl implements RegistrationFacade{
     }
 
     @Override
-    public Long createResult(RegistrationDTO registrationDTO, int position) {
+    public Long createResult(RegistrationDTO registrationDTO, Long position) {
         return resultService.setResult(registrationDTO.getId(), position);
     }
 
@@ -78,10 +84,10 @@ public class RegistrationFacadeImpl implements RegistrationFacade{
         if(user == null){
             return resultList;
         }
-        User userEntity = mapper.mapTo(user, User.class);
+        User userEntity = userService.getUserById(user.getId());
         List<Registration> regList = registrationService.findRegistrationsByUser(userEntity);
         for(Registration item : regList){
-            mapper.mapTo(item, RegistrationDTO.class);
+            resultList.add(mapper.mapTo(item, RegistrationDTO.class));
         }
         return resultList;
     }

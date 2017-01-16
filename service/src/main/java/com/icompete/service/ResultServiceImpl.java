@@ -60,7 +60,7 @@ public class ResultServiceImpl implements ResultService {
         }
         List<Result> allResults = this.resultDao.findAll();
         for (Result item : allResults) {
-            if (item.getPosition() == position) {
+            if (item.getPosition().intValue() == position) {
                 results.add(item);
             }
         }
@@ -108,12 +108,21 @@ public class ResultServiceImpl implements ResultService {
     }
 
     @Override
-    public Long setResult(Long registrationId, int position) {
+    public Long setResult(Long registrationId, Long position) {
         Registration registration = registrationDao.findById(registrationId);
         if (registration == null) {
             throw new IllegalArgumentException("Cannot find registration");
         }
         Result result = registration.getResult();
+
+        if (position == null) {
+            if (result != null) {
+                registration.setResult(null);
+                registrationDao.update(registration);
+                resultDao.delete(result);
+            }
+            return null;
+        }
         if (result != null) {
             result.setPosition(position);
             resultDao.update(result);

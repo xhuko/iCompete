@@ -70,5 +70,5 @@ public interface ResultService {
      * @param position position
      * @return id of result
      */
-    Long setResult(Long registrationId, int position);
+    Long setResult(Long registrationId, Long position);
 }

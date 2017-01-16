@@ -15,7 +15,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pagetemplate title="Event - ${event.name}">
+<my:pagetemplate title="Event - ${event.name} - Live">
     <jsp:attribute name="body">
         <div class="row">
             <div class="col-md-4">
@@ -45,29 +45,32 @@
         </div>
         <div class="row">
             <c:if test="${not (event.state.name() == 'NOT_STARTED')}">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <h3>Results</h3>
-                    <table class="table table-striped table-hover">
-                        <thead>
-                        <tr>
-                            <th>Position</th>
-                            <th>Sportman</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach items="${results}" var="result" varStatus="ic">
+                    <form:form method="post" action="${pageContext.request.contextPath}/event/${event.id}/results">
+                        <table class="table table-striped table-hover">
+                            <thead>
                             <tr>
-                                <td>
-                                    <c:if test="${result.position == null}">?</c:if>
-                                    <c:if test="${not (result.position == null)}"><c:out value="${result.position}"/></c:if>
-                                </td>
-                                <td>
-                                    <c:out value="${result.user.firstName} ${result.user.lastName}"/>
-                                </td>
+                                <th>Position</th>
+                                <th>Sportman</th>
                             </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${results}" var="result" varStatus="ic">
+                                <tr>
+                                    <td>
+                                        <input type="text" name="results[${ic.count - 1}].value" value="<c:if test="${result.position == null}">?</c:if><c:if test="${not (result.position == null)}"><c:out value="${result.position}"/></c:if>"/>
+                                        <input type="hidden" name="results[${ic.count - 1}].userId" value="${result.user.id}"/>
+                                    </td>
+                                    <td>
+                                        <c:out value="${result.user.firstName} ${result.user.lastName}"/>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                        <button class="btn btn-primary" type="submit">Update result</button>
+                    </form:form>
                 </div>
             </c:if>
         </div>

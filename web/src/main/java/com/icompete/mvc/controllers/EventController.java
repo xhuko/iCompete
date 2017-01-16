@@ -1,6 +1,7 @@
 package com.icompete.mvc.controllers;
 
 import com.icompete.dto.*;
+import com.icompete.entity.Result;
 import com.icompete.enums.UserType;
 import com.icompete.exception.EntityNotFoundException;
 import com.icompete.facade.EventFacade;
@@ -8,6 +9,8 @@ import com.icompete.facade.RegistrationFacade;
 import com.icompete.facade.SportFacade;
 import com.icompete.facade.UserFacade;
 import com.icompete.mvc.form.EventCreateDTOValidator;
+import com.icompete.mvc.form.ResultForm;
+import com.icompete.mvc.form.ResultsForm;
 import com.icompete.mvc.helper.HelperFunctions;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -118,24 +121,77 @@ public class EventController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String getEventResults(@PathVariable("id") long id, Model model) throws Exception {
+    public String getEventInfo(@PathVariable("id") long id, Model model) throws Exception {
         EventDTO eventDTO = eventFacade.getEventById(id);
         if (eventDTO != null) {
-            Collection<RegistrationDTO> registrationDTOS = registrationFacade.getRegistrationsByEvent(eventDTO);
-            TreeSet<ResultWithUserDTO> results = new TreeSet<>();
-            for (RegistrationDTO registrationDTO : registrationDTOS) {
-                ResultWithUserDTO resultWithUserDTO = new ResultWithUserDTO();
-                ResultDTO resultDTO = registrationDTO.getResult();
-                resultWithUserDTO.setPosition((resultDTO != null ? (long)resultDTO.getPosition() : null));
-                resultWithUserDTO.setUser(registrationDTO.getUser());
-                results.add(resultWithUserDTO);
-            }
-            model.addAttribute("results", results);
+            model.addAttribute("results", getResults(eventDTO));
             model.addAttribute("event", eventDTO);
             return "/event/info";
         } else {
             return "/404";
         }
+    }
+
+    @RequestMapping(value = "/{id}/live", method = RequestMethod.GET)
+    public String getEventLiveResults(@PathVariable("id") long id, Model model) throws Exception {
+        EventDTO eventDTO = eventFacade.getEventById(id);
+        if (eventDTO != null) {
+            model.addAttribute("results", getResults(eventDTO));
+            model.addAttribute("event", eventDTO);
+            return "/event/live";
+        } else {
+            return "/404";
+        }
+    }
+
+    @RequestMapping(value = "/{id}/results", method = RequestMethod.GET)
+    public String getEventResults(@PathVariable("id") long id, Model model) throws Exception {
+        EventDTO eventDTO = eventFacade.getEventById(id);
+        if (eventDTO != null) {
+            model.addAttribute("results", getResults(eventDTO));
+            model.addAttribute("event", eventDTO);
+            return "/event/results";
+        } else {
+            return "/404";
+        }
+    }
+
+    @RequestMapping(value = "/{id}/results", method = RequestMethod.POST)
+    public String setEventResults(@PathVariable("id") long id, HttpServletRequest request, ResultsForm formStruct, Model model) throws Exception {
+        EventDTO eventDTO = eventFacade.getEventById(id);
+        if (eventDTO != null) {
+            for (ResultForm resultForm : formStruct.getResults()) {
+                UserDTO userDTO = userFacade.getUserById(resultForm.getUserId());
+                RegistrationDTO registrationDTO = registrationFacade.getRegistrationByUserAndEvent(userDTO, eventDTO);
+                if (registrationDTO == null) continue;
+                try {
+                    Long value = Long.parseLong(resultForm.getValue());
+                    registrationFacade.createResult(registrationDTO, value);
+                }
+                catch (NumberFormatException ex) {
+                    registrationFacade.createResult(registrationDTO, null);
+                }
+            }
+            model.addAttribute("alert_success", "Results successfully updated.");
+            model.addAttribute("results", getResults(eventDTO));
+            model.addAttribute("event", eventDTO);
+            return "/event/results";
+        } else {
+            return "/404";
+        }
+    }
+
+    private TreeSet<ResultWithUserDTO> getResults(EventDTO eventDTO) {
+        Collection<RegistrationDTO> registrationDTOS = registrationFacade.getRegistrationsByEvent(eventDTO);
+        TreeSet<ResultWithUserDTO> results = new TreeSet<>();
+        for (RegistrationDTO registrationDTO : registrationDTOS) {
+            ResultWithUserDTO resultWithUserDTO = new ResultWithUserDTO();
+            ResultDTO resultDTO = registrationDTO.getResult();
+            resultWithUserDTO.setPosition((resultDTO != null ? (long)resultDTO.getPosition() : null));
+            resultWithUserDTO.setUser(registrationDTO.getUser());
+            results.add(resultWithUserDTO);
+        }
+        return results;
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)

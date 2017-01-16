@@ -38,16 +38,9 @@
                         <li><my:a href="/event/show">Events</my:a></li>
                         <c:if test="${not empty authenticatedUser}">
                             <li><my:a href="/user/show">Users</my:a></li>
-                        </c:if>
-
-
-                        <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><my:a href="/sport/list">Sports</my:a></li>
-                                    </ul>
-                                </li>
+                            <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
+                                <li><my:a href="/sport/list">Sports</my:a></li>
+                            </c:if>
                         </c:if>
                     </ul>
                     <c:choose>
@@ -216,6 +209,13 @@
                         format: 'DD-MM-YYYY',
 //                        sideBySide: true
                     });
+
+                    var timersCount = $("#timer").length;
+                    if (timersCount > 0) {
+                        setTimeout(function () {
+                            location = location.href;
+                        }, 1000*5);
+                    }
                 });
             });
         </script>

@@ -63,8 +63,8 @@ public class ResultWithUserDTO implements Comparable {
         if (o == null) return -1;
         if (!(o instanceof ResultWithUserDTO)) return -1;
         ResultWithUserDTO other = (ResultWithUserDTO)o;
-        if (position == null) return -1;
-        if (other.getPosition() == null) return 1;
+        if (position == null) return 1;
+        if (other.getPosition() == null) return -1;
         return position.intValue() - other.getPosition().intValue();
     }
 }

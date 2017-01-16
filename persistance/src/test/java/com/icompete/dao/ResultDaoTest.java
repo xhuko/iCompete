@@ -67,7 +67,7 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         registrationDao.create(testRegistration);
         
         Result testResult = new Result();
-        testResult.setPosition(12);
+        testResult.setPosition(12L);
         resultDao.create(testResult);
 
         List<Result> testList = resultDao.findAll();
@@ -113,7 +113,7 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         registrationDao.create(secondRegistration);
         
         Result testResult = new Result();
-        testResult.setPosition(12);
+        testResult.setPosition(12L);
         resultDao.create(testResult);
         
         Result testResultClone = resultDao.findById(testResult.getId());
@@ -149,7 +149,7 @@ public class ResultDaoTest extends AbstractTestNGSpringContextTests {
         registrationDao.create(firstRegistration);
         
         Result testResult = new Result();
-        testResult.setPosition(12);
+        testResult.setPosition(12L);
         resultDao.create(testResult);
 
         Assert.assertNotNull(resultDao.findById(testResult.getId()));

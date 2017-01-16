@@ -18,7 +18,7 @@ public class Result {
     private Long id;
     
     @Column(nullable = false)
-    private int position;
+    private Long position;
     
     @Temporal(value = TemporalType.TIMESTAMP)
     private Date creationDate;
@@ -27,11 +27,11 @@ public class Result {
         return id;
     }
 
-    public int getPosition() {
+    public Long getPosition() {
         return position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(Long position) {
         this.position = position;
     }
 
@@ -46,7 +46,7 @@ public class Result {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 59 * hash + this.getPosition();
+        hash = 59 * hash + Objects.hashCode(this.getPosition());
         hash = 59 * hash + Objects.hashCode(this.getCreationDate());
         return hash;
     }
@@ -64,7 +64,7 @@ public class Result {
             return false;
         }
         final Result other = (Result) obj;
-        if (this.getPosition() != other.getPosition()) {
+        if (!Objects.equals(this.getPosition(), other.getPosition())) {
             return false;
         }
         if (!Objects.equals(this.getId(), other.getId())) {

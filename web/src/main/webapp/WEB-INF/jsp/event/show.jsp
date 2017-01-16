@@ -32,6 +32,7 @@
                         <th>Register</th>
                     </c:if>
                     <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
+                        <th>Update results</th>
                         <th>Delete</th>
                     </c:if>
                 </tr>
@@ -53,7 +54,7 @@
                                 <button type="button" class="btn btn-default" disabled="disabled"><c:out value="${event.remains}"/> remains</button>
                             </c:when>
                             <c:when test="${event.state.name() eq 'ONGOING'}">
-                                <my:a href="/event/${event.id}"><button type="button" class="btn btn-danger">Live results</button></my:a>
+                                <my:a href="/event/${event.id}/live"><button type="button" class="btn btn-danger">Live results</button></my:a>
                             </c:when>
                             <c:otherwise>
                                 <my:a href="/event/${event.id}"><button type="button" class="btn btn-success">Show results</button></my:a>
@@ -62,17 +63,22 @@
                     </td>
                     <c:if test="${not empty authenticatedUser}">
                         <td>
-                            <c:choose>
-                                <c:when test="${userRegisteredMap[event.id]}">
-                                    <button type="button" class="btn btn-primary deregisterUser" data-event="${event.id}">Deregister</button>
-                                </c:when>
-                                <c:otherwise>
-                                    <button type="button" class="btn btn-primary registerUser" data-event="${event.id}">Register</button>
-                                </c:otherwise>
-                            </c:choose>
+                            <c:if test="${event.state.name() eq 'NOT_STARTED'}">
+                                <c:choose>
+                                    <c:when test="${userRegisteredMap[event.id]}">
+                                        <button type="button" class="btn btn-primary deregisterUser" data-event="${event.id}">Deregister</button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <button type="button" class="btn btn-primary registerUser" data-event="${event.id}">Register</button>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:if>
                         </td>
                     </c:if>
                     <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
+                        <td>
+                            <my:a href="/event/${event.id}/results"><button type="button" class="btn btn-danger">Results</button></my:a>
+                        </td>
                         <td>
                             <button type="button" class="btn btn-primary deleteEvent" data-event="${event.id}">Delete</button>
                         </td>

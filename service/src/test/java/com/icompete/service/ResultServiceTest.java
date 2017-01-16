@@ -44,7 +44,7 @@ public class ResultServiceTest extends AbstractTestNGSpringContextTests {
     public void createOrders() {
         Registration registration = new Registration();
         result.setCreationDate(day);
-        result.setPosition(3);
+        result.setPosition(3L);
         registration.setResult(result);
     }
 

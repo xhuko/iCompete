@@ -15,7 +15,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pagetemplate title="Event - ${event.name}">
+<my:pagetemplate title="Event - ${event.name} - Live">
     <jsp:attribute name="body">
         <div class="row">
             <div class="col-md-4">
@@ -46,7 +46,7 @@
         <div class="row">
             <c:if test="${not (event.state.name() == 'NOT_STARTED')}">
                 <div class="col-md-12">
-                    <h3>Results</h3>
+                    <h3>Results <small>(refreshed every <span id="timer">5</span> seconds)</small></h3>
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr>
