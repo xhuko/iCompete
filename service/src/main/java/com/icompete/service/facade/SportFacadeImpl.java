@@ -2,6 +2,7 @@ package com.icompete.service.facade;
 
 import com.icompete.dto.SportDTO;
 import com.icompete.entity.Sport;
+import com.icompete.exception.EntityNotFoundException;
 import com.icompete.facade.SportFacade;
 import com.icompete.service.BeanMappingService;
 import com.icompete.service.SportService;
@@ -20,10 +21,10 @@ import org.springframework.stereotype.Service;
 public class SportFacadeImpl implements SportFacade{
 
     @Inject
-    SportService sportService;
+    private SportService sportService;
     
     @Inject
-    BeanMappingService beanMappingService;
+    private BeanMappingService beanMappingService;
     
     @Override
     public SportDTO getById(Long l) {
@@ -46,5 +47,29 @@ public class SportFacadeImpl implements SportFacade{
         
         return allMappedSports;
     }
-    
+
+    @Override
+    public void create(SportDTO sportDTO) {
+        Sport sport = beanMappingService.mapTo(sportDTO, Sport.class);
+        sportService.create(sport);
+    }
+
+    @Override
+    public void update(SportDTO sportDTO) throws EntityNotFoundException {
+        Sport sport = sportService.findById(sportDTO.getId());
+        if (sport == null) {
+            throw new EntityNotFoundException("Cannot find sport with id {" + sportDTO.getId() + "}");
+        }
+        beanMappingService.mapTo(sportDTO, sport);
+        sportService.update(sport);
+    }
+
+    @Override
+    public void delete(Long id) throws EntityNotFoundException {
+        Sport sport = sportService.findById(id);
+        if (sport == null) {
+            throw new EntityNotFoundException("Cannot find sport with id {" + id + "}");
+        }
+        sportService.delete(sport);
+    }
 }

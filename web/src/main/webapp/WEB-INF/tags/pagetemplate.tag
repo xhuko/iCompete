@@ -39,8 +39,8 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administrator<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li><my:a href="/event/new">New event</my:a></li>
-                                <li><my:a href="/user/list">Sports</my:a></li>
-                                <li><my:a href="/product/list">Users</my:a></li>
+                                <li><my:a href="/sport/list">Sports</my:a></li>
+                                <li><my:a href="/user/list">Users</my:a></li>
                                 </ul>
                             </li>
                         </ul>
