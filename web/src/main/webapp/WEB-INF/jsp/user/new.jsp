@@ -71,7 +71,7 @@
             <div class="form-group ${birthDate_error?'has-error':''}">
                 <form:label cssClass="col-sm-2 control-label" path="birthDate">Birthday:</form:label>
                     <div class="col-sm-10">
-                    <form:input path="birthDate" cssClass="form-control" alt="dd-mm-yyyy" title="dd-mm-yyyy"/>
+                    <form:input path="birthDate" cssClass="form-control datetimepicker" alt="dd-mm-yyyy" title="dd-mm-yyyy"/>
                     <form:errors path="birthDate" cssClass="help-block"/>
                 </div>
             </div>

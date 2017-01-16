@@ -30,14 +30,10 @@
                     <th>Info</th>
                     <c:if test="${not empty authenticatedUser}">
                         <th>Register</th>
-                        </c:if>
-                        <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
-                        <th>Edit</th>
-                        </c:if>
-                        <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
                     </c:if>
                     <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
                         <th>Update results</th>
+                        <th>Edit</th>
                         <th>Delete</th>
                     </c:if>
                 </tr>
@@ -78,24 +74,12 @@
                             </c:choose>
                         </td>
                     </c:if>
-                         <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
-                        <td>
-                            <my:a href="/event/edit?eventId=${event.id}"><button type="button" class="btn btn-primary editEvent" data-event="${event.id}">Edit</button></my:a>
-                            <c:if test="${event.state.name() eq 'NOT_STARTED'}">
-                                <c:choose>
-                                    <c:when test="${userRegisteredMap[event.id]}">
-                                        <button type="button" class="btn btn-primary deregisterUser" data-event="${event.id}">Deregister</button>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <button type="button" class="btn btn-primary registerUser" data-event="${event.id}">Register</button>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:if>
-                        </td>
-                    </c:if>
-                    <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
+                     <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
                         <td>
                             <my:a href="/event/${event.id}/results"><button type="button" class="btn btn-danger">Results</button></my:a>
+                        </td>
+                        <td>
+                            <my:a href="/event/edit?eventId=${event.id}"><button type="button" class="btn btn-primary editEvent" data-event="${event.id}">Edit</button></my:a>
                         </td>
                         <td>
                             <button type="button" class="btn btn-primary deleteEvent" data-event="${event.id}">Delete</button>

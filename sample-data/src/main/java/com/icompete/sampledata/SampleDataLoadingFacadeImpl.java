@@ -8,7 +8,6 @@ import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 /**
  * @author Peter Sekan, peter.sekan@mail.muni.cz
@@ -57,9 +56,9 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Registration registrationSekanSnowboarding = createRegistration(eventSnowboarding, userSekan);
         Registration registrationKondakciuSnowboarding = createRegistration(eventSnowboarding, userKondakciu);
 
-        Result resultDartsKondakciu = createResult(registrationKondakciuDarts, 1);
-        Result resultDartsSekan = createResult(registrationSekanDarts, 2);
-        Result resultDartsBohumel = createResult(registrationBohumelDarts, 3);
+        Result resultDartsKondakciu = createResult(registrationKondakciuDarts, 1L);
+        Result resultDartsSekan = createResult(registrationSekanDarts, 2L);
+        Result resultDartsBohumel = createResult(registrationBohumelDarts, 3L);
     }
 
     private Date getDate(int year, int month, int day) {
@@ -117,7 +116,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         return r;
     }
 
-    private Result createResult(Registration registration, int position) {
+    private Result createResult(Registration registration, Long position) {
         resultService.setResult(registration.getId(), position);
         return registrationService.findById(registration.getId()).getResult();
     }
