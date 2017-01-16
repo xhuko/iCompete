@@ -30,16 +30,13 @@
                     <th>Info</th>
                     <c:if test="${not empty authenticatedUser}">
                         <th>Register</th>
-<<<<<<< HEAD
                         </c:if>
                         <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
                         <th>Edit</th>
                         </c:if>
                         <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
-=======
                     </c:if>
                     <c:if test="${not empty authenticatedUser && authenticatedUser.userType == 'ADMIN'}">
->>>>>>> 39e2e65d16b736c86568569b86249ee172eaaf89
                         <th>Delete</th>
                     </c:if>
                 </tr>
@@ -58,13 +55,13 @@
                     <td>
                         <c:choose>
                             <c:when test="${event.state.name() eq 'NOT_STARTED'}">
-                                <button type="button" class="btn btn-default" disabled="disabled"><c:out value="${event.remains}"/> remains</button>
+                                <button type="button" class="btn btn-default resultButton" disabled="disabled"><c:out value="${event.remains}"/> remains</button>
                             </c:when>
                             <c:when test="${event.state.name() eq 'ONGOING'}">
-                                <my:a href="/event/${event.id}"><button type="button" class="btn btn-danger">Live results</button></my:a>
+                                <my:a href="/event/${event.id}"><button type="button" class="btn btn-danger resultButton">Live results</button></my:a>
                             </c:when>
                             <c:otherwise>
-                                <my:a href="/event/${event.id}"><button type="button" class="btn btn-success">Show results</button></my:a>
+                                <my:a href="/event/${event.id}"><button type="button" class="btn btn-success resultButton">Show results</button></my:a>
                             </c:otherwise>
                         </c:choose>
                     </td>

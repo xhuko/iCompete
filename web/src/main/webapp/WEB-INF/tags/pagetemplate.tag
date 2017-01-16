@@ -140,7 +140,8 @@
                         }
                     });
                 });
-                $(document).on("click", ".editEvent", function (e) {
+                
+                $(document).on("click", ".editEvent,.resultButton", function (e) {
                     e.stopPropagation();
                 })
 
