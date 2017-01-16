@@ -46,7 +46,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
                 "In order to reach zero each player must finish by throwing a double i.e. if player one has 36 remaining he must hit double 18 to win, while if player two has 45 remaining he must hit single 5, double 20 to win - or a another combination of scores provided the final dart scores on a double."
         })));
         
-        Event eventSnowboarding = createEvent("Jasna Snowboarding 2017", "Description", "Jasna, Slovakia",sportSnowboarding, 10, getDate(2017,0,15), getDate(2016,1,18), new HashSet<>(Arrays.asList(new String[]{
+        Event eventSnowboarding = createEvent("Jasna Snowboarding 2017", "Description", "Jasna, Slovakia",sportSnowboarding, 10, getDate(2017,0,15), getDate(2017,1,18), new HashSet<>(Arrays.asList(new String[]{
                 "First man on the bottom of track will become winner.",
         })));
 
